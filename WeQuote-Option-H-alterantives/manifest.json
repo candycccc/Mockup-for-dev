@@ -1,0 +1,62 @@
+{
+  "packagedOn": "2026-10-28",
+  "entry": "OPEN-THIS.html",
+  "scope": "Option H portable prototype plus interactive handoff and proposed No Deal popup",
+  "checks": [
+    "Local links and static resource references resolve: OPEN-THIS.html",
+    "Local links and static resource references resolve: handoff/Interactive-Handoff.html",
+    "Local links and static resource references resolve: handoff/Add-Alternatives-No-Deal.html",
+    "Local links and static resource references resolve: prototype/Option-H.html",
+    "Copied deliverable bytes match originals",
+    "Portable prototype matches current source snapshot",
+    "Single top-level HTML entry",
+    "All 12 shipped JavaScript blocks parse"
+  ],
+  "browserRendered": false,
+  "files": {
+    "OPEN-THIS.html": {
+      "bytes": 3790,
+      "sha256": "3c19e4c038a7b11ec20feef935759b3585889ea0912547b5efd0c2b9c0ea2a77"
+    },
+    "README.txt": {
+      "bytes": 983,
+      "sha256": "ec1fb02416550c4dde94d431380ad8fba2e5fc822506ffa87e93f320758e40a8"
+    },
+    "handoff/Add-Alternatives-No-Deal.html": {
+      "bytes": 4450214,
+      "sha256": "d2949625f0a5565ad333d926f9f33548d72a2d9e6f898aa7c1d0b1deb39fd0bf"
+    },
+    "handoff/Interactive-Handoff.html": {
+      "bytes": 4450186,
+      "sha256": "a2dde5a24478467b0317e92ca52722939bceb055e13cd6cf145a9bbb1b557096"
+    },
+    "handoff/Option-H-Handoff.docx": {
+      "bytes": 2884942,
+      "sha256": "ead6328cac72e6134239dc18d6be2bdac6aa1992f6c10e747473d4f732792f6d"
+    },
+    "handoff/Option-H-Handoff.pdf": {
+      "bytes": 1019895,
+      "sha256": "6f668c3c8fc0350ded16d9815a78605ce6ad04a592485a16b7a2a5b47703f340"
+    },
+    "prototype/Option-H.html": {
+      "bytes": 22341420,
+      "sha256": "ac73d45b93d45b70b80cff62e7d01a7ebeb63a7ea420252b249ac7aded8937a9"
+    },
+    "screenshots/native-manage-quotes.png": {
+      "bytes": 757217,
+      "sha256": "6b20d503339d1ab123c11ec2e9e98c8112e44bc7849541803a620259ef3bbe37"
+    },
+    "screenshots/option-h-access-before.png": {
+      "bytes": 1323775,
+      "sha256": "a03c732e9c68c27ee4e6385b1f57a56324159b08bde7b0dbbcec41fc3c8551be"
+    },
+    "screenshots/option-h-portal-overview-reference.png": {
+      "bytes": 875551,
+      "sha256": "6458c5772d755141cbfead2cf3cb45f6918d1277fde5475981cd2b5b66dfd044"
+    },
+    "screenshots/option-h-proposals-before.png": {
+      "bytes": 229484,
+      "sha256": "75c42c8f73c0a040a317af250141ce42549ebfd6d2e73357a52e80b039a24ece"
+    }
+  }
+}
