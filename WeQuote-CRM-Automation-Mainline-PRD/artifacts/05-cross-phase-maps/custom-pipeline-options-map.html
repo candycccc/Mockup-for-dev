@@ -1,0 +1,271 @@
+<div id="wq-custom-pipeline-options">
+  <style>
+    #wq-custom-pipeline-options { width: 100%; color: var(--foreground); background: transparent; font-family: inherit; }
+    #wq-custom-pipeline-options * { box-sizing: border-box; }
+    #wq-custom-pipeline-options h2,
+    #wq-custom-pipeline-options h3,
+    #wq-custom-pipeline-options h4,
+    #wq-custom-pipeline-options p { margin-top: 0; }
+    #wq-custom-pipeline-options .wq-top { display: flex; gap: 16px; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; }
+    #wq-custom-pipeline-options .wq-top p { color: var(--muted-foreground); margin-bottom: 0; }
+    #wq-custom-pipeline-options .viz-controls { margin-bottom: 16px; }
+    #wq-custom-pipeline-options .wq-mode-intro { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    #wq-custom-pipeline-options .wq-mode-intro i { color: var(--viz-series-1); margin-top: 2px; }
+    #wq-custom-pipeline-options .wq-mode-intro strong { display: block; }
+    #wq-custom-pipeline-options .wq-mode-intro span { color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-lane { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 14px 0 18px; }
+    #wq-custom-pipeline-options .wq-lane-item { position: relative; padding: 10px 8px; text-align: center; background: color-mix(in srgb, var(--viz-series-3) 11%, transparent); border-top: 3px solid var(--viz-series-3); min-width: 0; }
+    #wq-custom-pipeline-options .wq-lane-item strong,
+    #wq-custom-pipeline-options .wq-lane-item small { display: block; }
+    #wq-custom-pipeline-options .wq-lane-item small { color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-lane-item:not(:last-child)::after { content: "→"; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-catalog { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    #wq-custom-pipeline-options .wq-column { padding-left: 12px; border-left: 4px solid var(--viz-series-1); min-width: 0; }
+    #wq-custom-pipeline-options .wq-column.rule { border-left-color: var(--viz-series-2); }
+    #wq-custom-pipeline-options .wq-column.action { border-left-color: var(--viz-series-3); }
+    #wq-custom-pipeline-options .wq-column h3 { margin-bottom: 4px; }
+    #wq-custom-pipeline-options .wq-column > p { color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-option-group { margin-top: 14px; }
+    #wq-custom-pipeline-options .wq-option-group h4 { margin-bottom: 5px; }
+    #wq-custom-pipeline-options .wq-option-group ul { margin: 0; padding-left: 17px; color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-option-group li { margin: 3px 0; }
+    #wq-custom-pipeline-options .wq-important { color: var(--foreground); font-weight: 500; }
+    #wq-custom-pipeline-options .wq-quote-rail { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; align-items: stretch; margin: 16px 0 12px; }
+    #wq-custom-pipeline-options .wq-protected { position: relative; padding: 10px 6px; text-align: center; background: color-mix(in srgb, var(--viz-series-1) 10%, transparent); border-top: 3px solid var(--viz-series-1); min-width: 0; }
+    #wq-custom-pipeline-options .wq-protected strong,
+    #wq-custom-pipeline-options .wq-protected small { display: block; overflow-wrap: anywhere; }
+    #wq-custom-pipeline-options .wq-protected small { color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-protected:not(:last-child)::after { content: "+ Custom Stage"; position: absolute; right: -14px; top: calc(100% + 4px); color: var(--viz-series-3); white-space: nowrap; transform: translateX(50%); }
+    #wq-custom-pipeline-options .wq-protected:last-child::after { content: none; }
+    #wq-custom-pipeline-options .wq-forbidden { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0 14px; }
+    #wq-custom-pipeline-options .wq-forbidden div { padding-left: 10px; border-left: 3px solid var(--destructive); color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-forbidden strong { display: block; color: var(--foreground); }
+    #wq-custom-pipeline-options .wq-yes { color: var(--green); font-weight: 500; }
+    #wq-custom-pipeline-options .wq-no { color: var(--destructive); font-weight: 500; }
+    #wq-custom-pipeline-options .wq-segments { margin-top: 18px; }
+    #wq-custom-pipeline-options .wq-segments > h3 { margin-bottom: 4px; }
+    #wq-custom-pipeline-options .wq-segments > p { color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-segment { padding: 18px 0; border-top: 1px solid var(--border); }
+    #wq-custom-pipeline-options .wq-segment-head { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px; }
+    #wq-custom-pipeline-options .wq-segment-number { display: grid; place-items: center; min-width: 28px; min-height: 28px; background: color-mix(in srgb, var(--viz-series-3) 15%, transparent); color: var(--foreground); font-weight: 500; }
+    #wq-custom-pipeline-options .wq-segment-head small { display: block; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: .04em; }
+    #wq-custom-pipeline-options .wq-segment-head h3 { margin-bottom: 3px; }
+    #wq-custom-pipeline-options .wq-segment-head p { margin-bottom: 0; color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-segment-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    #wq-custom-pipeline-options .wq-segment-column { padding-left: 11px; border-left: 4px solid var(--viz-series-1); min-width: 0; }
+    #wq-custom-pipeline-options .wq-segment-column.rule { border-left-color: var(--viz-series-2); }
+    #wq-custom-pipeline-options .wq-segment-column.action { border-left-color: var(--viz-series-3); }
+    #wq-custom-pipeline-options .wq-segment-column h4 { margin-bottom: 5px; }
+    #wq-custom-pipeline-options .wq-segment-column ul { margin: 0; padding-left: 17px; color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-segment-column li { margin: 3px 0; }
+    #wq-custom-pipeline-options .wq-segment-result { display: grid; grid-template-columns: 1.35fr 1fr; gap: 14px; margin-top: 13px; padding-top: 10px; border-top: 1px solid var(--border); }
+    #wq-custom-pipeline-options .wq-segment-result div { display: flex; gap: 8px; align-items: flex-start; }
+    #wq-custom-pipeline-options .wq-segment-result i { color: var(--viz-series-1); margin-top: 2px; }
+    #wq-custom-pipeline-options .wq-segment-result strong { display: block; }
+    #wq-custom-pipeline-options .wq-segment-result span { color: var(--muted-foreground); }
+    #wq-custom-pipeline-options .wq-policy { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+    #wq-custom-pipeline-options .wq-policy div { padding-left: 10px; border-left: 3px solid var(--border); }
+    #wq-custom-pipeline-options .wq-policy strong { display: block; }
+    #wq-custom-pipeline-options .wq-policy span { color: var(--muted-foreground); }
+    @media (max-width: 760px) {
+      #wq-custom-pipeline-options .wq-top { display: block; }
+      #wq-custom-pipeline-options .viz-controls { margin-top: 10px; }
+      #wq-custom-pipeline-options .wq-lane { grid-template-columns: 1fr; }
+      #wq-custom-pipeline-options .wq-lane-item:not(:last-child)::after { content: "↓"; top: auto; right: 50%; bottom: -15px; transform: translateX(50%); }
+      #wq-custom-pipeline-options .wq-catalog,
+      #wq-custom-pipeline-options .wq-segment-grid,
+      #wq-custom-pipeline-options .wq-segment-result,
+      #wq-custom-pipeline-options .wq-policy,
+      #wq-custom-pipeline-options .wq-forbidden { grid-template-columns: 1fr; }
+      #wq-custom-pipeline-options .wq-quote-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      #wq-custom-pipeline-options .wq-protected::after { display: none; }
+    }
+  </style>
+
+  <div class="wq-top">
+    <div>
+      <h2>Automation options for Custom Pipelines and Custom Stages</h2>
+      <p>Choose the Pipeline type first. This decides which triggers, rules, actions and Stage moves are available.</p>
+    </div>
+    <div class="viz-controls" aria-label="Pipeline type">
+      <button class="btn btn-primary" type="button" data-wq-mode="standalone" aria-pressed="true">Fully Custom Pipeline</button>
+      <button class="btn" type="button" data-wq-mode="quote" aria-pressed="false">Pipeline with Quote Lifecycle</button>
+    </div>
+  </div>
+
+  <div id="wq-mode-status" class="sr-only" aria-live="polite">Showing Fully Custom Pipeline options</div>
+
+  <section data-wq-panel="standalone">
+    <div class="wq-mode-intro"><i data-lucide="workflow" aria-hidden="true"></i><div><strong>Fully Custom Pipeline · the customer controls every Stage</strong><span>There are no system-owned stages such as Qualified, Sent or Won. The customer chooses every Stage name, order and movement rule.</span></div></div>
+
+    <div class="wq-lane" role="img" aria-label="Example fully custom pipeline with customer controlled stages">
+      <div class="wq-lane-item"><small>Customer stage</small><strong>New opportunity</strong></div>
+      <div class="wq-lane-item"><small>Customer stage</small><strong>Discovery</strong></div>
+      <div class="wq-lane-item"><small>Customer stage</small><strong>Site survey</strong></div>
+      <div class="wq-lane-item"><small>Customer stage</small><strong>Proposal</strong></div>
+      <div class="wq-lane-item"><small>Customer outcome</small><strong>Closed</strong></div>
+    </div>
+
+    <div class="wq-segments">
+      <h3>Automation block for every Custom Stage</h3>
+      <p>The Stage names below are examples. Every Custom Stage uses the same complete option library, while the suggested choices change with the work happening at that Stage.</p>
+
+      <section class="wq-segment" aria-labelledby="wq-custom-segment-1">
+        <div class="wq-segment-head"><span class="wq-segment-number">1</span><div><small>Example Custom Stage</small><h3 id="wq-custom-segment-1">New Opportunity</h3><p>Capture and route a newly created Deal before discovery work starts.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>A Deal is created in this Pipeline</li><li>The Deal enters New Opportunity</li><li>The Deal Owner, Label or Interest changes</li><li>Deal Value or Expected Close Date changes</li><li>The Deal has no activity for a set number of days</li><li>A selected date or time is reached</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Deal is still in New Opportunity</li><li>The Owner is missing or matches a selected person</li><li>A Label or Interest is present or missing</li><li>Value, Margin, Company or Expected Close matches</li><li>No open Next Action or recent activity exists</li><li>This Automation has or has not run before</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Assign a specific Deal Owner</li><li>Set or clear the Deal Next Action</li><li>Add or remove a Watcher, Label or Interest</li><li>Create a Note or internal notification</li><li>Request or attach a file</li><li>Move the Deal to Discovery or another Custom Stage</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>Only a selected Move Deal Action or a manual move changes the Stage.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong>Required checkpoint</strong>Optional. The customer can require an Owner, Next Action or selected data before moving forward.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-custom-segment-2">
+        <div class="wq-segment-head"><span class="wq-segment-number">2</span><div><small>Example Custom Stage</small><h3 id="wq-custom-segment-2">Discovery</h3><p>Collect the customer need, qualify the opportunity and organise follow-up work.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters or leaves Discovery</li><li>A Next Action becomes due, overdue or completed</li><li>A Note follow-up becomes due or is completed</li><li>A Meeting is scheduled, starts, completes or is cancelled</li><li>A Label, Interest, Value or Expected Close Date changes</li><li>There has been no activity for a set number of days</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Deal came from a selected Stage</li><li>The Deal has stayed in Discovery for a set time</li><li>Required Interests or customer details are present</li><li>An open Next Action exists, is missing or is overdue</li><li>A recent Activity or completed Meeting exists</li><li>Value, Margin, Label, Company or Owner matches</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Set the next customer follow-up Action</li><li>Create a Note or schedule a Meeting</li><li>Assign the Owner or add a Watcher</li><li>Add or remove a Deal Label or Interest</li><li>Set the Expected Close Date</li><li>Request a customer file</li><li>Move the Deal to Site Survey, Proposal or another Custom Stage</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>The customer defines the readiness rule, then adds an explicit Move Deal Action.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong>Required checkpoint</strong>Optional. For example: Interest selected and Discovery Meeting completed.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-custom-segment-3">
+        <div class="wq-segment-head"><span class="wq-segment-number">3</span><div><small>Example Custom Stage</small><h3 id="wq-custom-segment-3">Site Survey</h3><p>Coordinate the visit and collect the files required before preparing a proposal.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters or leaves Site Survey</li><li>A Site Visit is scheduled, starts, completes or is cancelled</li><li>A file is uploaded or removed</li><li>A requested file is received</li><li>A Next Action or Note follow-up becomes due</li><li>The Deal stays here or has no activity for a set time</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Site Visit has a selected status</li><li>A required plan, photo or proof file exists or is missing</li><li>An open file request or technical Note exists</li><li>An Owner, Watcher or Next Action is missing</li><li>The Deal has stayed in this Stage for a set time</li><li>Value, Interest, Label or Company matches</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Schedule or update a Site Visit</li><li>Request a file or attach a file to the Deal</li><li>Create a technical Note</li><li>Set or clear the Next Action</li><li>Assign the Owner or add a Watcher</li><li>Send an internal notification</li><li>Move the Deal to Proposal or another Custom Stage</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>A Rule can check that the visit and required files are complete before the Move Deal Action runs.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong>Required checkpoint</strong>Optional. Missing files or an incomplete visit can hold the Automation path.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-custom-segment-4">
+        <div class="wq-segment-head"><span class="wq-segment-number">4</span><div><small>Example Custom Stage</small><h3 id="wq-custom-segment-4">Proposal</h3><p>Prepare the commercial response, with or without related Quote data.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters or leaves Proposal</li><li>Deal Value, Margin or Expected Close Date changes</li><li>A proposal file is uploaded or removed</li><li>A Next Action or Note follow-up becomes due</li><li>The Expected Close Date is approaching</li><li>Optional: a related Quote is created, edited, sent, viewed or accepted</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Deal is still in Proposal</li><li>Value, Margin or approval threshold matches</li><li>A proposal file exists and required work is complete</li><li>No open Next Action or recent activity exists</li><li>Optional: Quote status, viewed status or expiry matches</li><li>Optional: an accepted or viable related Quote exists</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Create a Note, Meeting or customer follow-up Action</li><li>Assign the Owner or add a Watcher</li><li>Add or remove a Label or Interest</li><li>Attach a proposal file</li><li>Set the Expected Close Date</li><li>Optional: create a related Quote or add a Quote Label</li><li>Move the Deal to Closed or another Custom Stage</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>Quote events never move a Fully Custom Pipeline by themselves; add a separate Move Deal Action.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong>Required checkpoint</strong>Optional. Proposal, commercial approval or follow-up work can be required.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-custom-segment-5">
+        <div class="wq-segment-head"><span class="wq-segment-number">5</span><div><small>Example Custom Stage</small><h3 id="wq-custom-segment-5">Closed</h3><p>A customer-defined ending Stage. It does not automatically mean Won or Lost.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters or leaves Closed</li><li>The Deal moves here from a selected Stage</li><li>The Owner, Label, Interest or outcome data changes</li><li>A final file is uploaded</li><li>A selected date or time is reached</li><li>Optional: a related Quote is accepted, cancelled or expires</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Deal is still in Closed</li><li>A selected outcome Label or reason exists</li><li>A final file, Note or completed Activity exists</li><li>No open Next Action or file request remains</li><li>Value, Company, Owner or Interest matches</li><li>Optional: an accepted Quote or no viable Quote remains</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Clear the Deal Next Action</li><li>Add or remove an outcome Label</li><li>Remove a Watcher or assign a handover Owner</li><li>Create a closing or handover Note</li><li>Attach the final file</li><li>Send an internal notification</li><li>Move back to another Custom Stage, if the customer allows reopening</li><li>End the Automation path safely</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What the Stage means</strong>The customer defines the outcome. WeQuote does not silently convert it into Won, Lost or Archived.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong>Reopening</strong>Allowed only through a clearly configured manual move or Move Deal Action.</span></div></div>
+      </section>
+    </div>
+
+    <div class="wq-policy">
+      <div><strong>Safe Stage moves</strong><span>A Move Deal Action can only use a Stage in the same Pipeline. WeQuote warns about loops or repeated runs before publishing.</span></div>
+      <div><strong>Required work</strong><span>A file request, Note or Next Action can be required. The Automation waits for completion before its next step.</span></div>
+      <div><strong>No hidden lifecycle</strong><span>WeQuote does not assume Qualified, Sent, Won or Lost. The customer defines what every Stage means.</span></div>
+    </div>
+  </section>
+
+  <section data-wq-panel="quote" hidden>
+    <div class="wq-mode-intro"><i data-lucide="shield-check" aria-hidden="true"></i><div><strong>Pipeline with Quote Lifecycle · protected milestones with optional Custom Stages</strong><span>The customer can add Custom Stages between protected milestones. They cannot rename, remove or reorder protected milestones, and an Automation cannot fake a Quote lifecycle event.</span></div></div>
+
+    <div class="wq-quote-rail" role="img" aria-label="Protected quote lifecycle with allowed Custom Stage insertion points between milestones">
+      <div class="wq-protected"><small>Protected entry</small><strong>Qualified</strong></div>
+      <div class="wq-protected"><small>Quote created</small><strong>In Progress</strong></div>
+      <div class="wq-protected"><small>Conditional</small><strong>In Review</strong></div>
+      <div class="wq-protected"><small>Conditional</small><strong>Passed Review</strong></div>
+      <div class="wq-protected"><small>Quote issued</small><strong>Sent</strong></div>
+      <div class="wq-protected"><small>Final outcome</small><strong>Won or Lost</strong></div>
+    </div>
+
+    <div class="wq-forbidden">
+      <div><strong>Before Qualified · not allowed</strong>Pre-qualification belongs in the Lead workflow or a separate Fully Custom Pipeline. Qualified remains the fixed entry point for a Quote-connected Deal.</div>
+      <div><strong>After Won or Lost · not allowed</strong>Won and Lost are final Sales outcomes. Delivery, Billing and Project handover should use a Won Automation instead of adding more Sales Stages.</div>
+    </div>
+
+    <div class="wq-segments">
+      <h3>Options for every Custom Stage position</h3>
+      <p>Each block below shows the full set of practical choices for a Custom Stage added at that point in the Quote lifecycle.</p>
+
+      <section class="wq-segment" aria-labelledby="wq-segment-1">
+        <div class="wq-segment-head"><span class="wq-segment-number">1</span><div><small>Custom Stage position</small><h3 id="wq-segment-1">Between Qualified and In Progress</h3><p>Use this section for discovery, site readiness and work that must happen before the first Quote.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters this Custom Stage</li><li>The Deal Owner changes</li><li>A Next Action becomes due, overdue or completed</li><li>A Meeting or Site Visit is scheduled, starts or completes</li><li>A file is uploaded or a requested file is received</li><li>The Deal has no activity for a set number of days</li><li>The Expected Close Date is approaching</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Deal is still in this Custom Stage</li><li>No related Quote exists yet</li><li>The Owner or Next Action is missing</li><li>Site or customer information is incomplete</li><li>The Site Visit has not been completed</li><li>A required plan or file is missing</li><li>An open file request exists</li><li>Label, Interest, Value, Company or Expected Close matches</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Assign the Deal Owner</li><li>Set or clear the Next Action</li><li>Create a Note or schedule a Meeting / Site Visit</li><li>Add or remove a Watcher, Label or Interest</li><li>Request a file or attach a file to the Deal</li><li>Set the Expected Close Date</li><li>Create the first related Quote</li><li>Move to another Custom Stage in this same section</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>Creating the first related Quote moves the Deal to protected In Progress.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong><span class="wq-yes">Required checkpoint allowed</span></strong>Selected work can be required before the first Quote is created.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-segment-2">
+        <div class="wq-segment-head"><span class="wq-segment-number">2</span><div><small>Custom Stage position</small><h3 id="wq-segment-2">Between In Progress and In Review / Sent</h3><p>Use this section while the Quote is being built, priced and prepared for review or sending.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters this Custom Stage</li><li>The first related Quote is created</li><li>A Quote is edited</li><li>Products, pricing or Scope of Work changes</li><li>A Quote or Deal file is added</li><li>A Note follow-up or Next Action becomes due</li><li>A Meeting / Site Visit changes</li><li>The Deal has no activity for a set number of days</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Quote is still Draft / In Progress</li><li>Pricing or Scope of Work is complete or incomplete</li><li>Quote Review is enabled or disabled</li><li>A technical file or reviewer is missing</li><li>An open build or technical Note exists</li><li>A required file is missing</li><li>No open Next Action or recent activity exists</li><li>Value, Margin, discount, Label or Interest matches</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Create a build or review Note</li><li>Set or clear the Next Action</li><li>Assign the Deal Owner or add a reviewer as Watcher</li><li>Request or attach a technical file</li><li>Add or remove a Deal Label or Interest</li><li>Add a Quote Label</li><li>Set the Expected Close Date</li><li>Send an internal notification</li><li>Move to another Custom Stage in this same section</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>Submit for Review moves it to In Review. If Review is off, sending the Quote moves it to Sent.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong><span class="wq-yes">Required checkpoint allowed</span></strong>Selected work can be required before Submit for Review or Send.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-segment-3">
+        <div class="wq-segment-head"><span class="wq-segment-number">3</span><div><small>Custom Stage position</small><h3 id="wq-segment-3">Between In Review and Passed Review</h3><p>Use this section for technical review work, missing information and approval follow-up.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters this Custom Stage</li><li>The Quote is submitted for review</li><li>The reviewer or Deal Owner changes</li><li>A review Note changes or becomes due</li><li>A technical file is uploaded</li><li>A requested file is received</li><li>A Next Action becomes due</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Quote is still In Review</li><li>An open technical review Note exists</li><li>A required reviewer or approval is missing</li><li>A required technical file is missing</li><li>All review checks are complete</li><li>Value or discount needs additional approval</li><li>No open Next Action exists</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Create a technical review Note</li><li>Set the Next Action</li><li>Assign the Deal Owner or add a reviewer as Watcher</li><li>Request or attach a technical file</li><li>Add or remove a Deal Label</li><li>Add a Quote Label</li><li>Send an internal notification</li><li>Move to another Custom Stage in this same section</li><li><span class="wq-no">Cannot approve the Quote as an Automation Action</span></li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>A reviewer passes the Quote → Passed Review. Changes requested → In Progress.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong><span class="wq-yes">Required checkpoint allowed</span></strong>Selected review work can be required before the reviewer passes the Quote.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-segment-4">
+        <div class="wq-segment-head"><span class="wq-segment-number">4</span><div><small>Custom Stage position</small><h3 id="wq-segment-4">Between Passed Review and Sent</h3><p>Use this section for final commercial checks and customer-facing documents before sending.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters this Custom Stage</li><li>The Quote passes internal review</li><li>The Quote is edited after review</li><li>A final file is added</li><li>A Next Action or Note follow-up becomes due</li><li>The Expected Close Date is approaching</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>The Quote is still in Passed Review</li><li>The Quote is viable</li><li>Customer-facing content is complete</li><li>Recipient details and expiry date are complete</li><li>Commercial approval is complete</li><li>A final document is missing</li><li>Value, Margin or discount matches an approval rule</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Create a ready-to-send Note</li><li>Set the customer follow-up Next Action</li><li>Schedule a Meeting</li><li>Add an approver as Watcher</li><li>Add or remove a Deal Label or Interest</li><li>Attach a final document</li><li>Add a Quote Label</li><li>Set the Expected Close Date</li><li>Send an internal notification</li><li>Move to another Custom Stage in this same section</li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>Issuing the Quote to the customer moves the Deal to protected Sent.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong><span class="wq-yes">Required checkpoint allowed</span></strong>Selected final checks can be required before the Quote is sent.</span></div></div>
+      </section>
+
+      <section class="wq-segment" aria-labelledby="wq-segment-5">
+        <div class="wq-segment-head"><span class="wq-segment-number">5</span><div><small>Custom Stage position</small><h3 id="wq-segment-5">Between Sent and Won / Lost</h3><p>Use this section for customer engagement, follow-up, expiry and commercial close-out.</p></div></div>
+        <div class="wq-segment-grid">
+          <div class="wq-segment-column"><h4>Starts when</h4><ul><li>The Deal enters this Custom Stage</li><li>A Quote is sent</li><li>The customer views a Quote</li><li>A Quote expiry date is approaching</li><li>A Quote is accepted or cancelled</li><li>A Next Action or Note follow-up becomes due</li><li>The Deal has no activity for a set number of days</li><li>A customer or commercial file is added</li></ul></div>
+          <div class="wq-segment-column rule"><h4>Rules</h4><ul><li>A Quote is still Sent, viable and not accepted</li><li>Number of related Quotes viewed by the customer</li><li>No accepted Quote exists</li><li>No recent activity or open Next Action exists</li><li>The latest Quote expiry date has passed</li><li>No viable related Quote remains</li><li>All related Quotes are cancelled</li><li>Value, Label, Interest or Expected Close matches</li></ul></div>
+          <div class="wq-segment-column action"><h4>Actions</h4><ul><li>Set or clear the customer follow-up Next Action</li><li>Create a Note or schedule a Meeting</li><li>Assign the Deal Owner or add a Watcher</li><li>Add or remove a Deal Label or Interest</li><li>Request or attach a file</li><li>Set the Expected Close Date</li><li>Send an internal notification</li><li>Move to another Custom Stage in this same section</li><li><span class="wq-no">Cannot block a customer view, acceptance or final outcome</span></li></ul></div>
+        </div>
+        <div class="wq-segment-result"><div><i data-lucide="arrow-right" aria-hidden="true"></i><span><strong>What moves the Deal forward</strong>Accepted Quote → Won. No viable Quote → Lost. All related Quotes cancelled → Archived, not a Stage.</span></div><div><i data-lucide="shield-check" aria-hidden="true"></i><span><strong><span class="wq-no">Required checkpoint not allowed</span></strong>Trusted customer events and protected outcomes always continue.</span></div></div>
+      </section>
+    </div>
+
+    <div class="wq-policy">
+      <div><strong>No required checkpoint</strong><span>When the protected Quote event happens, the Deal leaves the Custom Stage and moves to the correct protected milestone.</span></div>
+      <div><strong>Required checkpoint set</strong><span>Only an allowed internal event can wait. The UI shows the unfinished work and what must be completed.</span></div>
+      <div><strong>Trusted customer event</strong><span>A Quote view, customer acceptance, or the Won/Lost result can never be blocked by a Custom Stage or Automation.</span></div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      const root = document.getElementById('wq-custom-pipeline-options');
+      if (!root) return;
+      const buttons = Array.from(root.querySelectorAll('[data-wq-mode]'));
+      const panels = Array.from(root.querySelectorAll('[data-wq-panel]'));
+      const status = root.querySelector('#wq-mode-status');
+      buttons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          const mode = button.dataset.wqMode;
+          buttons.forEach(function (item) {
+            const active = item.dataset.wqMode === mode;
+            item.setAttribute('aria-pressed', String(active));
+            item.classList.toggle('btn-primary', active);
+          });
+          panels.forEach(function (panel) { panel.hidden = panel.dataset.wqPanel !== mode; });
+          if (status) status.textContent = mode === 'quote' ? 'Showing Pipeline with Quote Lifecycle options' : 'Showing Fully Custom Pipeline options';
+        });
+      });
+    })();
+  </script>
+</div>

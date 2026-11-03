@@ -1,0 +1,480 @@
+<div id="wq-crm-screen-flow">
+  <div class="viz-controls" aria-label="Choose a screen flow">
+    <button class="btn btn-primary" type="button" data-flow="lead">Lead → Deal → Quote</button>
+    <button class="btn" type="button" data-flow="company">Monitor Companies</button>
+    <button class="btn" type="button" data-flow="automation">Automation</button>
+    <button class="btn" type="button" data-flow="advanced">Advanced · Company-specific</button>
+  </div>
+
+  <div class="wq-flow-meta">
+    <div>
+      <span class="wq-flow-kicker" id="wqFlowKicker">FLOW 1</span>
+      <strong id="wqFlowTitle">Lead → Deal → Quote</strong>
+    </div>
+    <div class="wq-step-dots" id="wqStepDots" aria-label="Flow steps"></div>
+    <div class="wq-step-actions">
+      <button class="btn" type="button" id="wqPrevStep">← Previous</button>
+      <span id="wqStepCount" aria-live="polite">1 / 5</span>
+      <button class="btn btn-primary" type="button" id="wqNextStep">Next →</button>
+    </div>
+  </div>
+
+  <section class="wq-window" aria-label="WeQuote CRM screen mockup">
+    <aside class="wq-sidebar">
+      <div class="wq-brand"><span class="wq-brand-mark">W</span><b>WEQUOTE</b></div>
+      <div class="wq-quick"><span>◫</span> Dashboard</div>
+      <div class="wq-nav-group open">
+        <div class="wq-nav-head"><span>◎</span><b>CRM</b><i>⌄</i></div>
+        <button type="button" data-route="deals"><span></span>Deals</button>
+        <button type="button" data-route="leads"><span></span>Leads</button>
+        <button type="button" data-route="automations"><span></span>Automations</button>
+      </div>
+      <div class="wq-nav-item">▤ <span>Quotes</span></div>
+      <div class="wq-nav-item">▦ <span>Customers</span></div>
+      <div class="wq-nav-item">◇ <span>Projects</span></div>
+      <div class="wq-nav-item">✓ <span>Work Hub</span></div>
+      <div class="wq-sidebar-foot"><span class="wq-avatar">LR</span><div><b>Lee Roche</b><small>AUDIOVISIONS</small></div></div>
+    </aside>
+    <div class="wq-app">
+      <header class="wq-topbar">
+        <div><span class="wq-breadcrumb" id="wqBreadcrumb">CRM / Leads</span><h1 id="wqScreenTitle">Leads</h1></div>
+        <div class="wq-top-actions"><button type="button" class="wq-icon-button">⌕</button><button type="button" class="wq-icon-button">?</button><span class="wq-user-dot">LR</span></div>
+      </header>
+      <main class="wq-screen" id="wqScreen"></main>
+    </div>
+  </section>
+
+  <div class="wq-legend">
+    <span><i class="new"></i><b>NEW CRM</b> proposed company-aware behaviour</span>
+    <span><i class="existing"></i><b>EXISTING</b> current WeQuote pattern reused</span>
+  </div>
+</div>
+
+<style>
+  #wq-crm-screen-flow {
+    width: 100%;
+    color: light-dark(#1a2128, #eef2f7);
+  }
+  #wq-crm-screen-flow .wq-flow-meta {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) auto minmax(220px, 1fr);
+    align-items: center;
+    gap: 16px;
+    margin: 12px 0 10px;
+  }
+  #wq-crm-screen-flow .wq-flow-meta > div:first-child { display: grid; gap: 2px; }
+  #wq-crm-screen-flow .wq-flow-kicker { color: var(--muted-foreground); font-size: 11px; letter-spacing: .08em; }
+  #wq-crm-screen-flow .wq-flow-meta strong { font-weight: 500; }
+  #wq-crm-screen-flow .wq-step-actions { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+  #wq-crm-screen-flow .wq-step-actions span { min-width: 40px; text-align: center; color: var(--muted-foreground); font-size: 12px; }
+  #wq-crm-screen-flow .wq-step-dots { display: flex; align-items: center; justify-content: center; gap: 6px; }
+  #wq-crm-screen-flow .wq-step-dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%; background: var(--border); cursor: pointer; }
+  #wq-crm-screen-flow .wq-step-dots button.active { width: 22px; border-radius: 999px; background: var(--primary); }
+
+  #wq-crm-screen-flow .wq-window {
+    display: grid;
+    grid-template-columns: 178px minmax(0, 1fr);
+    min-height: 620px;
+    overflow: hidden;
+    border: 1px solid #dce2ea;
+    border-radius: 9px;
+    background: #f6f7f9;
+    box-shadow: 0 18px 50px rgba(26,33,40,.14);
+    color: #1a2128;
+    font-family: Geist, Inter, ui-sans-serif, system-ui, sans-serif;
+  }
+  #wq-crm-screen-flow .wq-sidebar { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 16px 12px 72px; border-right: 1px solid #e2e6eb; background: #fff; }
+  #wq-crm-screen-flow .wq-brand { display: flex; align-items: center; gap: 9px; padding: 4px 8px 18px; }
+  #wq-crm-screen-flow .wq-brand-mark { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: #f12b53; color: #fff; font-size: 12px; font-weight: 800; }
+  #wq-crm-screen-flow .wq-brand b { letter-spacing: .12em; font-size: 11px; }
+  #wq-crm-screen-flow .wq-quick, #wq-crm-screen-flow .wq-nav-item, #wq-crm-screen-flow .wq-nav-head { display: flex; align-items: center; gap: 9px; min-height: 34px; padding: 0 9px; border-radius: 5px; color: #5f6978; font-size: 12px; }
+  #wq-crm-screen-flow .wq-quick { margin-bottom: 8px; background: #f7f8fa; }
+  #wq-crm-screen-flow .wq-nav-group { margin-top: 4px; padding: 5px 0 8px; border-top: 1px solid #edf0f3; border-bottom: 1px solid #edf0f3; }
+  #wq-crm-screen-flow .wq-nav-head { color: #26374a; }
+  #wq-crm-screen-flow .wq-nav-head i { margin-left: auto; font-style: normal; }
+  #wq-crm-screen-flow .wq-nav-group button { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 30px; padding: 0 10px 0 30px; border: 0; border-radius: 5px; background: transparent; color: #6d7784; font: inherit; font-size: 11px; text-align: left; cursor: pointer; }
+  #wq-crm-screen-flow .wq-nav-group button span { width: 5px; height: 5px; border-radius: 50%; background: #cbd2da; }
+  #wq-crm-screen-flow .wq-nav-group button.active { background: #fff0f3; color: #d51f47; font-weight: 700; }
+  #wq-crm-screen-flow .wq-nav-group button.active span { background: #f12b53; }
+  #wq-crm-screen-flow .wq-sidebar-foot { position: absolute; right: 12px; bottom: 14px; left: 12px; display: flex; align-items: center; gap: 8px; padding: 9px; border-top: 1px solid #edf0f3; }
+  #wq-crm-screen-flow .wq-sidebar-foot div { display: grid; gap: 1px; min-width: 0; }
+  #wq-crm-screen-flow .wq-sidebar-foot b { font-size: 10px; }
+  #wq-crm-screen-flow .wq-sidebar-foot small { color: #8792a1; font-size: 8px; }
+  #wq-crm-screen-flow .wq-avatar, #wq-crm-screen-flow .wq-user-dot { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #26374a; color: #fff; font-size: 9px; font-weight: 800; }
+
+  #wq-crm-screen-flow .wq-app { min-width: 0; background: #f5f7fa; }
+  #wq-crm-screen-flow .wq-topbar { display: flex; align-items: center; justify-content: space-between; min-height: 64px; padding: 0 18px; border-bottom: 1px solid #e1e6ec; background: #fff; }
+  #wq-crm-screen-flow .wq-topbar > div:first-child { display: grid; gap: 2px; }
+  #wq-crm-screen-flow .wq-breadcrumb { color: #2450ff; font-size: 8px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+  #wq-crm-screen-flow .wq-topbar h1 { margin: 0; font-size: 17px; line-height: 1.2; }
+  #wq-crm-screen-flow .wq-top-actions { display: flex; align-items: center; gap: 7px; }
+  #wq-crm-screen-flow .wq-icon-button { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #dce2ea; border-radius: 5px; background: #fff; color: #65738a; }
+  #wq-crm-screen-flow .wq-screen { position: relative; min-height: 555px; padding: 14px; overflow: hidden; }
+
+  #wq-crm-screen-flow .wq-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  #wq-crm-screen-flow .wq-toolbar-left, #wq-crm-screen-flow .wq-toolbar-right, #wq-crm-screen-flow .wq-tabs { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  #wq-crm-screen-flow .wq-tab { min-height: 30px; padding: 0 10px; border: 0; border-radius: 4px; background: transparent; color: #6d7887; font-size: 10px; font-weight: 700; }
+  #wq-crm-screen-flow .wq-tab.active { background: #26374a; color: #fff; }
+  #wq-crm-screen-flow .wq-control, #wq-crm-screen-flow .wq-select, #wq-crm-screen-flow .wq-search { min-height: 30px; border: 1px solid #d5dce5; border-radius: 5px; background: #fff; color: #34445a; font: inherit; font-size: 10px; }
+  #wq-crm-screen-flow .wq-control, #wq-crm-screen-flow .wq-select { padding: 0 9px; }
+  #wq-crm-screen-flow .wq-search { min-width: 176px; padding: 0 10px; }
+  #wq-crm-screen-flow .wq-primary { min-height: 30px; padding: 0 11px; border: 1px solid #f12b53; border-radius: 5px; background: #f12b53; color: #fff; font: inherit; font-size: 10px; font-weight: 800; }
+  #wq-crm-screen-flow .wq-secondary { min-height: 30px; padding: 0 11px; border: 1px solid #cdd6e1; border-radius: 5px; background: #fff; color: #34445a; font: inherit; font-size: 10px; font-weight: 700; }
+  #wq-crm-screen-flow .wq-blue { border-color: #2450ff; background: #2450ff; }
+  #wq-crm-screen-flow .wq-pill { display: inline-flex; align-items: center; gap: 4px; min-height: 22px; padding: 0 7px; border-radius: 999px; background: #eef2f7; color: #5d6c81; font-size: 8px; font-weight: 800; white-space: nowrap; }
+  #wq-crm-screen-flow .wq-pill.company { background: #edf2ff; color: #2450ff; }
+  #wq-crm-screen-flow .wq-pill.success { background: #eaf7ee; color: #1a7b39; }
+  #wq-crm-screen-flow .wq-pill.warn { background: #fff4dc; color: #9a6a13; }
+  #wq-crm-screen-flow .wq-new-tag, #wq-crm-screen-flow .wq-existing-tag { display: inline-flex; align-items: center; min-height: 17px; padding: 0 5px; border-radius: 3px; font-size: 7px; font-weight: 900; letter-spacing: .05em; }
+  #wq-crm-screen-flow .wq-new-tag { background: #2450ff; color: #fff; }
+  #wq-crm-screen-flow .wq-existing-tag { background: #dff4e6; color: #166b34; }
+  #wq-crm-screen-flow .wq-guidance { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; padding: 8px 10px; border: 1px solid #cbd8fa; border-radius: 6px; background: #f5f8ff; color: #52647d; font-size: 9px; line-height: 1.45; }
+  #wq-crm-screen-flow .wq-guidance strong { color: #26374a; }
+
+  #wq-crm-screen-flow .wq-table-card { overflow: hidden; border: 1px solid #dce2ea; border-radius: 7px; background: #fff; }
+  #wq-crm-screen-flow table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  #wq-crm-screen-flow th { padding: 9px 8px; border-bottom: 1px solid #e1e6ec; background: #fafbfc; color: #7d8999; font-size: 8px; text-align: left; text-transform: uppercase; }
+  #wq-crm-screen-flow td { padding: 10px 8px; border-bottom: 1px solid #edf0f3; color: #41516a; font-size: 9px; vertical-align: middle; }
+  #wq-crm-screen-flow tbody tr:last-child td { border-bottom: 0; }
+  #wq-crm-screen-flow td strong { display: block; color: #243448; font-size: 10px; }
+  #wq-crm-screen-flow td small { display: block; margin-top: 2px; color: #8b96a5; font-size: 8px; }
+  #wq-crm-screen-flow .wq-check { width: 11px; height: 11px; }
+  #wq-crm-screen-flow .wq-owner { display: flex; align-items: center; gap: 5px; }
+  #wq-crm-screen-flow .wq-owner i { display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; background: #26374a; color: #fff; font-size: 7px; font-style: normal; }
+
+  #wq-crm-screen-flow .wq-modal-shade { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; padding: 18px; background: rgba(31,42,55,.48); }
+  #wq-crm-screen-flow .wq-modal { width: min(650px, 94%); overflow: hidden; border-radius: 8px; background: #fff; box-shadow: 0 24px 65px rgba(17,26,38,.25); }
+  #wq-crm-screen-flow .wq-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-modal-head h2 { margin: 0; font-size: 15px; }
+  #wq-crm-screen-flow .wq-modal-head p { margin: 4px 0 0; color: #7c8797; font-size: 9px; }
+  #wq-crm-screen-flow .wq-modal-close { border: 0; background: transparent; color: #7b8797; font-size: 17px; }
+  #wq-crm-screen-flow .wq-modal-body { padding: 14px 16px; }
+  #wq-crm-screen-flow .wq-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+  #wq-crm-screen-flow .wq-field { display: grid; gap: 4px; }
+  #wq-crm-screen-flow .wq-field.full { grid-column: 1 / -1; }
+  #wq-crm-screen-flow .wq-field label { color: #536176; font-size: 8px; font-weight: 800; }
+  #wq-crm-screen-flow .wq-field input, #wq-crm-screen-flow .wq-field select, #wq-crm-screen-flow .wq-field textarea { width: 100%; box-sizing: border-box; min-height: 32px; padding: 7px 8px; border: 1px solid #ccd5df; border-radius: 5px; background: #fff; color: #26374a; font: inherit; font-size: 9px; }
+  #wq-crm-screen-flow .wq-field input.locked { border-color: #bfcdf6; background: #f5f8ff; color: #2450ff; font-weight: 700; }
+  #wq-crm-screen-flow .wq-field-help { color: #8995a5; font-size: 7px; line-height: 1.35; }
+  #wq-crm-screen-flow .wq-modal-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 11px 16px; border-top: 1px solid #e1e6ec; background: #fafbfc; }
+  #wq-crm-screen-flow .wq-modal-foot > span { color: #788699; font-size: 8px; }
+  #wq-crm-screen-flow .wq-modal-foot > div { display: flex; gap: 7px; }
+
+  #wq-crm-screen-flow .wq-drawer-shade { position: absolute; inset: 0; z-index: 4; display: flex; justify-content: flex-end; background: rgba(31,42,55,.35); }
+  #wq-crm-screen-flow .wq-drawer { display: grid; grid-template-columns: 42% 58%; width: min(760px, 92%); height: 100%; background: #fff; box-shadow: -20px 0 50px rgba(17,26,38,.18); }
+  #wq-crm-screen-flow .wq-drawer-left, #wq-crm-screen-flow .wq-drawer-right { min-width: 0; padding: 14px; overflow: hidden; }
+  #wq-crm-screen-flow .wq-drawer-left { border-right: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-drawer-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+  #wq-crm-screen-flow .wq-drawer-title h2 { margin: 0; font-size: 16px; }
+  #wq-crm-screen-flow .wq-drawer-title small { display: block; margin-top: 4px; color: #8390a1; font-size: 8px; }
+  #wq-crm-screen-flow .wq-detail-section { margin-top: 14px; }
+  #wq-crm-screen-flow .wq-detail-section > b { display: block; margin-bottom: 5px; color: #8290a2; font-size: 7px; letter-spacing: .08em; }
+  #wq-crm-screen-flow .wq-detail-row { display: flex; align-items: center; gap: 8px; min-height: 31px; padding: 0 7px; border-bottom: 1px solid #edf0f3; color: #41516a; font-size: 9px; }
+  #wq-crm-screen-flow .wq-detail-row > span:first-child { width: 16px; color: #8996a7; text-align: center; }
+  #wq-crm-screen-flow .wq-detail-row strong { color: #26374a; font-weight: 700; }
+  #wq-crm-screen-flow .wq-detail-row .wq-new-tag, #wq-crm-screen-flow .wq-detail-row .wq-existing-tag { margin-left: auto; }
+  #wq-crm-screen-flow .wq-drawer-actions { display: flex; justify-content: flex-end; gap: 7px; margin-top: 14px; }
+  #wq-crm-screen-flow .wq-panel-tabs { display: flex; gap: 14px; border-bottom: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-panel-tabs button { padding: 0 2px 8px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #7a8798; font: inherit; font-size: 9px; font-weight: 700; }
+  #wq-crm-screen-flow .wq-panel-tabs button.active { border-color: #f12b53; color: #26374a; }
+  #wq-crm-screen-flow .wq-note-card { margin-top: 12px; padding: 11px; border: 1px solid #dce2ea; border-radius: 6px; background: #fff; }
+  #wq-crm-screen-flow .wq-note-card h3 { margin: 0 0 8px; font-size: 11px; }
+  #wq-crm-screen-flow .wq-note-input { min-height: 72px; padding: 8px; border: 1px solid #ccd5df; border-radius: 5px; color: #8a95a4; font-size: 9px; }
+  #wq-crm-screen-flow .wq-note-tools { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; }
+  #wq-crm-screen-flow .wq-note-tools span { color: #52647d; font-size: 8px; }
+  #wq-crm-screen-flow .wq-history { margin-top: 14px; }
+  #wq-crm-screen-flow .wq-history > b { color: #52647d; font-size: 9px; }
+  #wq-crm-screen-flow .wq-history article { display: flex; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #edf0f3; }
+  #wq-crm-screen-flow .wq-history article i { width: 7px; height: 7px; margin-top: 3px; border-radius: 50%; background: #f12b53; }
+  #wq-crm-screen-flow .wq-history article div { display: grid; gap: 2px; }
+  #wq-crm-screen-flow .wq-history article strong { font-size: 8px; }
+  #wq-crm-screen-flow .wq-history article small { color: #8995a5; font-size: 7px; }
+
+  #wq-crm-screen-flow .wq-pipeline { display: grid; grid-template-columns: repeat(5, minmax(104px, 1fr)); gap: 8px; }
+  #wq-crm-screen-flow .wq-stage { min-width: 0; min-height: 420px; padding: 8px; border: 1px solid #dce2ea; border-radius: 6px; background: #f9fafc; }
+  #wq-crm-screen-flow .wq-stage-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 4px; margin-bottom: 7px; }
+  #wq-crm-screen-flow .wq-stage-head strong { font-size: 9px; }
+  #wq-crm-screen-flow .wq-stage-head span { color: #7d8999; font-size: 7px; }
+  #wq-crm-screen-flow .wq-stage-value { display: block; margin-bottom: 7px; color: #52647d; font-size: 8px; font-weight: 700; }
+  #wq-crm-screen-flow .wq-deal-card { margin-bottom: 7px; padding: 8px; border: 1px solid #dce2ea; border-left: 3px solid #8294ba; border-radius: 5px; background: #fff; box-shadow: 0 3px 8px rgba(31,47,62,.06); }
+  #wq-crm-screen-flow .wq-deal-card.high { border-left-color: #f12b53; }
+  #wq-crm-screen-flow .wq-deal-card.sent { border-left-color: #2450ff; }
+  #wq-crm-screen-flow .wq-deal-card strong { display: block; font-size: 8px; line-height: 1.3; }
+  #wq-crm-screen-flow .wq-deal-card > span { display: block; margin-top: 4px; color: #7d8999; font-size: 7px; }
+  #wq-crm-screen-flow .wq-deal-card footer { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 7px; padding-top: 6px; border-top: 1px solid #edf0f3; }
+  #wq-crm-screen-flow .wq-deal-card footer b { color: #26374a; font-size: 8px; }
+  #wq-crm-screen-flow .wq-company-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+  #wq-crm-screen-flow .wq-company-summary article { padding: 9px; border: 1px solid #dce2ea; border-radius: 6px; background: #fff; }
+  #wq-crm-screen-flow .wq-company-summary small { color: #7d8999; font-size: 7px; }
+  #wq-crm-screen-flow .wq-company-summary strong { display: block; margin-top: 4px; font-size: 13px; }
+  #wq-crm-screen-flow .wq-company-summary span { display: block; margin-top: 3px; color: #7d8999; font-size: 7px; }
+
+  #wq-crm-screen-flow .wq-deal-layout { display: grid; grid-template-columns: 31% 69%; min-height: 475px; border: 1px solid #dce2ea; border-radius: 7px; background: #fff; overflow: hidden; }
+  #wq-crm-screen-flow .wq-deal-side, #wq-crm-screen-flow .wq-deal-main { padding: 12px; }
+  #wq-crm-screen-flow .wq-deal-side { border-right: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-deal-side h2 { margin: 0; font-size: 14px; }
+  #wq-crm-screen-flow .wq-deal-side > p { margin: 4px 0 0; color: #7d8999; font-size: 8px; }
+  #wq-crm-screen-flow .wq-stage-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; margin-bottom: 10px; }
+  #wq-crm-screen-flow .wq-stage-strip span { padding: 6px 4px; border: 1px solid #dce2ea; border-radius: 4px; background: #f8f9fb; color: #7a8798; font-size: 7px; text-align: center; }
+  #wq-crm-screen-flow .wq-stage-strip span.active { border-color: #2450ff; background: #edf2ff; color: #2450ff; font-weight: 800; }
+  #wq-crm-screen-flow .wq-quote-card { padding: 11px; border: 1px solid #cbd8fa; border-radius: 6px; background: #f8faff; }
+  #wq-crm-screen-flow .wq-quote-card header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  #wq-crm-screen-flow .wq-quote-card h3 { margin: 0; font-size: 11px; }
+  #wq-crm-screen-flow .wq-quote-card p { margin: 5px 0 9px; color: #6c7d94; font-size: 8px; }
+  #wq-crm-screen-flow .wq-quote-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  #wq-crm-screen-flow .wq-quote-fields div { padding: 7px; border: 1px solid #dbe3ef; border-radius: 4px; background: #fff; }
+  #wq-crm-screen-flow .wq-quote-fields small { display: block; color: #8190a4; font-size: 7px; }
+  #wq-crm-screen-flow .wq-quote-fields strong { display: block; margin-top: 3px; font-size: 8px; }
+
+  #wq-crm-screen-flow .wq-aut-list { display: grid; gap: 7px; }
+  #wq-crm-screen-flow .wq-aut-row { display: grid; grid-template-columns: minmax(190px, 1.4fr) minmax(160px, 1fr) 100px 150px; align-items: center; gap: 10px; padding: 10px; border: 1px solid #dce2ea; border-radius: 6px; background: #fff; }
+  #wq-crm-screen-flow .wq-aut-row > div:first-child { display: flex; align-items: center; gap: 8px; }
+  #wq-crm-screen-flow .wq-aut-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 6px; background: #edf2ff; color: #2450ff; font-weight: 800; }
+  #wq-crm-screen-flow .wq-aut-row strong { display: block; font-size: 10px; }
+  #wq-crm-screen-flow .wq-aut-row small { display: block; margin-top: 3px; color: #7d8999; font-size: 7px; }
+  #wq-crm-screen-flow .wq-aut-metrics { display: flex; gap: 6px; }
+  #wq-crm-screen-flow .wq-aut-metrics span { display: grid; gap: 2px; min-width: 38px; padding: 5px; border-radius: 4px; background: #f5f7fa; text-align: center; }
+  #wq-crm-screen-flow .wq-aut-metrics b { font-size: 9px; }
+  #wq-crm-screen-flow .wq-aut-metrics small { margin: 0; font-size: 6px; }
+  #wq-crm-screen-flow .wq-aut-actions { display: flex; align-items: center; justify-content: flex-end; gap: 5px; }
+  #wq-crm-screen-flow .wq-switch { width: 28px; height: 16px; padding: 2px; border: 0; border-radius: 999px; background: #d7dde5; }
+  #wq-crm-screen-flow .wq-switch::after { content: ""; display: block; width: 12px; height: 12px; border-radius: 50%; background: #fff; }
+  #wq-crm-screen-flow .wq-switch.on { background: #1e8539; }
+  #wq-crm-screen-flow .wq-switch.on::after { margin-left: 12px; }
+
+  #wq-crm-screen-flow .wq-creator { overflow: hidden; border: 1px solid #dce2ea; border-radius: 7px; background: #fff; }
+  #wq-crm-screen-flow .wq-creator-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-creator-head h2 { margin: 0; font-size: 14px; }
+  #wq-crm-screen-flow .wq-creator-head p { margin: 4px 0 0; color: #7d8999; font-size: 8px; }
+  #wq-crm-screen-flow .wq-stage-picker-inline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 10px 14px; border-bottom: 1px solid #e1e6ec; background: #f9fafc; }
+  #wq-crm-screen-flow .wq-stage-choice { display: grid; gap: 2px; min-height: 48px; padding: 7px; border: 1px solid #d8dfe8; border-radius: 5px; background: #fff; color: #5f6f84; text-align: left; }
+  #wq-crm-screen-flow .wq-stage-choice small { font-size: 6px; }
+  #wq-crm-screen-flow .wq-stage-choice strong { font-size: 8px; }
+  #wq-crm-screen-flow .wq-stage-choice.selected { border-color: #2450ff; box-shadow: inset 0 3px 0 #2450ff; color: #2450ff; }
+  #wq-crm-screen-flow .wq-template-area { padding: 12px 14px; }
+  #wq-crm-screen-flow .wq-template-anchor { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  #wq-crm-screen-flow .wq-template-anchor h3 { margin: 0; font-size: 11px; }
+  #wq-crm-screen-flow .wq-template-anchor span { color: #7d8999; font-size: 8px; }
+  #wq-crm-screen-flow .wq-template-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #wq-crm-screen-flow .wq-template { padding: 10px; border: 1px solid #dce2ea; border-radius: 6px; background: #fff; }
+  #wq-crm-screen-flow .wq-template.featured { border-color: #809cff; background: #f8faff; }
+  #wq-crm-screen-flow .wq-template header { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  #wq-crm-screen-flow .wq-template h4 { margin: 8px 0 4px; font-size: 10px; }
+  #wq-crm-screen-flow .wq-template p { margin: 0; color: #6f7f94; font-size: 8px; line-height: 1.4; }
+  #wq-crm-screen-flow .wq-template-flow { display: block; margin-top: 8px; padding-top: 7px; border-top: 1px solid #e7ebf0; color: #2450ff; font-size: 7px; font-weight: 800; }
+
+  #wq-crm-screen-flow .wq-builder { display: grid; grid-template-columns: 180px minmax(0, 1fr) 220px; min-height: 490px; border: 1px solid #dce2ea; border-radius: 7px; background: #fff; overflow: hidden; }
+  #wq-crm-screen-flow .wq-builder-library, #wq-crm-screen-flow .wq-builder-inspector { padding: 11px; background: #fff; }
+  #wq-crm-screen-flow .wq-builder-library { border-right: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-builder-inspector { border-left: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-builder-library h3, #wq-crm-screen-flow .wq-builder-inspector h3 { margin: 0; font-size: 10px; }
+  #wq-crm-screen-flow .wq-builder-library p, #wq-crm-screen-flow .wq-builder-inspector p { margin: 4px 0 10px; color: #7d8999; font-size: 7px; line-height: 1.4; }
+  #wq-crm-screen-flow .wq-library-group { margin-top: 10px; }
+  #wq-crm-screen-flow .wq-library-group > b { display: block; margin-bottom: 5px; color: #8290a2; font-size: 7px; letter-spacing: .06em; }
+  #wq-crm-screen-flow .wq-library-item { display: flex; align-items: center; gap: 6px; min-height: 31px; margin-bottom: 5px; padding: 0 7px; border: 1px solid #dce2ea; border-radius: 5px; color: #40516a; font-size: 8px; }
+  #wq-crm-screen-flow .wq-library-item.disabled { opacity: .4; text-decoration: line-through; }
+  #wq-crm-screen-flow .wq-builder-canvas { position: relative; display: flex; align-items: center; justify-content: center; padding: 42px 14px 18px; background-color: #f7f9fc; background-image: radial-gradient(#d7dee8 1px, transparent 1px); background-size: 17px 17px; }
+  #wq-crm-screen-flow .wq-canvas-toolbar { position: absolute; top: 9px; right: 9px; display: flex; gap: 4px; }
+  #wq-crm-screen-flow .wq-canvas-toolbar button { min-height: 25px; padding: 0 7px; border: 1px solid #d2dae4; border-radius: 4px; background: #fff; color: #53647b; font-size: 7px; }
+  #wq-crm-screen-flow .wq-flow-nodes { display: flex; flex-direction: column; align-items: center; width: 250px; }
+  #wq-crm-screen-flow .wq-flow-node { width: 100%; box-sizing: border-box; padding: 9px 10px; border: 1px solid #cfd8e3; border-left: 4px solid #2450ff; border-radius: 6px; background: #fff; box-shadow: 0 5px 12px rgba(31,47,62,.08); }
+  #wq-crm-screen-flow .wq-flow-node.trigger { border-left-color: #7b3ff2; }
+  #wq-crm-screen-flow .wq-flow-node.condition { border-left-color: #2450ff; }
+  #wq-crm-screen-flow .wq-flow-node.action { border-left-color: #1e8539; }
+  #wq-crm-screen-flow .wq-flow-node small { color: #8290a2; font-size: 6px; font-weight: 800; letter-spacing: .05em; }
+  #wq-crm-screen-flow .wq-flow-node strong { display: block; margin-top: 3px; font-size: 9px; }
+  #wq-crm-screen-flow .wq-flow-node span { display: block; margin-top: 3px; color: #6e7f95; font-size: 7px; }
+  #wq-crm-screen-flow .wq-flow-line { width: 1px; height: 16px; background: #9aabc0; }
+  #wq-crm-screen-flow .wq-flow-plus { display: grid; place-items: center; width: 18px; height: 18px; border: 1px solid #90a2b8; border-radius: 50%; background: #fff; color: #60728a; font-size: 10px; }
+  #wq-crm-screen-flow .wq-summary-box { margin-bottom: 9px; padding: 8px; border: 1px solid #cbd8fa; border-radius: 5px; background: #f5f8ff; }
+  #wq-crm-screen-flow .wq-summary-box small { color: #2450ff; font-size: 6px; font-weight: 900; }
+  #wq-crm-screen-flow .wq-summary-box strong { display: block; margin-top: 3px; font-size: 8px; }
+  #wq-crm-screen-flow .wq-inspector-field { display: grid; gap: 4px; margin-top: 9px; }
+  #wq-crm-screen-flow .wq-inspector-field label { color: #6f7f94; font-size: 7px; font-weight: 800; }
+  #wq-crm-screen-flow .wq-inspector-field select, #wq-crm-screen-flow .wq-inspector-field input { min-height: 30px; padding: 0 7px; border: 1px solid #cfd8e3; border-radius: 5px; background: #fff; color: #26374a; font: inherit; font-size: 8px; }
+  #wq-crm-screen-flow .wq-inspector-field select.locked { border-color: #bfcdf6; background: #f5f8ff; color: #2450ff; font-weight: 800; }
+  #wq-crm-screen-flow .wq-builder-topline { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+  #wq-crm-screen-flow .wq-builder-topline > div { display: flex; align-items: center; gap: 6px; }
+
+  #wq-crm-screen-flow .wq-preview { overflow: hidden; border: 1px solid #dce2ea; border-radius: 7px; background: #fff; }
+  #wq-crm-screen-flow .wq-preview-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 12px 14px; border-bottom: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-preview-head h2 { margin: 0; font-size: 14px; }
+  #wq-crm-screen-flow .wq-preview-head p { margin: 4px 0 0; color: #7d8999; font-size: 8px; }
+  #wq-crm-screen-flow .wq-preview-tabs { display: flex; gap: 5px; padding: 8px 14px; border-bottom: 1px solid #e1e6ec; }
+  #wq-crm-screen-flow .wq-before-after { display: grid; grid-template-columns: 1fr 42px 1fr; align-items: stretch; gap: 9px; padding: 12px 14px; }
+  #wq-crm-screen-flow .wq-before-after article { padding: 11px; border: 1px solid #dce2ea; border-radius: 6px; background: #f8f9fb; }
+  #wq-crm-screen-flow .wq-before-after article.after { border-color: #a9d6b5; background: #f2faf5; }
+  #wq-crm-screen-flow .wq-before-after small { color: #7d8999; font-size: 7px; font-weight: 900; }
+  #wq-crm-screen-flow .wq-before-after h3 { margin: 6px 0 4px; font-size: 11px; }
+  #wq-crm-screen-flow .wq-before-after p { margin: 0; color: #6f7f94; font-size: 8px; line-height: 1.45; }
+  #wq-crm-screen-flow .wq-preview-arrow { display: grid; place-items: center; color: #2450ff; font-size: 18px; }
+  #wq-crm-screen-flow .wq-timeline { display: flex; align-items: stretch; gap: 8px; padding: 0 14px 14px; }
+  #wq-crm-screen-flow .wq-timeline article { position: relative; flex: 1; min-width: 0; padding: 8px; border: 1px solid #dce2ea; border-radius: 5px; background: #fff; }
+  #wq-crm-screen-flow .wq-timeline article:not(:last-child)::after { content: "→"; position: absolute; right: -8px; top: 50%; z-index: 2; color: #91a0b4; transform: translate(50%,-50%); }
+  #wq-crm-screen-flow .wq-timeline time { color: #8290a2; font-size: 6px; }
+  #wq-crm-screen-flow .wq-timeline strong { display: block; margin-top: 4px; font-size: 8px; }
+  #wq-crm-screen-flow .wq-timeline span { display: block; margin-top: 3px; color: #7d8999; font-size: 7px; }
+
+  #wq-crm-screen-flow .wq-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 9px; color: var(--muted-foreground); font-size: 11px; }
+  #wq-crm-screen-flow .wq-legend span { display: flex; align-items: center; gap: 5px; }
+  #wq-crm-screen-flow .wq-legend i { width: 8px; height: 8px; border-radius: 2px; }
+  #wq-crm-screen-flow .wq-legend i.new { background: #2450ff; }
+  #wq-crm-screen-flow .wq-legend i.existing { background: #2e9b52; }
+  #wq-crm-screen-flow .wq-legend b { color: var(--foreground); font-size: 10px; }
+
+  @media (max-width: 760px) {
+    #wq-crm-screen-flow .wq-flow-meta { grid-template-columns: 1fr; }
+    #wq-crm-screen-flow .wq-step-dots { justify-content: flex-start; }
+    #wq-crm-screen-flow .wq-step-actions { justify-content: flex-start; }
+    #wq-crm-screen-flow .wq-window { grid-template-columns: 1fr; min-height: 720px; }
+    #wq-crm-screen-flow .wq-sidebar { display: none; }
+    #wq-crm-screen-flow .wq-screen { min-height: 650px; overflow-x: auto; }
+    #wq-crm-screen-flow .wq-toolbar { align-items: flex-start; flex-direction: column; }
+    #wq-crm-screen-flow .wq-pipeline { min-width: 680px; }
+    #wq-crm-screen-flow .wq-drawer { grid-template-columns: 1fr; width: 94%; overflow-y: auto; }
+    #wq-crm-screen-flow .wq-drawer-right { border-top: 1px solid #e1e6ec; }
+    #wq-crm-screen-flow .wq-builder { grid-template-columns: 1fr; }
+    #wq-crm-screen-flow .wq-builder-library { display: none; }
+    #wq-crm-screen-flow .wq-builder-inspector { border: 0; border-top: 1px solid #e1e6ec; }
+    #wq-crm-screen-flow .wq-aut-row { grid-template-columns: 1fr; }
+    #wq-crm-screen-flow .wq-company-summary { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('wq-crm-screen-flow');
+    const screen = root.querySelector('#wqScreen');
+    const title = root.querySelector('#wqScreenTitle');
+    const breadcrumb = root.querySelector('#wqBreadcrumb');
+    const flowTitle = root.querySelector('#wqFlowTitle');
+    const flowKicker = root.querySelector('#wqFlowKicker');
+    const stepCount = root.querySelector('#wqStepCount');
+    const dots = root.querySelector('#wqStepDots');
+    const prev = root.querySelector('#wqPrevStep');
+    const next = root.querySelector('#wqNextStep');
+
+    const leadRows = `
+      <div class="wq-table-card">
+        <table aria-label="Leads inbox">
+          <colgroup><col style="width:4%"><col style="width:20%"><col style="width:14%"><col style="width:18%"><col style="width:14%"><col style="width:14%"><col style="width:12%"><col style="width:4%"></colgroup>
+          <thead><tr><th></th><th>Lead title</th><th>Value</th><th>Owning Company <span class="wq-new-tag">NEW</span></th><th>Customer</th><th>Owner</th><th>Next activity</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><input class="wq-check" type="checkbox"></td><td><strong>Hillside cinema room</strong><small>Website enquiry</small></td><td>£28,500</td><td><span class="wq-pill company">Los Angeles</span></td><td>Hillside Residence</td><td><span class="wq-owner"><i>LR</i>Lee Roche</span></td><td><span class="wq-pill warn">Today · Call</span></td><td>•••</td></tr>
+            <tr><td><input class="wq-check" type="checkbox"></td><td><strong>Hotel ballroom upgrade</strong><small>Referral</small></td><td>£74,000</td><td><span class="wq-pill company">Orange County</span></td><td>Pelican Hotels</td><td><span class="wq-owner"><i>JM</i>Jeff Mitchel</span></td><td><span class="wq-pill">Tomorrow</span></td><td>•••</td></tr>
+            <tr><td><input class="wq-check" type="checkbox"></td><td><strong>Boardroom refresh</strong><small>Phone-in</small></td><td>£19,800</td><td><span class="wq-pill company">Northern California</span></td><td>Northline Group</td><td><span class="wq-owner"><i>TB</i>Tony Baker</span></td><td><span class="wq-pill">No activity</span></td><td>•••</td></tr>
+            <tr><td><input class="wq-check" type="checkbox"></td><td><strong>Multi-room audio</strong><small>Contractor</small></td><td>£32,100</td><td><span class="wq-pill company">Los Angeles</span></td><td>Grant Residence</td><td><span class="wq-owner"><i>LR</i>Lee Roche</span></td><td><span class="wq-pill success">Fri · Site visit</span></td><td>•••</td></tr>
+          </tbody>
+        </table>
+      </div>`;
+
+    const leadInboxBase = () => `
+      <div class="wq-toolbar"><div class="wq-toolbar-left"><div class="wq-tabs"><button class="wq-tab active">Inbox</button><button class="wq-tab">Archive</button></div><select class="wq-select"><option>All Companies</option></select><span class="wq-new-tag">NEW CRM</span></div><div class="wq-toolbar-right"><input class="wq-search" placeholder="Search lead, customer or owner"><button class="wq-primary">+ Create Lead</button></div></div>
+      <div class="wq-guidance"><span class="wq-new-tag">NEW CRM</span><span><strong>One Organisation-level CRM.</strong> Every Lead has one Owning Company; managers can monitor all Secondary Companies without switching CRM.</span></div>
+      ${leadRows}`;
+
+    const pipelineCards = (singleCompany = false) => {
+      const badge = singleCompany ? 'Los Angeles' : null;
+      const company = name => `<span class="wq-pill company">${badge || name}</span>`;
+      return `
+        <div class="wq-pipeline" aria-label="Sales Pipeline">
+          <section class="wq-stage"><div class="wq-stage-head"><strong>Qualified</strong><span>3 Deals</span></div><span class="wq-stage-value">£91,400</span>
+            <article class="wq-deal-card high"><strong>Hillside cinema room</strong><span>Hillside Residence</span><footer>${company('Los Angeles')}<b>£28.5K</b></footer></article>
+            <article class="wq-deal-card"><strong>Boardroom refresh</strong><span>Northline Group</span><footer>${company('Northern California')}<b>£19.8K</b></footer></article>
+          </section>
+          <section class="wq-stage"><div class="wq-stage-head"><strong>In Progress</strong><span>4 Deals</span></div><span class="wq-stage-value">£132,900</span>
+            <article class="wq-deal-card"><strong>Multi-room audio</strong><span>Grant Residence</span><footer>${company('Los Angeles')}<b>£32.1K</b></footer></article>
+            <article class="wq-deal-card high"><strong>Hotel ballroom AV</strong><span>Pelican Hotels</span><footer>${company('Orange County')}<b>£74K</b></footer></article>
+          </section>
+          <section class="wq-stage"><div class="wq-stage-head"><strong>In Review</strong><span>2 Deals</span></div><span class="wq-stage-value">£48,300</span>
+            <article class="wq-deal-card"><strong>Executive suite</strong><span>Westfield Holdings</span><footer>${company('Orange County')}<b>£21.4K</b></footer></article>
+          </section>
+          <section class="wq-stage"><div class="wq-stage-head"><strong>Passed Review</strong><span>1 Deal</span></div><span class="wq-stage-value">£18,750</span>
+            <article class="wq-deal-card"><strong>Private screening room</strong><span>Gable Residence</span><footer>${company('Los Angeles')}<b>£18.8K</b></footer></article>
+          </section>
+          <section class="wq-stage"><div class="wq-stage-head"><strong>Sent</strong><span>3 Deals</span></div><span class="wq-stage-value">£83,600</span>
+            <article class="wq-deal-card sent"><strong>Restaurant audio</strong><span>Cedar Dining</span><footer>${company('Northern California')}<b>£26.7K</b></footer></article>
+            <article class="wq-deal-card sent"><strong>Home control upgrade</strong><span>Silva Residence</span><footer>${company('Los Angeles')}<b>£17.9K</b></footer></article>
+          </section>
+        </div>`;
+    };
+
+    const flows = {
+      lead: {
+        kicker: 'FLOW 1', title: 'Lead → Deal → Quote', route: 'leads',
+        steps: [
+          { title: 'Leads', breadcrumb: 'CRM / Leads', route: 'leads', render: leadInboxBase },
+          { title: 'Create Lead', breadcrumb: 'CRM / Leads / New', route: 'leads', render: () => `${leadInboxBase()}<div class="wq-modal-shade"><section class="wq-modal" role="dialog" aria-label="Create Lead"><header class="wq-modal-head"><div><h2>Create Lead</h2><p>Capture the enquiry, the end customer and the company that owns the opportunity.</p></div><button class="wq-modal-close">×</button></header><div class="wq-modal-body"><div class="wq-form-grid"><div class="wq-field full"><label>Lead title</label><input value="Hillside cinema room"></div><div class="wq-field"><label>Customer</label><input value="Hillside Residence"><span class="wq-field-help">The company or person you will quote and invoice.</span></div><div class="wq-field"><label>Primary contact</label><input value="Samantha Hills"></div><div class="wq-field"><label>Owning Company <span class="wq-new-tag">REQUIRED</span></label><select><option>AUDIOVISIONS — Los Angeles</option></select><span class="wq-field-help">Controls ownership, access, reporting and the Quote issuer.</span></div><div class="wq-field"><label>Lead owner</label><select><option>Lee Roche</option></select></div><div class="wq-field"><label>Estimated value</label><input value="£28,500"></div><div class="wq-field"><label>Lead source</label><select><option>Website</option></select></div><div class="wq-field full"><label>Enquiry description</label><textarea>Dedicated cinema room, lighting control and acoustic treatment.</textarea></div></div></div><footer class="wq-modal-foot"><span><span class="wq-new-tag">NEW CRM</span> Owning Company is mandatory before save.</span><div><button class="wq-secondary">Cancel</button><button class="wq-primary">Save Lead</button></div></footer></section></div>` },
+          { title: 'Lead details', breadcrumb: 'CRM / Leads / L-1048', route: 'leads', render: () => `${leadInboxBase()}<div class="wq-drawer-shade"><section class="wq-drawer" role="dialog" aria-label="Lead details"><div class="wq-drawer-left"><div class="wq-drawer-title"><div><h2>Hillside cinema room</h2><small>Open Lead · created today</small></div><button class="wq-icon-button">×</button></div><div class="wq-detail-section"><b>DETAILS</b><div class="wq-detail-row"><span>£</span><strong>£28,500</strong></div><div class="wq-detail-row"><span>●</span><strong>Lee Roche</strong></div><div class="wq-detail-row"><span>⌂</span><strong>AUDIOVISIONS — Los Angeles</strong><span class="wq-new-tag">OWNING COMPANY</span></div><div class="wq-detail-row"><span>↗</span><strong>Website</strong></div></div><div class="wq-detail-section"><b>CUSTOMER</b><div class="wq-detail-row"><span>▦</span><strong>Hillside Residence</strong></div><div class="wq-detail-row"><span>●</span><strong>Samantha Hills</strong></div><div class="wq-detail-row"><span>@</span><strong>samantha@hillside.example</strong></div></div><div class="wq-drawer-actions"><button class="wq-secondary">Archive</button><button class="wq-primary">Convert to Deal</button></div></div><div class="wq-drawer-right"><div class="wq-panel-tabs"><button class="active">Notes</button><button>Meeting</button><button>Files</button></div><div class="wq-note-card"><h3>Add a note</h3><div class="wq-note-input">Take a note and @person</div><div class="wq-note-tools"><span><b>@</b> Mention &nbsp; · &nbsp; ◷ Follow-up</span><button class="wq-primary">Save note</button></div></div><div class="wq-history"><b>History</b><article><i></i><div><strong>Lead created in Los Angeles</strong><small>Today · Lee Roche</small></div></article><article><i></i><div><strong>First-contact note added</strong><small>Today · @Lee Roche mentioned</small></div></article></div></div></section></div>` },
+          { title: 'Convert to Deal', breadcrumb: 'CRM / Leads / Convert', route: 'leads', render: () => `${leadInboxBase()}<div class="wq-modal-shade"><section class="wq-modal" role="dialog" aria-label="Convert Lead to Deal"><header class="wq-modal-head"><div><h2>Convert to Deal</h2><p>The Lead stays linked as read-only history. The new Deal starts at Qualified.</p></div><button class="wq-modal-close">×</button></header><div class="wq-modal-body"><div class="wq-form-grid"><div class="wq-field full"><label>Deal title</label><input value="Hillside cinema room"></div><div class="wq-field"><label>Customer</label><input class="locked" value="Hillside Residence" readonly></div><div class="wq-field"><label>Primary contact</label><input class="locked" value="Samantha Hills" readonly></div><div class="wq-field"><label>Owning Company <span class="wq-new-tag">INHERITED</span></label><input class="locked" value="AUDIOVISIONS — Los Angeles" readonly><span class="wq-field-help">Change it here only if the Lead was assigned incorrectly.</span></div><div class="wq-field"><label>Deal owner</label><select><option>Lee Roche</option></select></div><div class="wq-field"><label>Pipeline</label><input class="locked" value="Sales Pipeline" readonly></div><div class="wq-field"><label>Starting Stage</label><input class="locked" value="Qualified" readonly></div><div class="wq-field full"><label>Estimated Deal value</label><input value="£28,500"></div></div></div><footer class="wq-modal-foot"><span>Customer and Owning Company remain distinct records.</span><div><button class="wq-secondary">Cancel</button><button class="wq-primary">Confirm and Convert as Deal</button></div></footer></section></div>` },
+          { title: 'Deal & Quote', breadcrumb: 'CRM / Deals / D-0348', route: 'deals', render: () => `<div class="wq-builder-topline"><div><button class="wq-secondary">← Pipeline</button><span class="wq-pill success">Qualified</span></div><div><button class="wq-secondary">Archive</button><button class="wq-primary">Create Quote</button></div></div><section class="wq-deal-layout"><aside class="wq-deal-side"><h2>Hillside cinema room</h2><p>D-0348 · £28,500 · Lee Roche</p><div class="wq-detail-section"><b>DEAL DETAILS</b><div class="wq-detail-row"><span>⌂</span><strong>AUDIOVISIONS — Los Angeles</strong><span class="wq-new-tag">OWNING COMPANY</span></div><div class="wq-detail-row"><span>▦</span><strong>Hillside Residence</strong></div><div class="wq-detail-row"><span>●</span><strong>Samantha Hills</strong></div><div class="wq-detail-row"><span>£</span><strong>£28,500</strong></div></div><div class="wq-guidance" style="margin-top:12px"><span class="wq-new-tag">RULE</span><span>One Deal belongs to one Owning Company. Customer may have other Deals with other Companies.</span></div></aside><div class="wq-deal-main"><div class="wq-stage-strip"><span class="active">Qualified</span><span>In Progress</span><span>In Review</span><span>Passed Review</span><span>Sent</span></div><div class="wq-quote-card"><header><div><span class="wq-existing-tag">EXISTING QUOTE PATTERN</span><h3>Create the first related Quote</h3></div><button class="wq-primary">Create Quote</button></header><p>Creating the first Quote moves this Deal from Qualified to In Progress through the protected lifecycle.</p><div class="wq-quote-fields"><div><small>Customer</small><strong>Hillside Residence</strong></div><div><small>Company / Quote issuer</small><strong>AUDIOVISIONS — Los Angeles</strong></div><div><small>Contact</small><strong>Samantha Hills</strong></div><div><small>Currency</small><strong>GBP</strong></div></div></div><div class="wq-panel-tabs" style="margin-top:13px"><button class="active">Notes</button><button>Meeting</button><button>Files</button></div><div class="wq-note-card"><h3>Add a note</h3><div class="wq-note-input">Take a note and @person</div><div class="wq-note-tools"><span>@ Mention &nbsp; · &nbsp; ◷ Follow-up</span><button class="wq-primary">Save note</button></div></div></div></section>` }
+        ]
+      },
+      company: {
+        kicker: 'FLOW 2', title: 'Monitor Secondary Companies', route: 'deals',
+        steps: [
+          { title: 'All Companies Pipeline', breadcrumb: 'CRM / Deals / Sales Pipeline', route: 'deals', render: () => `<div class="wq-toolbar"><div class="wq-toolbar-left"><div class="wq-tabs"><button class="wq-tab active">Pipeline</button><button class="wq-tab">Table</button><button class="wq-tab">Forecast</button><button class="wq-tab">Archive</button></div></div><div class="wq-toolbar-right"><select class="wq-select"><option>Sales Pipeline</option></select><select class="wq-select"><option>All Companies</option></select><span class="wq-new-tag">NEW CRM</span><button class="wq-control">Filter</button></div></div><div class="wq-company-summary"><article><small>ALL OPEN PIPELINE</small><strong>£374,950</strong><span>13 open Deals</span></article><article><small>LOS ANGELES</small><strong>£144,200</strong><span>5 open Deals</span></article><article><small>ORANGE COUNTY</small><strong>£132,450</strong><span>4 open Deals</span></article><article><small>NORTHERN CALIFORNIA</small><strong>£98,300</strong><span>4 open Deals</span></article></div>${pipelineCards(false)}` },
+          { title: 'One Company scope', breadcrumb: 'CRM / Deals / Los Angeles', route: 'deals', render: () => `<div class="wq-toolbar"><div class="wq-toolbar-left"><div class="wq-tabs"><button class="wq-tab active">Pipeline</button><button class="wq-tab">Table</button><button class="wq-tab">Forecast</button></div></div><div class="wq-toolbar-right"><select class="wq-select"><option>Sales Pipeline</option></select><select class="wq-select"><option>Los Angeles</option></select><span class="wq-new-tag">COMPANY FILTER</span><button class="wq-control">Filter</button></div></div><div class="wq-guidance"><span class="wq-new-tag">SCOPED VIEW</span><span><strong>Same Sales Pipeline, filtered.</strong> No second CRM is created; cards, value, owners and reports are narrowed to Los Angeles.</span></div>${pipelineCards(true)}` },
+          { title: 'Company performance', breadcrumb: 'CRM / Deals / Company performance', route: 'deals', render: () => `<div class="wq-toolbar"><div class="wq-toolbar-left"><div class="wq-tabs"><button class="wq-tab">Pipeline</button><button class="wq-tab active">Table</button><button class="wq-tab">Forecast</button></div></div><div class="wq-toolbar-right"><select class="wq-select"><option>All Companies</option></select><select class="wq-select"><option>FY 2026</option></select></div></div><div class="wq-company-summary"><article><small>OPEN PIPELINE</small><strong>£374,950</strong><span>All Companies</span></article><article><small>WON VALUE</small><strong>£186,400</strong><span>FY 2026</span></article><article><small>SENT VALUE</small><strong>£83,600</strong><span>3 customer Quotes</span></article><article><small>NEEDS ATTENTION</small><strong>4</strong><span>Overdue / no activity</span></article></div><div class="wq-table-card"><table aria-label="Company performance"><thead><tr><th>Owning Company <span class="wq-new-tag">NEW</span></th><th>Users with access</th><th>Open Leads</th><th>Open Deals</th><th>Pipeline value</th><th>Won value</th><th>Attention</th></tr></thead><tbody><tr><td><strong>AUDIOVISIONS — Los Angeles</strong><small>Main West Coast team</small></td><td>8 users</td><td>12</td><td>5</td><td><strong>£144,200</strong></td><td>£82,500</td><td><span class="wq-pill warn">2 records</span></td></tr><tr><td><strong>AUDIOVISIONS — Orange County</strong><small>Regional sales team</small></td><td>6 users</td><td>9</td><td>4</td><td><strong>£132,450</strong></td><td>£61,900</td><td><span class="wq-pill warn">1 record</span></td></tr><tr><td><strong>AUDIOVISIONS — Northern California</strong><small>Regional sales team</small></td><td>5 users</td><td>7</td><td>4</td><td><strong>£98,300</strong></td><td>£42,000</td><td><span class="wq-pill">1 record</span></td></tr></tbody></table></div><div class="wq-guidance" style="margin-top:10px"><span class="wq-new-tag">ACCESS</span><span>Users remain Organisation users. Add Company access so each person can see one or several Companies; authorised management keeps the consolidated view.</span></div>` }
+        ]
+      },
+      automation: {
+        kicker: 'FLOW 3', title: 'Stage-first Automation', route: 'automations',
+        steps: [
+          { title: 'Sales Pipeline Automations', breadcrumb: 'CRM / Automations / Sales Pipeline', route: 'automations', render: () => `<div class="wq-toolbar"><div class="wq-toolbar-left"><button class="wq-secondary">← Pipelines</button><div><strong style="font-size:12px">Automations for Sales Pipeline</strong><small style="display:block;color:#7d8999;font-size:8px;margin-top:3px">Each Automation owns one clear business outcome.</small></div></div><div class="wq-toolbar-right"><button class="wq-primary">+ Create automation</button></div></div><div class="wq-guidance"><span class="wq-existing-tag">PROTECTED</span><span><strong>Quote lifecycle stays on.</strong> Automation assists the work around Stage transitions; turning it off never turns off Qualified → In Progress → Sent → Won/Lost.</span></div><div class="wq-aut-list"><article class="wq-aut-row"><div><span class="wq-aut-icon">Q</span><div><strong>Qualified owner & first action</strong><small>Qualified · follows the Deal's Owning Company</small></div></div><div class="wq-aut-metrics"><span><b>4</b><small>steps</small></span><span><b>1</b><small>rule</small></span><span><b>0</b><small>errors</small></span></div><span class="wq-pill success">Active</span><div class="wq-aut-actions"><button class="wq-secondary">Preview</button><button class="wq-secondary">Edit</button><button class="wq-switch on" aria-label="Active"></button></div></article><article class="wq-aut-row"><div><span class="wq-aut-icon">Q</span><div><strong>Quote build & SOW checks</strong><small>In Progress · follows Quote issuer / Owning Company</small></div></div><div class="wq-aut-metrics"><span><b>3</b><small>steps</small></span><span><b>1</b><small>rule</small></span><span><b>0</b><small>errors</small></span></div><span class="wq-pill">Inactive</span><div class="wq-aut-actions"><button class="wq-secondary">Preview</button><button class="wq-secondary">Edit</button><button class="wq-switch" aria-label="Inactive"></button></div></article><article class="wq-aut-row"><div><span class="wq-aut-icon">S</span><div><strong>Sent Quote follow-up</strong><small>Sent · follows the Deal's Owning Company</small></div></div><div class="wq-aut-metrics"><span><b>4</b><small>steps</small></span><span><b>1</b><small>rule</small></span><span><b>0</b><small>errors</small></span></div><span class="wq-pill warn">Needs setup</span><div class="wq-aut-actions"><button class="wq-secondary">Preview</button><button class="wq-secondary">Edit</button><button class="wq-switch" aria-label="Inactive"></button></div></article></div>` },
+          { title: 'Choose Stage & template', breadcrumb: 'CRM / Automations / New', route: 'automations', render: () => `<section class="wq-creator"><header class="wq-creator-head"><div><span class="wq-new-tag">NEW AUTOMATION</span><h2>Choose a Sales Pipeline Stage</h2><p>The selected Stage filters templates and trigger events below. No separate full-screen picker.</p></div><button class="wq-modal-close">×</button></header><div class="wq-stage-picker-inline"><button class="wq-stage-choice"><small>STAGE 1</small><strong>Qualified</strong></button><button class="wq-stage-choice selected"><small>STAGE 2 · SELECTED</small><strong>In Progress</strong></button><button class="wq-stage-choice"><small>CONDITIONAL</small><strong>In Review</strong></button><button class="wq-stage-choice"><small>CONDITIONAL</small><strong>Passed Review</strong></button><button class="wq-stage-choice"><small>STAGE 5</small><strong>Sent</strong></button></div><div class="wq-template-area"><div class="wq-template-anchor"><div><h3>In Progress templates</h3><span>Auto-scrolled here after Stage selection · 1 compatible template</span></div><button class="wq-secondary wq-blue">Start from scratch</button></div><div class="wq-template-grid"><article class="wq-template featured"><header><span class="wq-pill company">IN PROGRESS</span><span class="wq-existing-tag">QUOTE</span></header><h4>Quote build & SOW checks</h4><p>Create a Note and mention the Quote owner when required pricing or Scope of Works information is missing.</p><span class="wq-template-flow">Quote created → Check required info → Create Note → Mention owner</span></article><article class="wq-template"><header><span class="wq-pill">BUILD YOUR OWN</span><span class="wq-existing-tag">QUOTE</span></header><h4>Start from scratch in In Progress</h4><p>Only In Progress-compatible trigger events will appear in the next step.</p><span class="wq-template-flow">Stage locked: In Progress → Choose compatible event</span></article></div><div class="wq-guidance" style="margin-top:10px"><span class="wq-new-tag">FILTERED</span><span>“New Lead is created” and “Deal enters Qualified” do not appear here. Cross-stage / Pipeline-wide starts live only under Advanced.</span></div></div></section>` },
+          { title: 'Automation Builder', breadcrumb: 'CRM / Automations / Quote build & SOW checks', route: 'automations', render: () => `<div class="wq-builder-topline"><div><button class="wq-secondary">Change history</button><span class="wq-pill warn">Unpublished changes</span></div><div><button class="wq-secondary">Cancel</button><button class="wq-primary">Save changes</button><button class="wq-secondary">Automation Preview</button><button class="wq-secondary">Test automation</button><button class="wq-primary">Turn on</button></div></div><section class="wq-builder"><aside class="wq-builder-library"><h3>Step library</h3><p>In Progress-compatible options only.</p><div class="wq-library-group"><b>STARTS WHEN</b><div class="wq-library-item">◆ Quote is created</div><div class="wq-library-item">◆ Quote details updated</div><div class="wq-library-item disabled">New Lead is created</div></div><div class="wq-library-group"><b>ACTIONS</b><div class="wq-library-item">✓ Create Note</div><div class="wq-library-item">@ Mention specific user</div></div><div class="wq-library-group"><b>LOGIC</b><div class="wq-library-item">⑂ Condition</div><div class="wq-library-item">◷ Wait</div><div class="wq-library-item">■ End</div></div></aside><div class="wq-builder-canvas"><div class="wq-canvas-toolbar"><button>−</button><button>100%</button><button>+</button><button>Fit</button></div><div class="wq-flow-nodes"><article class="wq-flow-node trigger"><small>1 · STARTS WHEN</small><strong>Quote is created</strong><span>Sales Pipeline · In Progress · Stage locked</span></article><div class="wq-flow-line"></div><div class="wq-flow-plus">+</div><div class="wq-flow-line"></div><article class="wq-flow-node condition"><small>2 · CHECK</small><strong>Required Quote information is missing?</strong><span>Pricing or Scope of Works is incomplete</span></article><div class="wq-flow-line"></div><div class="wq-flow-plus">+</div><div class="wq-flow-line"></div><article class="wq-flow-node action"><small>YES · DO THIS</small><strong>Create Note</strong><span>“Complete pricing / SOW before review”</span></article><div class="wq-flow-line"></div><article class="wq-flow-node action"><small>THEN</small><strong>Mention specific user</strong><span>@Quote owner · in the Note</span></article></div></div><aside class="wq-builder-inspector"><div class="wq-summary-box"><small>FLOW SUMMARY</small><strong>In Progress · 4 editable steps</strong></div><h3>Enrollment trigger</h3><p>Stage is locked because this Automation was created from In Progress.</p><div class="wq-inspector-field"><label>Pipeline Stage</label><select class="locked"><option>In Progress · locked</option></select></div><div class="wq-inspector-field"><label>Starts when</label><select><option>Quote is created</option><option>Quote details updated</option></select></div><div class="wq-inspector-field"><label>Company context</label><select class="locked"><option>Follow Deal Owning Company</option></select></div><div class="wq-guidance" style="margin-top:10px"><span class="wq-new-tag">SAFE</span><span>No invented “internal review task”. Actions use current CRM Note + Mention patterns.</span></div></aside></section>` },
+          { title: 'Preview & Turn on', breadcrumb: 'CRM / Automations / Preview', route: 'automations', render: () => `<section class="wq-preview"><header class="wq-preview-head"><div><span class="wq-pill company">IN PROGRESS</span><h2>Quote build & SOW checks</h2><p>Preview only · current CRM data is unchanged · Company context follows the Deal.</p></div><div><button class="wq-secondary">Test sample Deal</button> <button class="wq-primary">Turn on</button></div></header><div class="wq-preview-tabs"><button class="wq-tab active">Before / After</button><button class="wq-tab">Timeline</button><button class="wq-tab">Change history</button></div><div class="wq-before-after"><article><small>BEFORE · AUTOMATION OFF</small><h3>Quote information is incomplete</h3><p>The Deal remains In Progress. The Quote lifecycle still works, but no follow-up Note is created.</p><span class="wq-pill company" style="margin-top:9px">Los Angeles Deal</span></article><div class="wq-preview-arrow">→</div><article class="after"><small>AFTER · AUTOMATION ON</small><h3>Owner gets one visible follow-up</h3><p>Create Note “Complete pricing / SOW before review” and mention @Lee Roche. No duplicate Note is created.</p><span class="wq-pill success" style="margin-top:9px">Ready for owner action</span></article></div><div class="wq-timeline"><article><time>09:00</time><strong>Quote created</strong><span>Deal enters In Progress</span></article><article><time>09:00</time><strong>Information check</strong><span>SOW missing</span></article><article><time>09:01</time><strong>Create Note</strong><span>Linked to Deal / Quote</span></article><article><time>09:01</time><strong>Mention owner</strong><span>@Lee Roche</span></article><article><time>MANUAL</time><strong>Lifecycle continues</strong><span>User completes work</span></article></div><div class="wq-guidance" style="margin:0 14px 14px"><span class="wq-existing-tag">PROTECTED</span><span>Turning this Automation off stops new Note / Mention actions only. Quote status and Deal Stage remain controlled by the core lifecycle.</span></div></section>` }
+        ]
+      },
+      advanced: {
+        kicker: 'FLOW 4 · ADVANCED', title: 'Company-specific Automation', route: 'automations',
+        steps: [
+          { title: 'Open Advanced scope', breadcrumb: 'CRM / Automations / New', route: 'automations', render: () => `<section class="wq-creator"><header class="wq-creator-head"><div><span class="wq-new-tag">NEW AUTOMATION</span><h2>Choose a Sales Pipeline Stage</h2><p>Stage remains the first choice. Company scope is optional and lives under Advanced.</p></div><button class="wq-modal-close">×</button></header><div class="wq-stage-picker-inline"><button class="wq-stage-choice"><small>STAGE 1</small><strong>Qualified</strong></button><button class="wq-stage-choice"><small>STAGE 2</small><strong>In Progress</strong></button><button class="wq-stage-choice"><small>CONDITIONAL</small><strong>In Review</strong></button><button class="wq-stage-choice"><small>CONDITIONAL</small><strong>Passed Review</strong></button><button class="wq-stage-choice selected"><small>STAGE 5 · SELECTED</small><strong>Sent</strong></button></div><div class="wq-template-area"><div class="wq-template-anchor"><div><h3>Sent templates</h3><span>Auto-scrolled here · 2 compatible templates</span></div><button class="wq-secondary">Start from scratch</button></div><div class="wq-template-grid"><article class="wq-template featured"><header><span class="wq-pill company">SENT</span><span class="wq-existing-tag">QUOTE</span></header><h4>Sent Quote follow-up</h4><p>Wait, then create a follow-up Note and mention the Deal owner when no open follow-up already exists.</p><span class="wq-template-flow">Quote Sent → Wait → Note check → Create Note + Mention owner</span></article><article class="wq-template"><header><span class="wq-pill">SENT</span><span class="wq-existing-tag">QUOTE</span></header><h4>Quote expiry reminder</h4><p>Create a Note before a viable Sent Quote expires.</p><span class="wq-template-flow">Expiry −3 days → Viability check → Note + Mention</span></article></div><div class="wq-guidance" style="margin-top:10px"><span class="wq-new-tag">ADVANCED</span><span><strong>Need different policy for one Secondary Company?</strong> Open Company scope. Default stays “All Companies” and follows each Deal's Owning Company.</span><button class="wq-secondary wq-blue" style="margin-left:auto;white-space:nowrap">Open Advanced</button></div></div></section>` },
+          { title: 'Choose Company scope', breadcrumb: 'CRM / Automations / New / Advanced', route: 'automations', render: () => `<section class="wq-creator"><header class="wq-creator-head"><div><span class="wq-new-tag">ADVANCED</span><h2>Company scope</h2><p>Choose which Owning Companies may enrol records into this Automation.</p></div><button class="wq-modal-close">×</button></header><div class="wq-template-area"><div class="wq-guidance"><span class="wq-existing-tag">EXISTING IDENTITY</span><span>Secondary Companies / Trading names already hold the company identity used to issue Quotes. Using them as an Automation scope is a proposed CRM capability.</span></div><div class="wq-template-grid"><article class="wq-template"><header><span class="wq-pill success">RECOMMENDED</span><span class="wq-new-tag">DEFAULT</span></header><h4>All Companies</h4><p>One Automation applies across the Organisation. Every run follows the record's Owning Company.</p><span class="wq-template-flow">LA Deal → LA context · Orange County Deal → Orange County context</span></article><article class="wq-template"><header><span class="wq-pill">MULTI-COMPANY</span><span class="wq-new-tag">ADVANCED</span></header><h4>Selected Companies</h4><p>Use one policy for a chosen set of Secondary Companies.</p><span class="wq-template-flow">Example: Los Angeles + Northern California</span></article><article class="wq-template featured"><header><span class="wq-pill company">SELECTED</span><span class="wq-new-tag">ADVANCED</span></header><h4>One Company only</h4><p>Create a policy that enrols records belonging to one Owning Company only.</p><span class="wq-template-flow">Next: choose the Company and check overlapping Automations</span></article><article class="wq-template"><header><span class="wq-pill warn">FUTURE</span><span class="wq-new-tag">PIPELINE-WIDE</span></header><h4>Cross-stage / Pipeline-wide</h4><p>Separate from Company scope and not part of the default Stage-first path.</p><span class="wq-template-flow">Keep hidden unless the engine supports safe cross-stage ownership</span></article></div></div><footer class="wq-modal-foot"><span>Stage: Sent · Template: Sent Quote follow-up</span><div><button class="wq-secondary">Back</button><button class="wq-primary">Continue</button></div></footer></section>` },
+          { title: 'Select Owning Company', breadcrumb: 'CRM / Automations / New / Company scope', route: 'automations', render: () => `<section class="wq-creator"><header class="wq-creator-head"><div><span class="wq-new-tag">ADVANCED · STEP 2</span><h2>Select one Owning Company</h2><p>Only Companies the current user is allowed to manage appear here.</p></div><button class="wq-modal-close">×</button></header><div class="wq-template-area"><div class="wq-table-card"><table aria-label="Choose an Owning Company"><colgroup><col style="width:6%"><col style="width:34%"><col style="width:26%"><col style="width:20%"><col style="width:14%"></colgroup><thead><tr><th></th><th>Secondary Company / Trading name</th><th>Company address</th><th>Current Sent Automations</th><th>Scope</th></tr></thead><tbody><tr><td><input class="wq-check" type="radio" checked></td><td><strong>AUDIOVISIONS — Los Angeles</strong><small>Existing Quote issuer identity</small></td><td>Westlake Village, CA</td><td><span class="wq-pill warn">1 possible overlap</span></td><td><span class="wq-pill company">SELECTED</span></td></tr><tr><td><input class="wq-check" type="radio"></td><td><strong>AUDIOVISIONS — Orange County</strong><small>Existing Quote issuer identity</small></td><td>Irvine, CA</td><td>1 global</td><td>—</td></tr><tr><td><input class="wq-check" type="radio"></td><td><strong>AUDIOVISIONS — Northern California</strong><small>Existing Quote issuer identity</small></td><td>San Rafael, CA</td><td>1 global</td><td>—</td></tr><tr><td><input class="wq-check" type="radio"></td><td><strong>AUDIOVISIONS — Palm Desert</strong><small>Existing Quote issuer identity</small></td><td>Palm Desert, CA</td><td>1 global</td><td>—</td></tr></tbody></table></div><div class="wq-guidance" style="margin-top:10px"><span class="wq-new-tag">ENROLMENT SCOPE</span><span><strong>Los Angeles only.</strong> Other Companies remain on their existing policy. Company scope is metadata on the Automation, not another editable branch Rule.</span></div></div><footer class="wq-modal-foot"><span>Sent · Sent Quote follow-up · Los Angeles only</span><div><button class="wq-secondary">Back</button><button class="wq-primary">Use Los Angeles</button></div></footer></section>` },
+          { title: 'Company-specific Builder', breadcrumb: 'CRM / Automations / LA Sent follow-up', route: 'automations', render: () => `<div class="wq-builder-topline"><div><button class="wq-secondary">Change history</button><span class="wq-pill warn">Unpublished changes</span><span class="wq-pill company">Los Angeles only</span></div><div><button class="wq-secondary">Cancel</button><button class="wq-primary">Save changes</button><button class="wq-secondary">Automation Preview</button><button class="wq-secondary">Test automation</button><button class="wq-primary">Turn on</button></div></div><section class="wq-builder"><aside class="wq-builder-library"><h3>Step library</h3><p>Sent-compatible options only.</p><div class="wq-library-group"><b>STARTS WHEN</b><div class="wq-library-item">◆ Quote is sent</div><div class="wq-library-item">◆ Quote expiry is approaching</div><div class="wq-library-item disabled">Deal enters Qualified</div></div><div class="wq-library-group"><b>ACTIONS</b><div class="wq-library-item">✓ Create Note</div><div class="wq-library-item">@ Mention specific user</div></div><div class="wq-library-group"><b>LOGIC</b><div class="wq-library-item">◷ Wait</div><div class="wq-library-item">⑂ Condition</div><div class="wq-library-item">■ End</div></div></aside><div class="wq-builder-canvas"><div class="wq-canvas-toolbar"><button>−</button><button>100%</button><button>+</button><button>Fit</button></div><div class="wq-flow-nodes"><article class="wq-flow-node trigger"><small>1 · STARTS WHEN</small><strong>Quote is sent</strong><span>Sales Pipeline · Sent · Los Angeles only</span></article><div class="wq-flow-line"></div><article class="wq-flow-node" style="border-left-color:#b58128"><small>2 · WAIT</small><strong>3 working days</strong><span>Stop if Quote is no longer viable</span></article><div class="wq-flow-line"></div><article class="wq-flow-node condition"><small>3 · CHECK</small><strong>No open follow-up Note exists?</strong><span>Prevent duplicate work</span></article><div class="wq-flow-line"></div><article class="wq-flow-node action"><small>YES · DO THIS</small><strong>Create Note</strong><span>“Follow up on Sent Quote”</span></article><div class="wq-flow-line"></div><article class="wq-flow-node action"><small>THEN</small><strong>Mention Deal owner</strong><span>@person inside the Note</span></article></div></div><aside class="wq-builder-inspector"><div class="wq-summary-box"><small>ENROLMENT SCOPE</small><strong>Los Angeles only</strong></div><h3>Enrollment trigger</h3><p>Stage and Company scope are locked for this Automation.</p><div class="wq-inspector-field"><label>Pipeline Stage</label><select class="locked"><option>Sent · locked</option></select></div><div class="wq-inspector-field"><label>Starts when</label><select><option>Quote is sent</option></select></div><div class="wq-inspector-field"><label>Owning Company</label><select class="locked"><option>AUDIOVISIONS — Los Angeles</option></select></div><div class="wq-guidance" style="margin-top:10px"><span class="wq-new-tag">SCOPE</span><span>Only LA records enrol. Note and Mention still use existing CRM patterns.</span></div></aside></section>` },
+          { title: 'Resolve overlap', breadcrumb: 'CRM / Automations / Activation check', route: 'automations', render: () => `<section class="wq-preview"><header class="wq-preview-head"><div><span class="wq-pill warn">ACTIVATION CHECK</span><h2>Resolve one overlapping policy</h2><p>Two Active Automations must not create the same follow-up for the same Los Angeles Quote.</p></div><button class="wq-primary">Apply safe scope</button></header><div class="wq-preview-tabs"><button class="wq-tab active">Scope comparison</button><button class="wq-tab">Affected Deals</button><button class="wq-tab">Timeline</button></div><div class="wq-before-after"><article><small>BEFORE · OVERLAP</small><h3>Global Sent follow-up</h3><p>Scope: All Companies, including Los Angeles.<br>Wait: 7 working days.</p><span class="wq-pill warn" style="margin-top:9px">Matches LA Quote</span></article><div class="wq-preview-arrow">＋</div><article><small>NEW · COMPANY-SPECIFIC</small><h3>LA fast Sent follow-up</h3><p>Scope: Los Angeles only.<br>Wait: 3 working days.</p><span class="wq-pill warn" style="margin-top:9px">Also matches LA Quote</span></article></div><div class="wq-guidance" style="margin:0 14px 10px"><span class="wq-new-tag">BLOCK ACTIVATION</span><span><strong>Recommended safe fix:</strong> change the global Automation scope to “All Companies except Los Angeles”. The LA policy then owns LA records without duplicate Notes.</span></div><div class="wq-before-after" style="padding-top:0"><article class="after"><small>GLOBAL POLICY · SAFE</small><h3>All Companies except Los Angeles</h3><p>Orange County, Northern California, Palm Desert and future included Companies use the 7-day policy.</p><span class="wq-pill success" style="margin-top:9px">No LA overlap</span></article><div class="wq-preview-arrow">＋</div><article class="after"><small>LA POLICY · SAFE</small><h3>Los Angeles only</h3><p>LA uses the faster 3-day follow-up. The Automation can now be turned on.</p><span class="wq-pill success" style="margin-top:9px">No duplicate run</span></article></div></section>` },
+          { title: 'Scoped Automations', breadcrumb: 'CRM / Automations / Sales Pipeline', route: 'automations', render: () => `<div class="wq-toolbar"><div class="wq-toolbar-left"><button class="wq-secondary">← Pipelines</button><div><strong style="font-size:12px">Automations for Sales Pipeline</strong><small style="display:block;color:#7d8999;font-size:8px;margin-top:3px">Global policy and Company-specific override are visible together.</small></div></div><div class="wq-toolbar-right"><select class="wq-select"><option>All Company scopes</option><option>Los Angeles</option><option>Orange County</option></select><button class="wq-primary">+ Create automation</button></div></div><div class="wq-guidance"><span class="wq-new-tag">SAFE SCOPES</span><span>Exact scopes are shown on every row. History can be filtered by Company; turning off the LA policy never stops the protected Quote lifecycle.</span></div><div class="wq-aut-list"><article class="wq-aut-row"><div><span class="wq-aut-icon">S</span><div><strong>Sent Quote follow-up</strong><small>Sent · 7 working days · global baseline</small></div></div><div><span class="wq-pill">All except Los Angeles</span></div><span class="wq-pill success">Active</span><div class="wq-aut-actions"><button class="wq-secondary">Preview</button><button class="wq-secondary">Edit</button><button class="wq-switch on" aria-label="Active"></button></div></article><article class="wq-aut-row"><div><span class="wq-aut-icon">LA</span><div><strong>LA fast Sent follow-up</strong><small>Sent · 3 working days · Company-specific</small></div></div><div><span class="wq-pill company">Los Angeles only</span></div><span class="wq-pill success">Active</span><div class="wq-aut-actions"><button class="wq-secondary">Preview</button><button class="wq-secondary">Edit</button><button class="wq-switch on" aria-label="Active"></button></div></article><article class="wq-aut-row"><div><span class="wq-aut-icon">Q</span><div><strong>Quote build & SOW checks</strong><small>In Progress · standard Organisation policy</small></div></div><div><span class="wq-pill">All Companies</span></div><span class="wq-pill">Inactive</span><div class="wq-aut-actions"><button class="wq-secondary">Preview</button><button class="wq-secondary">Edit</button><button class="wq-switch" aria-label="Inactive"></button></div></article></div><div class="wq-guidance" style="margin-top:10px"><span class="wq-existing-tag">CURRENT WEQUOTE</span><span>Secondary Companies still provide the Quote issuer identity. The Company-aware CRM scope, access, filtering and Automation enrolment shown here are proposed new functionality.</span></div>` }
+        ]
+      }
+    };
+
+    let currentFlow = 'lead';
+    let currentStep = 0;
+
+    function render() {
+      const flow = flows[currentFlow];
+      const step = flow.steps[currentStep];
+      flowKicker.textContent = flow.kicker;
+      flowTitle.textContent = flow.title;
+      title.textContent = step.title;
+      breadcrumb.textContent = step.breadcrumb;
+      stepCount.textContent = `${currentStep + 1} / ${flow.steps.length}`;
+      screen.innerHTML = step.render();
+      root.querySelectorAll('[data-route]').forEach(button => button.classList.toggle('active', button.dataset.route === step.route));
+      root.querySelectorAll('[data-flow]').forEach(button => {
+        const active = button.dataset.flow === currentFlow;
+        button.classList.toggle('btn-primary', active);
+      });
+      dots.innerHTML = flow.steps.map((_, index) => `<button type="button" aria-label="Step ${index + 1}" data-step="${index}" class="${index === currentStep ? 'active' : ''}"></button>`).join('');
+      prev.disabled = currentStep === 0;
+      next.disabled = currentStep === flow.steps.length - 1;
+    }
+
+    root.querySelectorAll('[data-flow]').forEach(button => button.addEventListener('click', () => {
+      currentFlow = button.dataset.flow;
+      currentStep = 0;
+      render();
+    }));
+    dots.addEventListener('click', event => {
+      const button = event.target.closest('[data-step]');
+      if (!button) return;
+      currentStep = Number(button.dataset.step);
+      render();
+    });
+    prev.addEventListener('click', () => { if (currentStep > 0) { currentStep -= 1; render(); } });
+    next.addEventListener('click', () => { if (currentStep < flows[currentFlow].steps.length - 1) { currentStep += 1; render(); } });
+    render();
+  })();
+</script>

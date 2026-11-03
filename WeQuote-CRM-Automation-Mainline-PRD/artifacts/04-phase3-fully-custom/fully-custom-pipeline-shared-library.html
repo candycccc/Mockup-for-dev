@@ -1,0 +1,112 @@
+<div id="wq-fully-custom-shared-library">
+  <style>
+    #wq-fully-custom-shared-library { width: 100%; color: var(--foreground); background: transparent; font-family: inherit; }
+    #wq-fully-custom-shared-library * { box-sizing: border-box; }
+    #wq-fully-custom-shared-library h2,
+    #wq-fully-custom-shared-library h3,
+    #wq-fully-custom-shared-library h4,
+    #wq-fully-custom-shared-library p { margin-top: 0; }
+    #wq-fully-custom-shared-library .wq-intro { margin-bottom: 18px; }
+    #wq-fully-custom-shared-library .wq-intro p { margin-bottom: 0; color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-stage-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: 18px 0 12px; }
+    #wq-fully-custom-shared-library .wq-stage { position: relative; padding: 10px 8px; text-align: center; border-top: 3px solid var(--viz-series-3); background: color-mix(in srgb, var(--viz-series-3) 10%, transparent); min-width: 0; }
+    #wq-fully-custom-shared-library .wq-stage strong,
+    #wq-fully-custom-shared-library .wq-stage small { display: block; overflow-wrap: anywhere; }
+    #wq-fully-custom-shared-library .wq-stage small { color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-stage:not(:last-child)::after { content: "→"; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-name-rule { display: flex; gap: 9px; align-items: flex-start; padding: 11px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    #wq-fully-custom-shared-library .wq-name-rule strong { display: block; }
+    #wq-fully-custom-shared-library .wq-name-rule span { color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-arrow { text-align: center; color: var(--viz-series-1); margin: 10px 0; }
+    #wq-fully-custom-shared-library .wq-context { text-align: center; margin-bottom: 16px; }
+    #wq-fully-custom-shared-library .wq-context strong { display: block; }
+    #wq-fully-custom-shared-library .wq-context span { color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-library { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    #wq-fully-custom-shared-library .wq-column { padding-left: 12px; border-left: 4px solid var(--viz-series-1); min-width: 0; }
+    #wq-fully-custom-shared-library .wq-column.rule { border-left-color: var(--viz-series-2); }
+    #wq-fully-custom-shared-library .wq-column.action { border-left-color: var(--viz-series-3); }
+    #wq-fully-custom-shared-library .wq-column h3 { margin-bottom: 4px; }
+    #wq-fully-custom-shared-library .wq-column > p { color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-group { margin-top: 13px; }
+    #wq-fully-custom-shared-library .wq-group h4 { margin-bottom: 5px; }
+    #wq-fully-custom-shared-library .wq-group ul { margin: 0; padding-left: 18px; color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-group li { margin: 3px 0; }
+    #wq-fully-custom-shared-library .wq-examples { margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--border); }
+    #wq-fully-custom-shared-library .wq-examples > p { color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-example-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    #wq-fully-custom-shared-library .wq-example { padding-left: 11px; border-left: 3px solid var(--viz-series-1); }
+    #wq-fully-custom-shared-library .wq-example strong,
+    #wq-fully-custom-shared-library .wq-example span { display: block; }
+    #wq-fully-custom-shared-library .wq-example span { color: var(--muted-foreground); }
+    #wq-fully-custom-shared-library .wq-safety { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 20px; }
+    #wq-fully-custom-shared-library .wq-safety div { padding-left: 11px; border-left: 3px solid var(--border); }
+    #wq-fully-custom-shared-library .wq-safety strong { display: block; }
+    #wq-fully-custom-shared-library .wq-safety span { color: var(--muted-foreground); }
+    @media (max-width: 760px) {
+      #wq-fully-custom-shared-library .wq-stage-row { grid-template-columns: 1fr; }
+      #wq-fully-custom-shared-library .wq-stage:not(:last-child)::after { content: "↓"; top: auto; right: 50%; bottom: -15px; transform: translateX(50%); }
+      #wq-fully-custom-shared-library .wq-library,
+      #wq-fully-custom-shared-library .wq-example-grid,
+      #wq-fully-custom-shared-library .wq-safety { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <section class="wq-intro">
+    <h2>Fully Custom Pipeline · one shared Automation library</h2>
+    <p>A customer may use any Stage name. The name is only a label; it never decides which Automation options are available.</p>
+  </section>
+
+  <div class="wq-stage-row" role="img" aria-label="Example fully custom pipeline using arbitrary customer-defined Stage names">
+    <div class="wq-stage"><small>Any name</small><strong>New Opportunity</strong></div>
+    <div class="wq-stage"><small>Any name</small><strong>Customer Documents</strong></div>
+    <div class="wq-stage"><small>Any name</small><strong>Banana</strong></div>
+    <div class="wq-stage"><small>Any name</small><strong>Ready to Install</strong></div>
+    <div class="wq-stage"><small>Any name</small><strong>Finished</strong></div>
+  </div>
+
+  <div class="wq-name-rule"><span aria-hidden="true">ⓘ</span><div><strong>Stage name never defines the Automation</strong><span>Every Custom Stage opens the same Starts when, Rules and Actions library. Only “this Stage” and the available Move Deal targets change.</span></div></div>
+  <div class="wq-arrow" aria-hidden="true">↓</div>
+  <div class="wq-context"><strong>Automation created inside: [Current Custom Stage]</strong><span>The system stores the Stage ID and displays the customer’s current Stage name.</span></div>
+
+  <div class="wq-library">
+    <section class="wq-column">
+      <h3>Starts when</h3>
+      <p>The same event picker appears in every Custom Stage.</p>
+      <div class="wq-group"><h4>Stage and Deal</h4><ul><li>A Deal is created</li><li>A Deal enters or leaves this Stage</li><li>A Deal moves from a selected Stage</li><li>A Deal stays in this Stage for a set time</li><li>Owner, Watcher, Label or Interest changes</li><li>Value, Margin or Expected Close Date changes</li></ul></div>
+      <div class="wq-group"><h4>Activities, files and time</h4><ul><li>Next Action or Note follow-up changes</li><li>Meeting or Site Visit status changes</li><li>A file is uploaded, removed or received</li><li>No activity for a set time</li><li>A selected date or time is reached</li></ul></div>
+      <div class="wq-group"><h4>Optional Quote events</h4><ul><li>Quote created, edited, sent, viewed, accepted or expiring</li><li>Shown only when related Quote data is available</li></ul></div>
+    </section>
+
+    <section class="wq-column rule">
+      <h3>Rules</h3>
+      <p>The same condition library appears in every Custom Stage.</p>
+      <div class="wq-group"><h4>Stage and Deal data</h4><ul><li>Deal is still in this Stage</li><li>Deal came from a selected Stage</li><li>Deal stayed here for a set time</li><li>Owner, Watcher, Label or Interest matches</li><li>Value, Margin, Company or Expected Close matches</li><li>Automation has or has not run before</li></ul></div>
+      <div class="wq-group"><h4>Work and evidence</h4><ul><li>Next Action or recent Activity exists</li><li>Meeting or Site Visit has a selected status</li><li>Open Note follow-up exists</li><li>Required file exists or is missing</li><li>Open file request exists</li></ul></div>
+      <div class="wq-group"><h4>Paths and optional Quote data</h4><ul><li>Combine Rules with AND or OR</li><li>Each result creates a Yes and No path</li><li>Quote status, viewed state, expiry or viability when available</li></ul></div>
+    </section>
+
+    <section class="wq-column action">
+      <h3>Actions</h3>
+      <p>The same Action library appears in every Custom Stage.</p>
+      <div class="wq-group"><h4>Deal work</h4><ul><li>Assign a specific Deal Owner</li><li>Set or clear the Deal Next Action</li><li>Add or remove a Deal Watcher</li><li>Add or remove a Deal Label</li><li>Add or remove an Interest</li><li>Create a Note</li><li>Schedule a Meeting or Site Visit</li></ul></div>
+      <div class="wq-group"><h4>Files, dates and communication</h4><ul><li>Request a file or attach a file</li><li>Set the Expected Close Date</li><li>Send an internal notification</li><li>Optional: create a related Quote or add a Quote Label</li></ul></div>
+      <div class="wq-group"><h4>Flow control</h4><ul><li>Move Deal to another Stage in this Pipeline</li><li>End the Automation path safely</li></ul></div>
+    </section>
+  </div>
+
+  <section class="wq-examples">
+    <h3>The Stage name is inserted into generic wording</h3>
+    <p>Example current Stage: “Banana”. The customer still chooses every Rule and Action.</p>
+    <div class="wq-example-grid">
+      <div class="wq-example"><strong>Generic event</strong><span>Deal enters this Stage</span><strong>Displayed</strong><span>Deal enters “Banana”</span></div>
+      <div class="wq-example"><strong>Generic time event</strong><span>Deal stays here for 7 days</span><strong>Displayed</strong><span>Deal stays in “Banana” for 7 days</span></div>
+      <div class="wq-example"><strong>Generic Action</strong><span>Move Deal to selected Stage</span><strong>Displayed</strong><span>Move Deal to “Ready to Install”</span></div>
+    </div>
+  </section>
+
+  <div class="wq-safety">
+    <div><strong>No name guessing</strong><span>Words such as Documents, Review, Sent or Closed never create Automation logic automatically.</span></div>
+    <div><strong>No automatic sequence</strong><span>The previous or next Stage is not added as a Rule or Action unless the customer selects it.</span></div>
+    <div><strong>Availability depends on features</strong><span>Options may be hidden only when a CRM module or related Quote data is unavailable—not because of the Stage name.</span></div>
+  </div>
+</div>

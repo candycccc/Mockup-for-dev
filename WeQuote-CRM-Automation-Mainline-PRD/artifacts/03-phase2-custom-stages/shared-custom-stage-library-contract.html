@@ -1,0 +1,778 @@
+<div id="wq-shared-library-contract">
+  <style>
+    #wq-shared-library-contract {
+      --ink: #203044;
+      --muted: #687b96;
+      --line: #dbe4ef;
+      --soft: #f7f9fc;
+      --blue: #2f66ed;
+      --blue-soft: #eef4ff;
+      --violet: #7543e8;
+      --violet-soft: #f3efff;
+      --green: #23894f;
+      --green-soft: #edf9f1;
+      --amber: #b96709;
+      --amber-soft: #fff6e8;
+      --red: #cc3b50;
+      --red-soft: #fff0f2;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    #wq-shared-library-contract * { box-sizing: border-box; }
+    #wq-shared-library-contract h1,
+    #wq-shared-library-contract h2,
+    #wq-shared-library-contract h3,
+    #wq-shared-library-contract p { margin: 0; }
+
+    #wq-shared-library-contract .wq-kicker {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-title {
+      margin-top: 6px;
+      font-size: clamp(24px, 3vw, 34px);
+      line-height: 1.12;
+      letter-spacing: -.025em;
+    }
+
+    #wq-shared-library-contract .wq-subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+      max-width: 840px;
+    }
+
+    #wq-shared-library-contract .wq-invariant {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 16px 18px;
+      border: 2px solid #7db995;
+      border-radius: 14px;
+      background: var(--green-soft);
+    }
+
+    #wq-shared-library-contract .wq-lock {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #fff;
+      background: var(--green);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    #wq-shared-library-contract .wq-invariant strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    #wq-shared-library-contract .wq-invariant span {
+      display: block;
+      margin-top: 3px;
+      color: #426955;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    #wq-shared-library-contract .wq-section-title {
+      margin-top: 24px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    #wq-shared-library-contract .wq-section-title h2 {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    #wq-shared-library-contract .wq-section-title span {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    #wq-shared-library-contract .wq-scope-row {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    #wq-shared-library-contract .wq-scope {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--soft);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    #wq-shared-library-contract .wq-scope strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--blue);
+      font-size: 10px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-scope.out strong { color: var(--red); }
+
+    #wq-shared-library-contract .wq-pipeline-wrap {
+      margin-top: 17px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    #wq-shared-library-contract .wq-pipeline-label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    #wq-shared-library-contract .wq-pipeline-label strong { font-size: 14px; }
+    #wq-shared-library-contract .wq-pipeline-label span { color: var(--muted); font-size: 11px; }
+
+    #wq-shared-library-contract .wq-pipeline {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow: hidden;
+    }
+
+    #wq-shared-library-contract .wq-stage-node {
+      flex: 0 0 auto;
+      padding: 8px 10px;
+      border: 1px solid #cbd7e6;
+      border-radius: 8px;
+      background: var(--soft);
+      font-size: 10px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    #wq-shared-library-contract .wq-stage-node.custom {
+      border-color: #95c9a8;
+      color: #17693c;
+      background: var(--green-soft);
+    }
+
+    #wq-shared-library-contract .wq-stage-node.outcome {
+      border-color: #efc88f;
+      color: #86500d;
+      background: var(--amber-soft);
+    }
+
+    #wq-shared-library-contract .wq-stage-arrow {
+      flex: 1 1 12px;
+      min-width: 8px;
+      color: #91a1b6;
+      font-size: 13px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    #wq-shared-library-contract .wq-pipeline-note {
+      margin-top: 9px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    #wq-shared-library-contract .wq-library {
+      margin-top: 11px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    #wq-shared-library-contract .wq-library-col {
+      min-width: 0;
+      border: 1px solid var(--line);
+      border-top-width: 5px;
+      border-radius: 13px;
+      padding: 15px 16px 16px;
+      background: #fff;
+    }
+
+    #wq-shared-library-contract .wq-library-col.starts {
+      border-top-color: var(--violet);
+      background: var(--violet-soft);
+    }
+
+    #wq-shared-library-contract .wq-library-col.rules {
+      border-top-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    #wq-shared-library-contract .wq-library-col.actions {
+      border-top-color: var(--green);
+      background: var(--green-soft);
+    }
+
+    #wq-shared-library-contract .wq-library-col h3 {
+      font-size: 13px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-library-col.starts h3 { color: var(--violet); }
+    #wq-shared-library-contract .wq-library-col.rules h3 { color: var(--blue); }
+    #wq-shared-library-contract .wq-library-col.actions h3 { color: var(--green); }
+
+    #wq-shared-library-contract ul {
+      margin: 11px 0 0;
+      padding-left: 18px;
+      font-size: 12.5px;
+      line-height: 1.42;
+    }
+
+    #wq-shared-library-contract li + li { margin-top: 5px; }
+
+    #wq-shared-library-contract .wq-equality {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 14px;
+      border: 1px solid #bcd0f7;
+      border-radius: 12px;
+      background: #f8fbff;
+      text-align: center;
+    }
+
+    #wq-shared-library-contract .wq-equality .eq-stage {
+      padding: 8px 10px;
+      border: 1px solid #bfd0e8;
+      border-radius: 9px;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    #wq-shared-library-contract .wq-equality .eq {
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    #wq-shared-library-contract .wq-equality-note {
+      margin-top: 7px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    #wq-shared-library-contract .wq-change-contract {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    #wq-shared-library-contract .wq-change-list {
+      padding: 14px 15px;
+      border-radius: 11px;
+      font-size: 11.5px;
+      line-height: 1.42;
+    }
+
+    #wq-shared-library-contract .wq-change-list h3 {
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-change-list.same {
+      border: 1px solid #a9d4b8;
+      background: var(--green-soft);
+    }
+
+    #wq-shared-library-contract .wq-change-list.same h3 { color: var(--green); }
+
+    #wq-shared-library-contract .wq-change-list.different {
+      border: 1px solid #c6d5f5;
+      background: var(--blue-soft);
+    }
+
+    #wq-shared-library-contract .wq-change-list.different h3 { color: var(--blue); }
+
+    #wq-shared-library-contract .wq-lower {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+    }
+
+    #wq-shared-library-contract .wq-box {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 17px;
+      background: #fff;
+    }
+
+    #wq-shared-library-contract .wq-box > h2 {
+      font-size: 17px;
+    }
+
+    #wq-shared-library-contract .wq-box > p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.4;
+    }
+
+    #wq-shared-library-contract .wq-stage-configs {
+      margin-top: 13px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    #wq-shared-library-contract .wq-stage-config {
+      padding: 12px;
+      border: 1px solid #cfd9e6;
+      border-radius: 11px;
+      background: var(--soft);
+    }
+
+    #wq-shared-library-contract .wq-stage-config .stage-name {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    #wq-shared-library-contract .wq-stage-config .stage-name small {
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-choice {
+      margin-top: 8px;
+      padding-left: 8px;
+      border-left: 3px solid var(--line);
+      font-size: 10.5px;
+      line-height: 1.35;
+    }
+
+    #wq-shared-library-contract .wq-choice b {
+      display: block;
+      color: var(--muted);
+      font-size: 8.5px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-choice.start { border-color: var(--violet); }
+    #wq-shared-library-contract .wq-choice.rule { border-color: var(--blue); }
+    #wq-shared-library-contract .wq-choice.action { border-color: var(--green); }
+
+    #wq-shared-library-contract .wq-not-library {
+      border-color: #edc993;
+      background: var(--amber-soft);
+    }
+
+    #wq-shared-library-contract .wq-not-library .label {
+      display: inline-block;
+      padding: 4px 7px;
+      border-radius: 6px;
+      color: #fff;
+      background: var(--amber);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-results {
+      margin-top: 12px;
+      display: grid;
+      gap: 7px;
+    }
+
+    #wq-shared-library-contract .wq-result {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 20px minmax(0, .9fr);
+      gap: 7px;
+      align-items: center;
+      padding: 8px 9px;
+      border: 1px solid #efd8b7;
+      border-radius: 9px;
+      background: rgba(255,255,255,.72);
+      font-size: 10.5px;
+      line-height: 1.3;
+    }
+
+    #wq-shared-library-contract .wq-result .arrow {
+      color: var(--amber);
+      font-size: 15px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    #wq-shared-library-contract .wq-result strong { color: #7a4208; }
+
+    #wq-shared-library-contract .wq-guardrails {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    #wq-shared-library-contract .wq-guardrail {
+      padding: 13px 14px;
+      border-radius: 11px;
+      font-size: 11.5px;
+      line-height: 1.38;
+    }
+
+    #wq-shared-library-contract .wq-guardrail strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 11px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    #wq-shared-library-contract .wq-guardrail.dont {
+      border: 1px solid #f1b8c0;
+      color: #8f2435;
+      background: var(--red-soft);
+    }
+
+    #wq-shared-library-contract .wq-guardrail.do {
+      border: 1px solid #a9d4b8;
+      color: #1d693d;
+      background: var(--green-soft);
+    }
+
+    #wq-shared-library-contract .wq-ui-contract {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    #wq-shared-library-contract .wq-ui-contract h2 { font-size: 17px; }
+    #wq-shared-library-contract .wq-ui-contract > p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    #wq-shared-library-contract .wq-ui-layout {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: .85fr 1.3fr .85fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    #wq-shared-library-contract .wq-ui-panel {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--soft);
+    }
+
+    #wq-shared-library-contract .wq-ui-panel h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    #wq-shared-library-contract .wq-ui-panel p {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 10.5px;
+      line-height: 1.4;
+    }
+
+    #wq-shared-library-contract .wq-mini-flow {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 5px;
+    }
+
+    #wq-shared-library-contract .wq-mini-block {
+      padding: 7px 5px;
+      border-radius: 7px;
+      font-size: 9px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    #wq-shared-library-contract .wq-mini-block.start { color: var(--violet); background: var(--violet-soft); }
+    #wq-shared-library-contract .wq-mini-block.rule { color: var(--blue); background: var(--blue-soft); }
+    #wq-shared-library-contract .wq-mini-block.action { color: var(--green); background: var(--green-soft); }
+    #wq-shared-library-contract .wq-mini-arrow { color: #91a1b6; font-size: 11px; }
+
+    #wq-shared-library-contract .wq-summary-lines {
+      margin-top: 9px;
+      display: grid;
+      gap: 6px;
+    }
+
+    #wq-shared-library-contract .wq-summary-line {
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--line);
+      font-size: 10px;
+    }
+
+    #wq-shared-library-contract .wq-summary-line b {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 760px) {
+      #wq-shared-library-contract { padding: 18px; }
+      #wq-shared-library-contract .wq-library,
+      #wq-shared-library-contract .wq-lower,
+      #wq-shared-library-contract .wq-guardrails,
+      #wq-shared-library-contract .wq-scope-row,
+      #wq-shared-library-contract .wq-change-contract,
+      #wq-shared-library-contract .wq-ui-layout { grid-template-columns: 1fr; }
+      #wq-shared-library-contract .wq-stage-configs { grid-template-columns: 1fr; }
+      #wq-shared-library-contract .wq-section-title { display: block; }
+      #wq-shared-library-contract .wq-section-title span { display: block; margin-top: 4px; text-align: left; }
+      #wq-shared-library-contract .wq-pipeline { flex-wrap: wrap; }
+      #wq-shared-library-contract .wq-stage-arrow { flex: 0 0 auto; }
+    }
+  </style>
+
+  <div class="wq-kicker">Developer contract · Multi Custom Stages added into a Quote lifecycle</div>
+  <h1 class="wq-title">Multi Custom Stages in a Quote-connected Pipeline</h1>
+  <p class="wq-subtitle">One or many customer-defined Custom Stages may be inserted between protected Quote lifecycle Stages. Every inserted Custom Stage uses one identical Shared Core Automation library.</p>
+
+  <div class="wq-invariant">
+    <div class="wq-lock" aria-hidden="true">✓</div>
+    <div>
+      <strong>Non-negotiable invariant: every Custom Stage receives the exact same Core block IDs.</strong>
+      <span>No Core block may be added, removed, renamed, hidden or disabled because the Stage is placed in a different lifecycle segment.</span>
+    </div>
+  </div>
+
+  <div class="wq-scope-row">
+    <div class="wq-scope">
+      <strong>In scope</strong>
+      A Quote-connected Pipeline with one or multiple Custom Stages inserted between protected lifecycle Stages.
+    </div>
+    <div class="wq-scope out">
+      <strong>Not this diagram</strong>
+      A Fully Custom Pipeline. It has no protected Quote lifecycle result and must be documented separately.
+    </div>
+  </div>
+
+  <div class="wq-pipeline-wrap">
+    <div class="wq-pipeline-label">
+      <strong>Example: multiple Custom Stages inside the Quote lifecycle</strong>
+      <span>Green = customer-defined · Grey/amber = WeQuote protected</span>
+    </div>
+    <div class="wq-pipeline" aria-label="Qualified, Custom A, Custom X, Custom B, In Progress, In Review, Passed Review, Sent, Won or Lost">
+      <div class="wq-stage-node">Qualified</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node custom">Custom A</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node custom">Custom X</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node custom">Custom B</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node">In Progress</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node">In Review</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node">Passed Review</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node">Sent</div><div class="wq-stage-arrow">→</div>
+      <div class="wq-stage-node outcome">Won / Lost</div>
+    </div>
+    <div class="wq-pipeline-note">Custom A, Custom X and Custom B can select different blocks — but all three see the same available library.</div>
+  </div>
+
+  <div class="wq-section-title">
+    <h2>One source of truth: Shared Core block library</h2>
+    <span>Available options — not a saved Automation</span>
+  </div>
+
+  <div class="wq-library">
+    <section class="wq-library-col starts">
+      <h3>Starts when</h3>
+      <ul>
+        <li>Deal enters this Custom Stage</li>
+        <li>Deal Owner changes</li>
+        <li>Deal Next Action changes or becomes due</li>
+        <li>Meeting / Site Visit changes</li>
+        <li>File is added or requested file is received</li>
+        <li>Deal inactivity or Expected Close approaches</li>
+        <li>Deal data changes</li>
+      </ul>
+    </section>
+
+    <section class="wq-library-col rules">
+      <h3>Rules</h3>
+      <ul>
+        <li>Deal is still in this Custom Stage</li>
+        <li>Owner or Next Action is missing</li>
+        <li>Required task or file is missing</li>
+        <li>Meeting / Site Visit is complete or incomplete</li>
+        <li>Recent Activity exists or does not exist</li>
+        <li>Label, Interest, Value or Company matches</li>
+        <li>Expected Close Date matches</li>
+      </ul>
+    </section>
+
+    <section class="wq-library-col actions">
+      <h3>Actions</h3>
+      <ul>
+        <li>Assign Deal Owner</li>
+        <li>Set / Clear Deal Next Action</li>
+        <li>Create Note</li>
+        <li>Schedule Meeting / Site Visit</li>
+        <li>Add / Remove Watcher, Label or Interest</li>
+        <li>Request / Attach file</li>
+        <li>Set Expected Close Date</li>
+        <li>Send internal notification</li>
+        <li>Move to a named Custom Stage</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="wq-equality" aria-label="All Custom Stages receive the same block library">
+    <div class="eq-stage">availableCoreBlocks(Custom A)</div>
+    <div class="eq">=</div>
+    <div class="eq-stage">availableCoreBlocks(Custom X)</div>
+    <div class="eq">=</div>
+    <div class="eq-stage">availableCoreBlocks(Custom B)</div>
+  </div>
+  <div class="wq-equality-note">The Stage ID and placement must not change this returned Core list.</div>
+
+  <div class="wq-change-contract">
+    <section class="wq-change-list same">
+      <h3>Always identical for every Custom Stage</h3>
+      <ul>
+        <li>Available Starts when block IDs</li>
+        <li>Available Rule block IDs</li>
+        <li>Available Action block IDs</li>
+        <li>Block names, settings fields and validation rules</li>
+      </ul>
+    </section>
+    <section class="wq-change-list different">
+      <h3>Saved independently per Custom Stage</h3>
+      <ul>
+        <li>Selected blocks and their configured values</li>
+        <li>Block order and Yes / No paths</li>
+        <li>Active / Inactive, Draft, Test and Publish state</li>
+        <li>Pipeline, Stage, Company scope and lifecycle placement metadata</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="wq-lower">
+    <section class="wq-box">
+      <h2>Different saved configurations</h2>
+      <p>Each Stage independently selects and configures blocks from the same library.</p>
+      <div class="wq-stage-configs">
+        <div class="wq-stage-config">
+          <div class="stage-name"><span>Custom A</span><small>Independent</small></div>
+          <div class="wq-choice start"><b>Selected start</b>Deal enters Custom A</div>
+          <div class="wq-choice rule"><b>Selected rule</b>Owner is missing</div>
+          <div class="wq-choice action"><b>Selected action</b>Assign Deal Owner</div>
+        </div>
+        <div class="wq-stage-config">
+          <div class="stage-name"><span>Custom X</span><small>Independent</small></div>
+          <div class="wq-choice start"><b>Selected start</b>Requested file received</div>
+          <div class="wq-choice rule"><b>Selected rule</b>Required file exists</div>
+          <div class="wq-choice action"><b>Selected action</b>Create Note</div>
+        </div>
+        <div class="wq-stage-config">
+          <div class="stage-name"><span>Custom B</span><small>Independent</small></div>
+          <div class="wq-choice start"><b>Selected start</b>Next Action due</div>
+          <div class="wq-choice rule"><b>Selected rule</b>No recent Activity</div>
+          <div class="wq-choice action"><b>Selected action</b>Schedule Meeting</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wq-box wq-not-library">
+      <span class="label">Outside the Automation library</span>
+      <h2 style="margin-top:10px">Read-only Quote lifecycle result</h2>
+      <p>Placement selects this context only. These events are not Starts when, Rule or Action blocks.</p>
+      <div class="wq-results">
+        <div class="wq-result"><span>First Quote created</span><span class="arrow">→</span><strong>In Progress</strong></div>
+        <div class="wq-result"><span>Quote submitted</span><span class="arrow">→</span><strong>In Review</strong></div>
+        <div class="wq-result"><span>Review approved</span><span class="arrow">→</span><strong>Passed Review</strong></div>
+        <div class="wq-result"><span>Quote sent</span><span class="arrow">→</span><strong>Sent</strong></div>
+        <div class="wq-result"><span>Accepted / no viable Quote</span><span class="arrow">→</span><strong>Won / Lost</strong></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="wq-ui-contract">
+    <h2>Automation Editor UI contract</h2>
+    <p>The editor separates available blocks, the saved flow and read-only context.</p>
+    <div class="wq-ui-layout">
+      <div class="wq-ui-panel">
+        <h3>Left · Workflow blocks</h3>
+        <p>Always shows the same Shared Core Starts when, Actions and Rules for every Custom Stage.</p>
+      </div>
+      <div class="wq-ui-panel">
+        <h3>Centre · This Stage's saved Automation</h3>
+        <div class="wq-mini-flow" aria-label="Selected Starts when, Rule and Actions">
+          <div class="wq-mini-block start">Starts when</div><div class="wq-mini-arrow">→</div>
+          <div class="wq-mini-block rule">Rule</div><div class="wq-mini-arrow">→</div>
+          <div class="wq-mini-block action">Actions</div>
+        </div>
+        <p>Only the selected blocks and configured values differ by Stage.</p>
+      </div>
+      <div class="wq-ui-panel">
+        <h3>Right · Flow summary</h3>
+        <div class="wq-summary-lines">
+          <div class="wq-summary-line"><b>Pipeline</b>Sales Pipeline</div>
+          <div class="wq-summary-line"><b>Pipeline Stage</b>Custom X</div>
+          <div class="wq-summary-line"><b>Company scope</b>All Companies</div>
+          <div class="wq-summary-line"><b>Lifecycle context</b>Qualified → In Progress</div>
+          <div class="wq-summary-line"><b>System progression</b>First Quote created → In Progress</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wq-guardrails">
+    <div class="wq-guardrail dont">
+      <strong>Do not</strong>
+      Build five different Core libraries, filter Core Actions by placement, or render system progression as a fourth editable Automation block.
+    </div>
+    <div class="wq-guardrail do">
+      <strong>Implement</strong>
+      One shared Core library source, independent Stage Automation records, and separate read-only lifecycle context metadata.
+    </div>
+  </div>
+</div>

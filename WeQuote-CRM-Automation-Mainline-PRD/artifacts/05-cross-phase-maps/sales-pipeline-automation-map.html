@@ -1,0 +1,249 @@
+<div id="wq-automation-map">
+  <style>
+    #wq-automation-map {
+      color: var(--foreground);
+      background: transparent;
+      font-family: inherit;
+      width: 100%;
+    }
+    #wq-automation-map * { box-sizing: border-box; }
+    #wq-automation-map h2,
+    #wq-automation-map h3,
+    #wq-automation-map p { margin-top: 0; }
+    #wq-automation-map .wq-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-end;
+      margin-bottom: 14px;
+    }
+    #wq-automation-map .wq-head p { margin-bottom: 0; color: var(--muted-foreground); }
+    #wq-automation-map .wq-legend { display: flex; flex-wrap: wrap; gap: 12px; }
+    #wq-automation-map .wq-legend span { display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }
+    #wq-automation-map .wq-legend i { width: 10px; height: 10px; display: inline-block; }
+    #wq-automation-map .wq-legend .protected i { background: var(--viz-series-1); }
+    #wq-automation-map .wq-legend .custom i { background: var(--viz-series-3); }
+
+    #wq-automation-map .wq-lifecycle {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+      margin-bottom: 18px;
+    }
+    #wq-automation-map .wq-stage-chip {
+      position: relative;
+      min-width: 0;
+      padding: 9px 7px;
+      background: color-mix(in srgb, var(--viz-series-1) 11%, transparent);
+      border-top: 3px solid var(--viz-series-1);
+      text-align: center;
+    }
+    #wq-automation-map .wq-stage-chip.custom {
+      background: color-mix(in srgb, var(--viz-series-3) 13%, transparent);
+      border-top-color: var(--viz-series-3);
+    }
+    #wq-automation-map .wq-stage-chip:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      right: -11px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted-foreground);
+    }
+    #wq-automation-map .wq-stage-chip small,
+    #wq-automation-map .wq-stage-name small,
+    #wq-automation-map .wq-col-title {
+      display: block;
+      color: var(--muted-foreground);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    #wq-automation-map .wq-stage-chip strong { display: block; overflow-wrap: anywhere; }
+
+    #wq-automation-map .wq-matrix-head,
+    #wq-automation-map .wq-stage-row {
+      display: grid;
+      grid-template-columns: minmax(125px, .75fr) minmax(220px, 1.45fr) minmax(220px, 1.35fr) minmax(250px, 1.6fr);
+      gap: 14px;
+    }
+    #wq-automation-map .wq-matrix-head {
+      padding: 0 0 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    #wq-automation-map .wq-stage-row {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    #wq-automation-map .wq-stage-name {
+      padding: 9px 10px;
+      border-left: 4px solid var(--viz-series-1);
+      background: color-mix(in srgb, var(--viz-series-1) 9%, transparent);
+    }
+    #wq-automation-map .wq-stage-name strong { display: block; }
+    #wq-automation-map .wq-node {
+      position: relative;
+      min-width: 0;
+      padding-left: 22px;
+    }
+    #wq-automation-map .wq-node::before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--muted-foreground);
+    }
+    #wq-automation-map .wq-node.start::before { content: "▶"; color: var(--viz-series-5); }
+    #wq-automation-map .wq-node.rule::before { content: "◆"; color: var(--viz-series-2); }
+    #wq-automation-map .wq-node.action::before { content: "✓"; color: var(--viz-series-3); }
+    #wq-automation-map .wq-node strong { display: block; margin-bottom: 4px; }
+    #wq-automation-map .wq-node ul { margin: 0; padding-left: 16px; color: var(--muted-foreground); }
+    #wq-automation-map .wq-node li { margin: 2px 0; }
+    #wq-automation-map .wq-primary { color: var(--foreground); font-weight: 500; }
+
+    #wq-automation-map .wq-custom-flow { margin-top: 22px; }
+    #wq-automation-map .wq-custom-flow > p { color: var(--muted-foreground); }
+    #wq-automation-map .wq-custom-chain {
+      display: grid;
+      grid-template-columns: minmax(140px, .9fr) 24px minmax(190px, 1.2fr) 24px minmax(190px, 1.2fr) 24px minmax(210px, 1.35fr);
+      align-items: stretch;
+      gap: 8px;
+    }
+    #wq-automation-map .wq-custom-node {
+      padding: 12px;
+      background: color-mix(in srgb, var(--viz-series-3) 11%, transparent);
+      border-top: 3px solid var(--viz-series-3);
+    }
+    #wq-automation-map .wq-custom-node.rule-box {
+      background: color-mix(in srgb, var(--viz-series-2) 10%, transparent);
+      border-top-color: var(--viz-series-2);
+    }
+    #wq-automation-map .wq-custom-node.action-box {
+      background: color-mix(in srgb, var(--viz-series-5) 10%, transparent);
+      border-top-color: var(--viz-series-5);
+    }
+    #wq-automation-map .wq-custom-node small { display: block; color: var(--muted-foreground); text-transform: uppercase; }
+    #wq-automation-map .wq-custom-node strong { display: block; margin: 3px 0 5px; }
+    #wq-automation-map .wq-custom-node span { color: var(--muted-foreground); }
+    #wq-automation-map .wq-arrow { display: grid; place-items: center; color: var(--muted-foreground); }
+    #wq-automation-map .wq-branches { margin-top: 8px; display: grid; gap: 6px; }
+    #wq-automation-map .wq-branches span { padding-left: 8px; border-left: 2px solid var(--border); }
+    #wq-automation-map .wq-branches b { color: var(--foreground); }
+    #wq-automation-map .wq-guardrail {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      margin-top: 14px;
+      padding: 10px 0;
+      color: var(--muted-foreground);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    #wq-automation-map .wq-guardrail b { color: var(--foreground); }
+
+    @media (max-width: 760px) {
+      #wq-automation-map .wq-head { display: block; }
+      #wq-automation-map .wq-legend { margin-top: 10px; }
+      #wq-automation-map .wq-lifecycle { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      #wq-automation-map .wq-stage-chip:not(:last-child)::after { content: "↓"; right: 4px; top: auto; bottom: -15px; transform: none; }
+      #wq-automation-map .wq-matrix-head { display: none; }
+      #wq-automation-map .wq-stage-row { grid-template-columns: 1fr; gap: 10px; }
+      #wq-automation-map .wq-node::after { content: attr(data-label); display: block; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 4px; order: -1; }
+      #wq-automation-map .wq-custom-chain { grid-template-columns: 1fr; }
+      #wq-automation-map .wq-arrow { transform: rotate(90deg); }
+    }
+  </style>
+
+  <div class="wq-head">
+    <div>
+      <h2>Sales Pipeline · Automation map</h2>
+      <p>每個 Stage 固定「範圍」，Automation 只處理入面嘅 Starts when、Rule 同 Action。</p>
+    </div>
+    <div class="wq-legend" aria-label="Legend">
+      <span class="protected"><i aria-hidden="true"></i>Protected lifecycle</span>
+      <span class="custom"><i aria-hidden="true"></i>Custom Stage overlay</span>
+    </div>
+  </div>
+
+  <div class="wq-lifecycle" role="img" aria-label="Protected Sales Pipeline with a Site Ready Custom Stage between Qualified and In Progress">
+    <div class="wq-stage-chip"><small>Protected</small><strong>Qualified</strong></div>
+    <div class="wq-stage-chip custom"><small>Custom demo</small><strong>Site Ready</strong></div>
+    <div class="wq-stage-chip"><small>Protected</small><strong>In Progress</strong></div>
+    <div class="wq-stage-chip"><small>Conditional</small><strong>In Review</strong></div>
+    <div class="wq-stage-chip"><small>Conditional</small><strong>Passed Review</strong></div>
+    <div class="wq-stage-chip"><small>Protected</small><strong>Sent</strong></div>
+    <div class="wq-stage-chip"><small>Outcome</small><strong>Won</strong></div>
+    <div class="wq-stage-chip"><small>Outcome</small><strong>Lost</strong></div>
+  </div>
+
+  <div class="wq-matrix-head" aria-hidden="true">
+    <span class="wq-col-title">Stage</span>
+    <span class="wq-col-title">Starts when</span>
+    <span class="wq-col-title">Rule</span>
+    <span class="wq-col-title">Action</span>
+  </div>
+
+  <section class="wq-stage-row" aria-label="Qualified automation options">
+    <div class="wq-stage-name"><small>Protected entry</small><strong>Qualified</strong></div>
+    <div class="wq-node start" data-label="Starts when"><strong class="wq-primary">Deal enters Qualified</strong><ul><li>Owner changes</li><li>Meeting / Site Visit changes</li><li>File added、Next Action due、Expected Close approaching</li></ul></div>
+    <div class="wq-node rule" data-label="Rule"><strong class="wq-primary">No open Deal Next Action?</strong><ul><li>Owner missing／no recent activity</li><li>Site or customer information incomplete</li><li>Required file missing、Label／Interest／Value criteria</li></ul></div>
+    <div class="wq-node action" data-label="Action"><strong class="wq-primary">Set Deal Next Action</strong><ul><li>Assign owner、Create Note、Meeting</li><li>Add／Remove Label、Interest、Watcher</li><li>Request／Attach file、Set Expected Close、Create first Quote</li></ul></div>
+  </section>
+
+  <section class="wq-stage-row" aria-label="In Progress automation options">
+    <div class="wq-stage-name"><small>Protected Quote lifecycle</small><strong>In Progress</strong></div>
+    <div class="wq-node start" data-label="Starts when"><strong class="wq-primary">First related Quote is created</strong><ul><li>Quote edited in In Progress</li><li>File added、Note follow-up due</li><li>Next Action due、Meeting / Site Visit changes</li></ul></div>
+    <div class="wq-node rule" data-label="Rule"><strong class="wq-primary">Pricing／SOW information missing?</strong><ul><li>Required file missing</li><li>No recent activity／no open Next Action</li><li>Deal Label、Interest、Value or Expected Close criteria</li></ul></div>
+    <div class="wq-node action" data-label="Action"><strong class="wq-primary">Create Quote-build Note</strong><ul><li>Set／Clear Next Action、assign owner</li><li>Request／Attach file、add Quote or Deal Label</li><li>Add／Remove Interest or Watcher、Set Expected Close</li></ul></div>
+  </section>
+
+  <section class="wq-stage-row" aria-label="In Review automation options">
+    <div class="wq-stage-name"><small>Protected · conditional</small><strong>In Review</strong></div>
+    <div class="wq-node start" data-label="Starts when"><strong class="wq-primary">Quote is submitted for internal review</strong><ul><li>Technical file is added</li><li>Review Note follow-up becomes due</li></ul></div>
+    <div class="wq-node rule" data-label="Rule"><strong class="wq-primary">No open technical review Note?</strong><ul><li>Required technical file missing</li><li>Reviewer／Watcher missing</li><li>Value or discount needs extra approval</li></ul></div>
+    <div class="wq-node action" data-label="Action"><strong class="wq-primary">Create review Note + mention reviewer</strong><ul><li>Add watcher／assign specific owner</li><li>Request or attach technical file</li><li>Set Next Action、add review Label</li></ul></div>
+  </section>
+
+  <section class="wq-stage-row" aria-label="Passed Review automation options">
+    <div class="wq-stage-name"><small>Protected · conditional</small><strong>Passed Review</strong></div>
+    <div class="wq-node start" data-label="Starts when"><strong class="wq-primary">Quote becomes Passed Review</strong><ul><li>Final file is added</li><li>Deal Next Action becomes due</li></ul></div>
+    <div class="wq-node rule" data-label="Rule"><strong class="wq-primary">Quote viable and customer content complete?</strong><ul><li>High value／discount approval needed</li><li>Final attachment or customer detail missing</li></ul></div>
+    <div class="wq-node action" data-label="Action"><strong class="wq-primary">Create ready-to-send Note</strong><ul><li>Set Next Action for send</li><li>Add approver watcher／High value Label</li><li>Attach final document</li></ul></div>
+  </section>
+
+  <section class="wq-stage-row" aria-label="Sent automation options">
+    <div class="wq-stage-name"><small>Protected customer stage</small><strong>Sent</strong></div>
+    <div class="wq-node start" data-label="Starts when"><strong class="wq-primary">Quote is Sent</strong><ul><li>Customer views a Sent Quote</li><li>Expiry approaches</li><li>Next Action／Note due、file added</li></ul></div>
+    <div class="wq-node rule" data-label="Rule"><strong class="wq-primary">Still Sent, viable and not accepted?</strong><ul><li>Viewed／not viewed</li><li>No recent activity／no open Next Action</li><li>Expiry date or Expected Close criteria</li></ul></div>
+    <div class="wq-node action" data-label="Action"><strong class="wq-primary">Set customer follow-up Next Action</strong><ul><li>Create Note or schedule Meeting</li><li>Add／Remove Label、Interest、Watcher</li><li>Request／Attach file、Set Expected Close</li></ul></div>
+  </section>
+
+  <section class="wq-stage-row" aria-label="Won automation options">
+    <div class="wq-stage-name"><small>Protected outcome</small><strong>Won</strong></div>
+    <div class="wq-node start" data-label="Starts when"><strong class="wq-primary">Quote is accepted</strong><ul><li>PO／contract file is added</li><li>Handoff Note or Next Action becomes due</li></ul></div>
+    <div class="wq-node rule" data-label="Rule"><strong class="wq-primary">No open handoff Next Action?</strong><ul><li>Deposit required</li><li>PO／contract／handover file missing</li><li>Finance or Project watcher missing</li></ul></div>
+    <div class="wq-node action" data-label="Action"><strong class="wq-primary">Set delivery／finance handoff</strong><ul><li>Create Note、add watcher</li><li>Request／attach handover file</li><li>Create reviewable Draft Invoice</li></ul></div>
+  </section>
+
+  <section class="wq-stage-row" aria-label="Lost automation options">
+    <div class="wq-stage-name"><small>Protected outcome</small><strong>Lost</strong></div>
+    <div class="wq-node start" data-label="Starts when"><strong class="wq-primary">Deal becomes Lost</strong><ul><li>Loss follow-up Note becomes due</li><li>Close-out file is added</li></ul></div>
+    <div class="wq-node rule" data-label="Rule"><strong class="wq-primary">Loss reason is empty?</strong><ul><li>No viable related Quote remains</li><li>Re-engagement date or Label criteria</li></ul></div>
+    <div class="wq-node action" data-label="Action"><strong class="wq-primary">Create loss-reason Note</strong><ul><li>Clear Deal Next Action</li><li>Add Lost／Follow-up Label</li><li>Attach close-out file or add watcher</li></ul></div>
+  </section>
+
+  <section class="wq-custom-flow" aria-labelledby="wq-custom-title">
+    <h3 id="wq-custom-title">Custom Stage demo · Site Ready</h3>
+    <p>Custom Stage 係 protected lifecycle 中間嘅工作層；可自訂 Automation，但唔可以改寫 Quote lifecycle 本身。</p>
+    <div class="wq-custom-chain" role="img" aria-label="Site Ready Custom Stage automation example">
+      <div class="wq-custom-node"><small>Starts when</small><strong>Deal enters Site Ready</strong><span>亦可揀 Owner、Meeting、File、Next Action、Expected Close；較後 segment 可揀 Related Quote changes。</span></div>
+      <div class="wq-arrow" aria-hidden="true">→</div>
+      <div class="wq-custom-node rule-box"><small>Rule</small><strong>Required site plans missing?</strong><span>Custom Stage 可用通用 Deal rules，加埋所屬 lifecycle segment 嘅 Quote rules。</span></div>
+      <div class="wq-arrow" aria-hidden="true">→</div>
+      <div class="wq-custom-node action-box"><small>Action</small><strong>Request file</strong><div class="wq-branches"><span><b>YES</b> Request Site plans · Deal owner · due 3 days · Required before first Quote</span><span><b>NO</b> Attach site checklist + Set Next Action「Create first Quote」</span></div></div>
+      <div class="wq-arrow" aria-hidden="true">→</div>
+      <div class="wq-custom-node"><small>Protected result</small><strong>First Quote created → In Progress</strong><span>Automation 可以準備同把關，但 protected Quote event 先真正推進 lifecycle。</span></div>
+    </div>
+    <div class="wq-guardrail"><span aria-hidden="true">🔒</span><span><b>客戶可以改：</b>Starts when、Rules、Actions、負責人、時間、Files、Labels、Interests、Watchers。<br><b>客戶唔可以改：</b>Quote Created → In Progress、Review → Passed Review、Sent、Accepted → Won、無 viable Quote → Lost 呢啲 protected mapping。</span></div>
+  </section>
+</div>

@@ -1,0 +1,317 @@
+<div id="wq-quote-custom-stage-segments">
+  <style>
+    #wq-quote-custom-stage-segments {
+      padding: 6px;
+      background: #ffffff;
+      color: #1f2f3e;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #wq-quote-custom-stage-segments * { box-sizing: border-box; }
+    #wq-quote-custom-stage-segments .wq-sheet {
+      overflow: hidden;
+      border: 1px solid #d9e2ee;
+      border-radius: 16px;
+      background: #ffffff;
+      box-shadow: 0 10px 28px rgba(31,47,62,.08);
+    }
+    #wq-quote-custom-stage-segments .wq-title {
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid #e0e7f1;
+    }
+    #wq-quote-custom-stage-segments .wq-title small {
+      display: block;
+      color: #2450ff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+    #wq-quote-custom-stage-segments h2 {
+      margin: 7px 0 5px;
+      font-size: clamp(21px, 3vw, 30px);
+      line-height: 1.15;
+    }
+    #wq-quote-custom-stage-segments .wq-title p {
+      margin: 0;
+      color: #65748a;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    #wq-quote-custom-stage-segments .wq-rule {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 16px 20px;
+      background: #f8fbff;
+      border-bottom: 1px solid #e0e7f1;
+    }
+    #wq-quote-custom-stage-segments .wq-rule > div {
+      padding: 12px 14px;
+      border-radius: 10px;
+    }
+    #wq-quote-custom-stage-segments .wq-rule .same {
+      border: 1px solid #8dc9a2;
+      background: #eef9f2;
+    }
+    #wq-quote-custom-stage-segments .wq-rule .changes {
+      border: 1px solid #e1bd78;
+      background: #fff8e9;
+    }
+    #wq-quote-custom-stage-segments .wq-rule strong,
+    #wq-quote-custom-stage-segments .wq-rule span { display: block; }
+    #wq-quote-custom-stage-segments .wq-rule strong { font-size: 13px; }
+    #wq-quote-custom-stage-segments .wq-rule span {
+      margin-top: 4px;
+      color: #5e6f86;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+    #wq-quote-custom-stage-segments .wq-rail-wrap {
+      padding: 18px 20px 12px;
+      overflow-x: auto;
+    }
+    #wq-quote-custom-stage-segments .wq-rail {
+      display: grid;
+      grid-template-columns: repeat(11, minmax(66px, 1fr));
+      align-items: center;
+      min-width: 900px;
+    }
+    #wq-quote-custom-stage-segments .wq-protected {
+      min-height: 54px;
+      display: grid;
+      place-items: center;
+      padding: 7px;
+      border: 1px solid #8fa9e8;
+      border-radius: 9px;
+      background: #eef3ff;
+      text-align: center;
+    }
+    #wq-quote-custom-stage-segments .wq-protected small,
+    #wq-quote-custom-stage-segments .wq-gap small { display: block; font-size: 8px; text-transform: uppercase; }
+    #wq-quote-custom-stage-segments .wq-protected small { color: #6076a5; }
+    #wq-quote-custom-stage-segments .wq-protected strong { font-size: 11px; line-height: 1.2; }
+    #wq-quote-custom-stage-segments .wq-gap {
+      position: relative;
+      min-height: 54px;
+      display: grid;
+      place-items: center;
+      padding: 4px;
+      color: #24783f;
+      text-align: center;
+    }
+    #wq-quote-custom-stage-segments .wq-gap::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 0;
+      left: 0;
+      height: 2px;
+      background: #9eb0c8;
+    }
+    #wq-quote-custom-stage-segments .wq-gap span {
+      position: relative;
+      z-index: 1;
+      padding: 6px 8px;
+      border: 1px solid #7fbd93;
+      border-radius: 999px;
+      background: #eff9f2;
+      font-size: 9px;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+    #wq-quote-custom-stage-segments .wq-section-title {
+      padding: 10px 20px 8px;
+      color: #31445c;
+      font-size: 14px;
+      font-weight: 800;
+    }
+    #wq-quote-custom-stage-segments .wq-context-head,
+    #wq-quote-custom-stage-segments .wq-context-row {
+      display: grid;
+      grid-template-columns: minmax(170px,.9fr) minmax(250px,1.35fr) minmax(250px,1.35fr);
+      gap: 10px;
+      align-items: stretch;
+    }
+    #wq-quote-custom-stage-segments .wq-context-head {
+      margin: 0 20px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #edf2f8;
+      color: #6c7b90;
+      font-size: 9px;
+      font-weight: 850;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    #wq-quote-custom-stage-segments .wq-contexts {
+      display: grid;
+      gap: 8px;
+      padding: 9px 20px 18px;
+    }
+    #wq-quote-custom-stage-segments .wq-context-row {
+      padding: 10px 12px;
+      border: 1px solid #dbe3ed;
+      border-radius: 10px;
+      background: #ffffff;
+    }
+    #wq-quote-custom-stage-segments .wq-place {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    #wq-quote-custom-stage-segments .wq-number {
+      flex: 0 0 auto;
+      width: 25px;
+      height: 25px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #e9f6ed;
+      color: #24783f;
+      font-size: 10px;
+      font-weight: 850;
+    }
+    #wq-quote-custom-stage-segments .wq-place strong,
+    #wq-quote-custom-stage-segments .wq-progression strong,
+    #wq-quote-custom-stage-segments .wq-added strong { display: block; font-size: 11px; line-height: 1.3; }
+    #wq-quote-custom-stage-segments .wq-place span,
+    #wq-quote-custom-stage-segments .wq-progression span,
+    #wq-quote-custom-stage-segments .wq-added span {
+      display: block;
+      margin-top: 3px;
+      color: #6b7a8f;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+    #wq-quote-custom-stage-segments .wq-progression {
+      padding-left: 10px;
+      border-left: 3px solid #2450ff;
+    }
+    #wq-quote-custom-stage-segments .wq-added {
+      padding-left: 10px;
+      border-left: 3px solid #c98500;
+    }
+    #wq-quote-custom-stage-segments .wq-core {
+      padding: 18px 20px 20px;
+      border-top: 1px solid #e0e7f1;
+      background: #f8fbff;
+    }
+    #wq-quote-custom-stage-segments .wq-core-head {
+      margin-bottom: 10px;
+    }
+    #wq-quote-custom-stage-segments .wq-core-head strong { display: block; color: #24783f; font-size: 15px; }
+    #wq-quote-custom-stage-segments .wq-core-head span { display: block; margin-top: 3px; color: #65748a; font-size: 11px; }
+    #wq-quote-custom-stage-segments .wq-core-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+    #wq-quote-custom-stage-segments .wq-core-group {
+      padding: 12px 14px;
+      border: 1px solid #9ccbab;
+      border-radius: 10px;
+      background: #eff9f2;
+    }
+    #wq-quote-custom-stage-segments .wq-core-group b {
+      color: #24783f;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    #wq-quote-custom-stage-segments .wq-core-group p {
+      margin: 6px 0 0;
+      color: #40546a;
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    #wq-quote-custom-stage-segments .wq-safety {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border: 1px solid #efb6bc;
+      border-radius: 9px;
+      background: #fff2f3;
+      color: #743740;
+      font-size: 10px;
+      line-height: 1.4;
+    }
+    #wq-quote-custom-stage-segments .wq-safety strong { color: #a12c3b; }
+    @media (max-width: 720px) {
+      #wq-quote-custom-stage-segments .wq-rule,
+      #wq-quote-custom-stage-segments .wq-core-grid { grid-template-columns: 1fr; }
+      #wq-quote-custom-stage-segments .wq-context-head { display: none; }
+      #wq-quote-custom-stage-segments .wq-context-row { grid-template-columns: 1fr; }
+      #wq-quote-custom-stage-segments .wq-progression,
+      #wq-quote-custom-stage-segments .wq-added { padding-top: 8px; padding-left: 10px; }
+    }
+  </style>
+
+  <section class="wq-sheet" aria-labelledby="wq-segments-title">
+    <header class="wq-title">
+      <small>Quote Pipeline</small>
+      <h2 id="wq-segments-title">Custom Stages in the Quote Pipeline</h2>
+      <p>Wherever you add a Custom Stage, it gets the same Starts when, Rules and Actions. Only the Quote event that moves the Deal forward changes.</p>
+    </header>
+
+    <div class="wq-rule">
+      <div class="same"><strong>Same in every Custom Stage</strong><span>The same CRM Starts when, Rules and Actions. Each Stage keeps its own settings.</span></div>
+      <div class="changes"><strong>Different in each place</strong><span>The Quote events you can use, and the fixed Stage that comes next.</span></div>
+    </div>
+
+    <div class="wq-rail-wrap" aria-label="Protected Quote lifecycle with five Custom Stage insertion positions">
+      <div class="wq-rail">
+        <div class="wq-protected"><small>Fixed Stage</small><strong>Qualified</strong></div>
+        <div class="wq-gap"><span>+ Custom<br>Stage(s)</span></div>
+        <div class="wq-protected"><small>Fixed Stage</small><strong>In Progress</strong></div>
+        <div class="wq-gap"><span>+ Custom<br>Stage(s)</span></div>
+        <div class="wq-protected"><small>Fixed Stage</small><strong>In Review</strong></div>
+        <div class="wq-gap"><span>+ Custom<br>Stage(s)</span></div>
+        <div class="wq-protected"><small>Fixed Stage</small><strong>Passed Review</strong></div>
+        <div class="wq-gap"><span>+ Custom<br>Stage(s)</span></div>
+        <div class="wq-protected"><small>Fixed Stage</small><strong>Sent</strong></div>
+        <div class="wq-gap"><span>+ Custom<br>Stage(s)</span></div>
+        <div class="wq-protected"><small>Fixed Stage</small><strong>Won / Lost</strong></div>
+      </div>
+    </div>
+
+    <div class="wq-section-title">What changes in each place</div>
+    <div class="wq-context-head" aria-hidden="true"><span>Where you add it</span><span>What moves the Deal forward</span><span>Extra Quote options available here</span></div>
+    <div class="wq-contexts">
+      <article class="wq-context-row">
+        <div class="wq-place"><span class="wq-number">1</span><div><strong>Between Qualified and In Progress</strong><span>Before the first Quote</span></div></div>
+        <div class="wq-progression"><strong>The first Quote is created</strong><span>Deal moves to In Progress.</span></div>
+        <div class="wq-added"><strong>Before-Quote options</strong><span>No Quote yet · ready for first Quote · create first Quote.</span></div>
+      </article>
+      <article class="wq-context-row">
+        <div class="wq-place"><span class="wq-number">2</span><div><strong>Between In Progress and In Review</strong><span>While the Quote is being prepared</span></div></div>
+        <div class="wq-progression"><strong>The Quote is submitted for review</strong><span>Deal moves to In Review.</span></div>
+        <div class="wq-added"><strong>Quote-preparation options</strong><span>Quote edited · price or SOW changed · ready for review.</span></div>
+      </article>
+      <article class="wq-context-row">
+        <div class="wq-place"><span class="wq-number">3</span><div><strong>Between In Review and Passed Review</strong><span>While the team is reviewing</span></div></div>
+        <div class="wq-progression"><strong>The review is approved</strong><span>Deal moves to Passed Review.</span></div>
+        <div class="wq-added"><strong>Review options</strong><span>Reviewer changed · review Note open · review file received.</span></div>
+      </article>
+      <article class="wq-context-row">
+        <div class="wq-place"><span class="wq-number">4</span><div><strong>Between Passed Review and Sent</strong><span>After approval, before sending</span></div></div>
+        <div class="wq-progression"><strong>The Quote is sent to the customer</strong><span>Deal moves to Sent.</span></div>
+        <div class="wq-added"><strong>Ready-to-send options</strong><span>Final documents · final checks · send preparation.</span></div>
+      </article>
+      <article class="wq-context-row">
+        <div class="wq-place"><span class="wq-number">5</span><div><strong>Between Sent and Won / Lost</strong><span>While waiting for the customer</span></div></div>
+        <div class="wq-progression"><strong>Quote accepted, or no valid Quote remains</strong><span>Deal moves to Won or Lost.</span></div>
+        <div class="wq-added"><strong>Customer follow-up options</strong><span>Quote viewed · not viewed · expired · accepted · no reply.</span></div>
+      </article>
+    </div>
+
+    <div class="wq-core">
+      <div class="wq-core-head"><strong>Same options in every Custom Stage</strong><span>These are always available, no matter where the Stage is added.</span></div>
+      <div class="wq-core-grid">
+        <section class="wq-core-group"><b>Starts when</b><p>Deal enters this Stage · Owner or Next Action changes · Meeting, Site Visit or file changes · No activity · Expected Close is near.</p></section>
+        <section class="wq-core-group"><b>Rules</b><p>Deal is still here · Owner, Next Action, task or file is missing · Activity exists · Deal details match.</p></section>
+        <section class="wq-core-group"><b>Actions</b><p>Create Note · Schedule Meeting or Site Visit · Set Next Action · Request or attach file · Assign Owner · Update Watcher, Label or Interest · Notify · Move to a named Custom Stage.</p></section>
+      </div>
+      <div class="wq-safety"><strong>Important:</strong><span>Quote events move the Deal into the next fixed Stage. A customer Automation cannot replace them with a normal “Move Deal” Action.</span></div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,222 @@
+<div id="wq-quote-pipeline-flow">
+  <style>
+    #wq-quote-pipeline-flow {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: light-dark(#203048, #e7edf7);
+      background: transparent;
+    }
+    #wq-quote-pipeline-flow * { box-sizing: border-box; }
+    #wq-quote-pipeline-flow .wq-title { margin: 0 0 6px; font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-subtitle { margin: 0 0 16px; color: light-dark(#67768a, #aeb9ca); }
+    #wq-quote-pipeline-flow .wq-screen {
+      overflow: hidden;
+      border: 1px solid light-dark(#cfd8e4, #3d4b61);
+      border-radius: 12px;
+      background: light-dark(#f6f8fb, #101827);
+      box-shadow: 0 6px 20px light-dark(rgba(29,46,70,.08), rgba(0,0,0,.2));
+    }
+    #wq-quote-pipeline-flow .wq-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: light-dark(#fff, #182235);
+      border-bottom: 1px solid light-dark(#dbe2eb, #334155);
+    }
+    #wq-quote-pipeline-flow .wq-brand { font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-muted { color: light-dark(#6a788d, #aab6c9); }
+    #wq-quote-pipeline-flow .wq-main { padding: 20px; }
+    #wq-quote-pipeline-flow .wq-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+    #wq-quote-pipeline-flow .wq-head h3 { margin: 0 0 4px; font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-button {
+      border: 1px solid light-dark(#c6d0dc, #4a586f);
+      border-radius: 7px;
+      padding: 8px 12px;
+      background: light-dark(#fff, #202c40);
+      color: inherit;
+      white-space: nowrap;
+    }
+    #wq-quote-pipeline-flow .wq-button.primary { background: #2e6fd8; border-color: #2e6fd8; color: #fff; }
+    #wq-quote-pipeline-flow .wq-button.green { background: #33865a; border-color: #33865a; color: #fff; }
+    #wq-quote-pipeline-flow .wq-review { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #wq-quote-pipeline-flow .wq-review-panel {
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid light-dark(#d7dfe8, #39475d);
+      background: light-dark(#fff, #182235);
+    }
+    #wq-quote-pipeline-flow .wq-review-panel h4 { margin: 0 0 10px; font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-static { padding: 10px; border-radius: 7px; background: light-dark(#edf1f6, #202b3e); color: light-dark(#65748a, #b3becf); }
+    #wq-quote-pipeline-flow .wq-changed { margin-top: 8px; padding: 10px; border-radius: 7px; background: light-dark(#e6f4eb, #173827); color: light-dark(#245f3d, #a5dfba); }
+    #wq-quote-pipeline-flow .wq-publish-box { margin-top: 12px; padding: 12px; border-radius: 8px; background: light-dark(#fff7e5, #403318); color: light-dark(#745713, #eed184); }
+    #wq-quote-pipeline-flow .wq-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+    #wq-quote-pipeline-flow .wq-arrow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin: 15px 0; }
+    #wq-quote-pipeline-flow .wq-arrow::before,
+    #wq-quote-pipeline-flow .wq-arrow::after { content: ""; height: 1px; background: light-dark(#ccd5e0, #46536a); }
+    #wq-quote-pipeline-flow .wq-arrow span { padding: 7px 11px; border-radius: 999px; background: light-dark(#edf2f8, #1d293b); font-weight: 500; text-align: center; }
+    #wq-quote-pipeline-flow .wq-divider { margin: 24px 0 12px; padding-top: 20px; border-top: 1px solid light-dark(#cfd8e4, #3d4b61); }
+    #wq-quote-pipeline-flow .wq-divider h2 { margin: 0 0 5px; font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-modal-wrap { padding: 22px; background: light-dark(rgba(39,54,77,.12), rgba(0,0,0,.28)); }
+    #wq-quote-pipeline-flow .wq-modal {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 19px;
+      border: 1px solid light-dark(#d4dce7, #405069);
+      border-radius: 10px;
+      background: light-dark(#fff, #182235);
+      box-shadow: 0 16px 40px light-dark(rgba(23,39,62,.18), rgba(0,0,0,.35));
+    }
+    #wq-quote-pipeline-flow .wq-modal h3 { margin: 0 0 5px; font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-input { width: 100%; margin: 5px 0 13px; padding: 9px 10px; border: 1px solid light-dark(#cbd4df, #47556c); border-radius: 6px; background: light-dark(#fff, #101827); color: inherit; }
+    #wq-quote-pipeline-flow .wq-types { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; }
+    #wq-quote-pipeline-flow .wq-type {
+      padding: 13px;
+      border: 1px solid light-dark(#d5dde7, #3c4a60);
+      border-radius: 8px;
+      background: light-dark(#fbfcfe, #151f30);
+    }
+    #wq-quote-pipeline-flow .wq-type.selected { border: 2px solid #2e6fd8; padding: 12px; background: light-dark(#f2f6ff, #172945); }
+    #wq-quote-pipeline-flow .wq-type strong { display: block; margin-bottom: 5px; font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-badge { display: inline-block; padding: 4px 8px; border-radius: 999px; margin-bottom: 7px; }
+    #wq-quote-pipeline-flow .wq-badge.blue { background: light-dark(#e5edff, #1c345d); color: light-dark(#2d65b9, #a9c6f6); }
+    #wq-quote-pipeline-flow .wq-badge.green { background: light-dark(#e4f3e9, #193929); color: light-dark(#287449, #98ddb2); }
+    #wq-quote-pipeline-flow .wq-badge.orange { background: light-dark(#fff0dc, #483316); color: light-dark(#9b6417, #f2c676); }
+    #wq-quote-pipeline-flow .wq-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    #wq-quote-pipeline-flow .wq-outcome {
+      padding: 15px;
+      border: 1px solid light-dark(#d5dde7, #3b495e);
+      border-radius: 9px;
+      background: light-dark(#fff, #182235);
+    }
+    #wq-quote-pipeline-flow .wq-outcome h3 { margin: 0 0 5px; font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-stages { display: flex; align-items: stretch; gap: 6px; margin: 13px 0; }
+    #wq-quote-pipeline-flow .wq-stage { flex: 1; min-width: 0; min-height: 88px; display: flex; flex-direction: column; justify-content: space-between; padding: 9px; border-radius: 7px; border: 1px solid; }
+    #wq-quote-pipeline-flow .wq-stage.locked { background: light-dark(#ebf1ff, #182f57); border-color: light-dark(#b4c8ef, #3c619c); }
+    #wq-quote-pipeline-flow .wq-stage.free { background: light-dark(#e7f5ec, #183828); border-color: light-dark(#afd8be, #3f7b59); }
+    #wq-quote-pipeline-flow .wq-stage strong { font-weight: 500; }
+    #wq-quote-pipeline-flow .wq-stage small { color: light-dark(#68778b, #b0bccd); }
+    #wq-quote-pipeline-flow .wq-sync { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-top: 12px; }
+    #wq-quote-pipeline-flow .wq-sync-step { padding: 9px; border-radius: 7px; text-align: center; background: light-dark(#edf3ff, #172d50); color: light-dark(#315c9f, #b4ccf5); }
+    #wq-quote-pipeline-flow .wq-warning { margin-top: 12px; padding: 10px 12px; border-radius: 7px; background: light-dark(#fff0dc, #483316); color: light-dark(#8c5b17, #f0c979); }
+    #wq-quote-pipeline-flow .wq-list-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 12px; padding: 13px 15px; border-bottom: 1px solid light-dark(#e3e9f0, #2f3c50); background: light-dark(#fff, #182235); }
+    #wq-quote-pipeline-flow .wq-list-row:first-child { border-radius: 8px 8px 0 0; }
+    #wq-quote-pipeline-flow .wq-list-row:last-child { border-bottom: 0; border-radius: 0 0 8px 8px; }
+    #wq-quote-pipeline-flow .wq-list-row strong { display: block; font-weight: 500; margin-bottom: 3px; }
+    #wq-quote-pipeline-flow .wq-summary { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    #wq-quote-pipeline-flow .wq-summary div { padding: 11px; border-radius: 8px; background: light-dark(#edf2f8, #1d293b); }
+    @media (max-width: 650px) {
+      #wq-quote-pipeline-flow .wq-review,
+      #wq-quote-pipeline-flow .wq-types,
+      #wq-quote-pipeline-flow .wq-outcomes,
+      #wq-quote-pipeline-flow .wq-summary { grid-template-columns: 1fr; }
+      #wq-quote-pipeline-flow .wq-sync { grid-template-columns: 1fr 1fr; }
+      #wq-quote-pipeline-flow .wq-list-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 420px) {
+      #wq-quote-pipeline-flow .wq-stages { flex-direction: column; }
+      #wq-quote-pipeline-flow .wq-stage { min-height: 68px; }
+    }
+  </style>
+
+  <h2 class="wq-title">A. 修改 In Progress 入面嘅 Assign owner</h2>
+  <p class="wq-subtitle">唔開新 Pipeline；最後 Publish 時先要求確認。</p>
+
+  <section class="wq-screen" aria-label="Automation publish confirmation">
+    <div class="wq-bar"><span class="wq-brand">WeQuote CRM</span><span class="wq-muted">Publish Automation change</span></div>
+    <div class="wq-main">
+      <div class="wq-head"><div><h3>In Progress · Assign owner</h3><div class="wq-muted">Sales Pipeline · Audio Vision</div></div><span class="wq-badge green">✓ Test passed</span></div>
+      <div class="wq-review">
+        <div class="wq-review-panel"><h4>CURRENT · PUBLISHED</h4><div class="wq-static"><strong>Stage</strong><br>In Progress · Protected</div><div style="margin-top:8px"><strong>Assign owner</strong><br>Deal owner</div></div>
+        <div class="wq-review-panel"><h4>AFTER · DRAFT</h4><div class="wq-static"><strong>Stage</strong><br>In Progress · Unchanged</div><div class="wq-changed"><strong>Assign owner · Changed</strong><br>Specific person → Emily Wong</div></div>
+      </div>
+      <div class="wq-publish-box"><strong>Confirm live update</strong><br>Future Deals entering In Progress will be assigned to Emily Wong. Existing Deals will not change.</div>
+      <div class="wq-actions"><button class="wq-button">Continue editing</button><button class="wq-button green">Publish change</button></div>
+    </div>
+  </section>
+
+  <div class="wq-divider">
+    <h2>B. 客戶撳 Create new Pipeline 時</h2>
+    <div class="wq-muted">唔係任由佢先開 Pipeline，再自行刪走 Quote lifecycle；一開始先揀 Pipeline 用途。</div>
+  </div>
+
+  <section class="wq-screen" aria-label="Choose a new Pipeline type">
+    <div class="wq-bar"><span class="wq-brand">WeQuote CRM</span><span class="wq-muted">Screen 1 · Create Pipeline</span></div>
+    <div class="wq-modal-wrap">
+      <div class="wq-modal">
+        <h3>Create new Pipeline</h3>
+        <p class="wq-muted">What will this Pipeline be used for?</p>
+        <label>Pipeline name</label>
+        <input class="wq-input" value="Commercial Sales" aria-label="Pipeline name">
+        <div class="wq-types">
+          <div class="wq-type selected">
+            <span class="wq-badge blue">● Recommended</span>
+            <strong>Sales with Quotations</strong>
+            <div class="wq-muted">Quote status automatically keeps Deal stages up to date. Required lifecycle milestones remain protected.</div>
+          </div>
+          <div class="wq-type">
+            <span class="wq-badge green">Fully editable</span>
+            <strong>Track another process</strong>
+            <div class="wq-muted">Create a standalone Deal Pipeline without Quote lifecycle syncing.</div>
+          </div>
+        </div>
+        <div class="wq-actions"><button class="wq-button">Cancel</button><button class="wq-button primary">Continue</button></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wq-arrow"><span>一開始分開兩條路</span></div>
+
+  <div class="wq-outcomes" aria-label="Comparison of Quote-connected and standalone Pipelines">
+    <section class="wq-outcome">
+      <span class="wq-badge blue">Quote-connected</span>
+      <h3>Sales with Quotations</h3>
+      <div class="wq-muted">客戶可以加 Stages 同修改 operational Automations，但唔可以移除 Quote lifecycle。</div>
+      <div class="wq-stages">
+        <div class="wq-stage locked"><strong>Qualified</strong><small>🔒 Lifecycle</small></div>
+        <div class="wq-stage free"><strong>Discovery</strong><small>✎ Customer</small></div>
+        <div class="wq-stage locked"><strong>In Progress</strong><small>🔒 Lifecycle</small></div>
+        <div class="wq-stage locked"><strong>Sent</strong><small>🔒 Lifecycle</small></div>
+        <div class="wq-stage locked"><strong>Won / Lost</strong><small>🔒 Outcome</small></div>
+      </div>
+      <strong>WeQuote 幫佢自動做：</strong>
+      <div class="wq-sync">
+        <div class="wq-sync-step">Quote created<br>↓<br>In Progress</div>
+        <div class="wq-sync-step">Review started<br>↓<br>In Review</div>
+        <div class="wq-sync-step">Quote issued<br>↓<br>Sent</div>
+        <div class="wq-sync-step">Quote accepted<br>↓<br>Won</div>
+      </div>
+    </section>
+
+    <section class="wq-outcome">
+      <span class="wq-badge green">Standalone</span>
+      <h3>Track another process</h3>
+      <div class="wq-muted">適合 Service、Installation、Renewal 等唔係以 Quotation 推進嘅流程。</div>
+      <div class="wq-stages">
+        <div class="wq-stage free"><strong>New</strong><small>✎ Editable</small></div>
+        <div class="wq-stage free"><strong>Scheduled</strong><small>✎ Editable</small></div>
+        <div class="wq-stage free"><strong>On Site</strong><small>✎ Editable</small></div>
+        <div class="wq-stage free"><strong>Complete</strong><small>✎ Editable</small></div>
+      </div>
+      <strong>客戶自行控制：</strong>
+      <div class="wq-summary">
+        <div>✓ Add / rename / reorder / remove every Stage</div>
+        <div>✓ Build operational Automations</div>
+        <div>— No automatic Quote → Deal stage syncing</div>
+        <div>— No protected Quote milestones</div>
+      </div>
+      <div class="wq-warning">如果呢條 Pipeline 會用 Quotations，系統會提醒：Quote status changes will not move Deals automatically.</div>
+    </section>
+  </div>
+
+  <div class="wq-arrow"><span>Create 完之後，兩種 Pipeline 都可以同時存在</span></div>
+
+  <section class="wq-screen" aria-label="Resulting Pipeline list">
+    <div class="wq-bar"><span class="wq-brand">WeQuote CRM</span><span class="wq-muted">Screen 3 · Deal Pipelines</span></div>
+    <div class="wq-main">
+      <div class="wq-head"><div><h3>Deal Pipelines</h3><div class="wq-muted">每一條清楚標示有冇連接 Quote lifecycle</div></div><button class="wq-button primary">＋ Create Pipeline</button></div>
+      <div class="wq-list-row"><div><strong>Sales Pipeline</strong><span class="wq-muted">Default for new sales Deals</span></div><span class="wq-badge blue">Connected to Quotations</span><button class="wq-button">Manage</button></div>
+      <div class="wq-list-row"><div><strong>Commercial Sales</strong><span class="wq-muted">Alternative sales process</span></div><span class="wq-badge blue">Connected to Quotations</span><button class="wq-button">Manage</button></div>
+      <div class="wq-list-row"><div><strong>Installation Pipeline</strong><span class="wq-muted">Post-sale delivery workflow</span></div><span class="wq-badge green">Standalone</span><button class="wq-button">Manage</button></div>
+    </div>
+  </section>
+</div>

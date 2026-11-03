@@ -1,0 +1,272 @@
+<div id="wq-custom-pipeline-storyboard">
+  <style>
+    #wq-custom-pipeline-storyboard {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: light-dark(#1f2d42, #e8eef7);
+      background: transparent;
+    }
+    #wq-custom-pipeline-storyboard * { box-sizing: border-box; }
+    #wq-custom-pipeline-storyboard .wq-story-title { margin: 0 0 6px; font-weight: 500; }
+    #wq-custom-pipeline-storyboard .wq-story-sub { margin: 0 0 20px; color: light-dark(#627187, #aebacd); }
+    #wq-custom-pipeline-storyboard .wq-screen {
+      background: light-dark(#f7f9fc, #101827);
+      border: 1px solid light-dark(#cfd7e3, #3b485d);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px light-dark(rgba(28,45,72,.08), rgba(0,0,0,.2));
+    }
+    #wq-custom-pipeline-storyboard .wq-browserbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: light-dark(#fff, #182235);
+      border-bottom: 1px solid light-dark(#dbe2eb, #334155);
+    }
+    #wq-custom-pipeline-storyboard .wq-brand { font-weight: 500; }
+    #wq-custom-pipeline-storyboard .wq-route { color: light-dark(#748196, #aeb9c9); }
+    #wq-custom-pipeline-storyboard .wq-layout { display: grid; grid-template-columns: 122px 1fr; min-height: 310px; }
+    #wq-custom-pipeline-storyboard .wq-nav {
+      background: light-dark(#192941, #0c1421);
+      color: #cbd6e7;
+      padding: 14px 10px;
+    }
+    #wq-custom-pipeline-storyboard .wq-nav div { padding: 8px 10px; margin-bottom: 4px; border-radius: 6px; }
+    #wq-custom-pipeline-storyboard .wq-nav .active { background: #2e6fd8; color: #fff; }
+    #wq-custom-pipeline-storyboard .wq-content { padding: 20px; min-width: 0; }
+    #wq-custom-pipeline-storyboard .wq-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 15px; }
+    #wq-custom-pipeline-storyboard .wq-heading h3 { margin: 0 0 4px; font-weight: 500; }
+    #wq-custom-pipeline-storyboard .wq-muted { color: light-dark(#6c7a8f, #aab6c9); }
+    #wq-custom-pipeline-storyboard .wq-button {
+      border: 1px solid light-dark(#c6d0dc, #4a586f);
+      background: light-dark(#fff, #202c40);
+      color: inherit;
+      border-radius: 7px;
+      padding: 8px 12px;
+      white-space: nowrap;
+    }
+    #wq-custom-pipeline-storyboard .wq-button.primary { background: #2e6fd8; border-color: #2e6fd8; color: #fff; }
+    #wq-custom-pipeline-storyboard .wq-button.green { background: #33865a; border-color: #33865a; color: #fff; }
+    #wq-custom-pipeline-storyboard .wq-list {
+      background: light-dark(#fff, #182235);
+      border: 1px solid light-dark(#d9e0e9, #36445a);
+      border-radius: 9px;
+      overflow: hidden;
+    }
+    #wq-custom-pipeline-storyboard .wq-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 15px;
+      border-bottom: 1px solid light-dark(#e5eaf0, #2e3a4e);
+    }
+    #wq-custom-pipeline-storyboard .wq-row:last-child { border-bottom: 0; }
+    #wq-custom-pipeline-storyboard .wq-row strong { display: block; font-weight: 500; margin-bottom: 3px; }
+    #wq-custom-pipeline-storyboard .wq-badge { padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+    #wq-custom-pipeline-storyboard .wq-badge.system { background: light-dark(#e7efff, #1a3562); color: light-dark(#2d65c6, #a9c7ff); }
+    #wq-custom-pipeline-storyboard .wq-badge.custom { background: light-dark(#e4f4ea, #193a2b); color: light-dark(#29784b, #96dfb3); }
+    #wq-custom-pipeline-storyboard .wq-step-arrow { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin: 14px 0; color: light-dark(#52657f, #c0cada); }
+    #wq-custom-pipeline-storyboard .wq-step-arrow::before,
+    #wq-custom-pipeline-storyboard .wq-step-arrow::after { content: ""; height: 1px; background: light-dark(#cbd4df, #46536a); }
+    #wq-custom-pipeline-storyboard .wq-step-label { background: light-dark(#edf2f8, #1d293b); padding: 7px 11px; border-radius: 999px; font-weight: 500; }
+    #wq-custom-pipeline-storyboard .wq-modal-wrap { min-height: 310px; display: grid; place-items: center; padding: 20px; background: light-dark(rgba(34,50,72,.12), rgba(0,0,0,.32)); }
+    #wq-custom-pipeline-storyboard .wq-modal {
+      width: min(500px, 100%);
+      background: light-dark(#fff, #182235);
+      border: 1px solid light-dark(#d2dae5, #405069);
+      border-radius: 10px;
+      box-shadow: 0 16px 40px light-dark(rgba(23,39,62,.2), rgba(0,0,0,.35));
+      padding: 20px;
+    }
+    #wq-custom-pipeline-storyboard .wq-modal h3 { margin: 0 0 6px; font-weight: 500; }
+    #wq-custom-pipeline-storyboard .wq-input {
+      width: 100%;
+      border: 1px solid light-dark(#c9d2df, #4a586f);
+      border-radius: 6px;
+      padding: 9px 10px;
+      background: light-dark(#fff, #101827);
+      color: inherit;
+      margin: 5px 0 12px;
+    }
+    #wq-custom-pipeline-storyboard .wq-rule {
+      background: light-dark(#edf3ff, #172d50);
+      color: light-dark(#315c9f, #b4ccf5);
+      padding: 10px 12px;
+      border-radius: 7px;
+      margin: 5px 0 16px;
+    }
+    #wq-custom-pipeline-storyboard .wq-actions { display: flex; justify-content: flex-end; gap: 8px; }
+    #wq-custom-pipeline-storyboard .wq-banner {
+      background: light-dark(#fff5dc, #433416);
+      color: light-dark(#7c5a11, #f0cd77);
+      padding: 9px 11px;
+      border-radius: 7px;
+      margin-bottom: 14px;
+    }
+    #wq-custom-pipeline-storyboard .wq-stages { display: flex; align-items: stretch; gap: 6px; }
+    #wq-custom-pipeline-storyboard .wq-stage {
+      flex: 1;
+      min-width: 0;
+      min-height: 108px;
+      padding: 9px;
+      border: 1px solid;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #wq-custom-pipeline-storyboard .wq-stage.locked { background: light-dark(#eaf0ff, #182f57); border-color: light-dark(#afc4ed, #3b619c); }
+    #wq-custom-pipeline-storyboard .wq-stage.editable { background: light-dark(#e7f5ec, #183828); border-color: light-dark(#acd5bc, #3f7b59); }
+    #wq-custom-pipeline-storyboard .wq-stage strong { font-weight: 500; }
+    #wq-custom-pipeline-storyboard .wq-stage small { color: light-dark(#65758a, #b1bdce); }
+    #wq-custom-pipeline-storyboard .wq-plus { align-self: center; color: #33865a; font-weight: 500; }
+    #wq-custom-pipeline-storyboard .wq-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    #wq-custom-pipeline-storyboard .wq-compare-panel {
+      background: light-dark(#fff, #182235);
+      border: 1px solid light-dark(#d9e0e9, #36445a);
+      border-radius: 8px;
+      padding: 13px;
+    }
+    #wq-custom-pipeline-storyboard .wq-compare-panel > strong { display: block; font-weight: 500; margin-bottom: 9px; }
+    #wq-custom-pipeline-storyboard .wq-mini { display: inline-block; padding: 6px 8px; border-radius: 5px; margin: 0 4px 6px 0; background: light-dark(#eaf0ff, #1b3158); }
+    #wq-custom-pipeline-storyboard .wq-mini.new { background: light-dark(#e4f4ea, #193a2b); }
+    #wq-custom-pipeline-storyboard .wq-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+    #wq-custom-pipeline-storyboard .wq-option { border: 1px solid light-dark(#d5dde7, #3c4a60); border-radius: 7px; padding: 10px; }
+    #wq-custom-pipeline-storyboard .wq-option.selected { border: 2px solid #2e6fd8; padding: 9px; }
+    #wq-custom-pipeline-storyboard .wq-result {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 14px;
+      border: 1px solid light-dark(#d9e0e9, #36445a);
+      border-radius: 8px;
+      background: light-dark(#fff, #182235);
+      margin-bottom: 9px;
+    }
+    #wq-custom-pipeline-storyboard .wq-result.original { opacity: .72; }
+    #wq-custom-pipeline-storyboard .wq-callout {
+      margin-top: 16px;
+      padding: 12px 14px;
+      background: light-dark(#e6f4eb, #173827);
+      color: light-dark(#245f3d, #a5dfba);
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 500;
+    }
+    @media (max-width: 600px) {
+      #wq-custom-pipeline-storyboard .wq-layout { grid-template-columns: 1fr; }
+      #wq-custom-pipeline-storyboard .wq-nav { display: none; }
+      #wq-custom-pipeline-storyboard .wq-content { padding: 14px; }
+      #wq-custom-pipeline-storyboard .wq-row { grid-template-columns: 1fr; }
+      #wq-custom-pipeline-storyboard .wq-row .wq-button { justify-self: start; }
+      #wq-custom-pipeline-storyboard .wq-stages { flex-wrap: wrap; }
+      #wq-custom-pipeline-storyboard .wq-stage { flex: 1 1 42%; }
+      #wq-custom-pipeline-storyboard .wq-plus { display: none; }
+      #wq-custom-pipeline-storyboard .wq-compare, #wq-custom-pipeline-storyboard .wq-options { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <h2 class="wq-story-title">如果要改 System Sales Pipeline 嘅 Stages</h2>
+  <p class="wq-story-sub">原本 Pipeline 保留；第一次修改時，建立一條 Customised Pipeline。</p>
+
+  <section class="wq-screen" aria-label="Screen 1 Pipeline list">
+    <div class="wq-browserbar"><span class="wq-brand">WeQuote CRM</span><span class="wq-route">Screen 1 · Pipeline list</span></div>
+    <div class="wq-layout">
+      <nav class="wq-nav"><div>Deals</div><div class="active">Pipelines</div><div>Automations</div></nav>
+      <div class="wq-content">
+        <div class="wq-heading"><div><h3>Deal Pipelines</h3><div class="wq-muted">由 Deals 現有 Pipeline 自動顯示</div></div></div>
+        <div class="wq-list">
+          <div class="wq-row">
+            <div><strong>Sales Pipeline</strong><span class="wq-muted">WeQuote Quote lifecycle</span></div>
+            <span class="wq-badge system">🔒 System</span>
+            <button class="wq-button primary">Customise</button>
+          </div>
+          <div class="wq-row">
+            <div><strong>Service Pipeline</strong><span class="wq-muted">Customer-created Pipeline</span></div>
+            <span class="wq-badge custom">✎ Custom</span>
+            <button class="wq-button">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wq-step-arrow"><span class="wq-step-label">撳 Customise</span></div>
+
+  <section class="wq-screen" aria-label="Screen 2 Create customised version">
+    <div class="wq-browserbar"><span class="wq-brand">WeQuote CRM</span><span class="wq-route">Screen 2 · Create customised version</span></div>
+    <div class="wq-modal-wrap">
+      <div class="wq-modal">
+        <h3>Create customised Pipeline</h3>
+        <p class="wq-muted">你唔會直接改動原本 Sales Pipeline。</p>
+        <label>New Pipeline name</label>
+        <input class="wq-input" value="Sales Pipeline — Custom" aria-label="New Pipeline name">
+        <div class="wq-rule">🔒 Qualified、In Progress、Sent、Won／Lost 會複製過去並保持鎖定。</div>
+        <div class="wq-actions"><button class="wq-button">Cancel</button><button class="wq-button primary">Create draft</button></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wq-step-arrow"><span class="wq-step-label">開一條 Draft；原本嗰條仍然運行</span></div>
+
+  <section class="wq-screen" aria-label="Screen 3 Edit custom stages">
+    <div class="wq-browserbar"><span class="wq-brand">WeQuote CRM</span><span class="wq-route">Screen 3 · Edit stages</span></div>
+    <div class="wq-layout">
+      <nav class="wq-nav"><div>Deals</div><div class="active">Pipelines</div><div>Automations</div></nav>
+      <div class="wq-content">
+        <div class="wq-heading"><div><h3>Sales Pipeline — Custom</h3><div class="wq-muted">Draft · Unpublished changes</div></div><button class="wq-button primary">Save draft</button></div>
+        <div class="wq-banner">原本 Sales Pipeline 未被修改，亦會繼續處理現有 Deals。</div>
+        <div class="wq-stages">
+          <div class="wq-stage locked"><strong>Qualified</strong><small>🔒 唔可以改</small></div>
+          <span class="wq-plus">＋</span>
+          <div class="wq-stage editable"><strong>Discovery</strong><small>✎ 可以改</small></div>
+          <span class="wq-plus">＋</span>
+          <div class="wq-stage locked"><strong>In Progress</strong><small>🔒 唔可以改</small></div>
+          <span class="wq-plus">＋</span>
+          <div class="wq-stage editable"><strong>Awaiting Customer</strong><small>✎ 可以改</small></div>
+          <span class="wq-plus">＋</span>
+          <div class="wq-stage locked"><strong>Sent</strong><small>🔒 唔可以改</small></div>
+          <div class="wq-stage locked"><strong>Won / Lost</strong><small>🔒 唔可以改</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wq-step-arrow"><span class="wq-step-label">Save Draft → Review impact</span></div>
+
+  <section class="wq-screen" aria-label="Screen 4 Review impact">
+    <div class="wq-browserbar"><span class="wq-brand">WeQuote CRM</span><span class="wq-route">Screen 4 · Before / After</span></div>
+    <div class="wq-layout">
+      <nav class="wq-nav"><div>Deals</div><div class="active">Pipelines</div><div>Automations</div></nav>
+      <div class="wq-content">
+        <div class="wq-heading"><div><h3>Review before activation</h3><div class="wq-muted">確認新 Pipeline 點樣處理 Deals</div></div></div>
+        <div class="wq-compare">
+          <div class="wq-compare-panel"><strong>ORIGINAL · 保留</strong><span class="wq-mini">Qualified</span><span class="wq-mini">In Progress</span><span class="wq-mini">Sent</span><span class="wq-mini">Won / Lost</span></div>
+          <div class="wq-compare-panel"><strong>NEW · CUSTOMISED</strong><span class="wq-mini">Qualified</span><span class="wq-mini new">Discovery ＋</span><span class="wq-mini">In Progress</span><span class="wq-mini new">Awaiting Customer ＋</span><span class="wq-mini">Sent</span><span class="wq-mini">Won / Lost</span></div>
+        </div>
+        <div class="wq-options">
+          <div class="wq-option selected"><strong>● New Deals only</strong><div class="wq-muted">新 Deals 用 Custom Pipeline；現有 Deals 不變。</div></div>
+          <div class="wq-option"><strong>○ Migrate existing Deals</strong><div class="wq-muted">先做 Stage mapping 同顯示受影響數量。</div></div>
+        </div>
+        <div class="wq-actions" style="margin-top:12px"><button class="wq-button green">Activate Custom Pipeline</button></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wq-step-arrow"><span class="wq-step-label">Activate</span></div>
+
+  <section class="wq-screen" aria-label="Screen 5 Resulting Pipeline list">
+    <div class="wq-browserbar"><span class="wq-brand">WeQuote CRM</span><span class="wq-route">Screen 5 · Result</span></div>
+    <div class="wq-layout">
+      <nav class="wq-nav"><div>Deals</div><div class="active">Pipelines</div><div>Automations</div></nav>
+      <div class="wq-content">
+        <div class="wq-heading"><div><h3>Deal Pipelines</h3><div class="wq-muted">兩條 Pipeline 同時保留</div></div></div>
+        <div class="wq-result original"><div><strong>Sales Pipeline</strong><div class="wq-muted">Original · 現有 Deals 繼續使用</div></div><span class="wq-badge system">🔒 System</span></div>
+        <div class="wq-result"><div><strong>Sales Pipeline — Custom</strong><div class="wq-muted">新 Deals 預設使用</div></div><span class="wq-badge custom">● Active</span></div>
+        <div class="wq-callout">之後再改「Sales Pipeline — Custom」時，只需 Edit 同一條，唔需要再開第三條。</div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,82 @@
+/* Variation grouping and reordering — aligned with quote grouping controls. */
+.qt-node.qt-nested.qt-var-selectable {
+  position: relative;
+}
+
+.qt-var-selectable > .qt-body {
+  position: relative;
+}
+
+.qt-var-selectable .qt-var-drag-handle {
+  width: 24px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #8294ba;
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 24px;
+  cursor: grab;
+}
+
+.qt-var-selectable .qt-var-drag-handle:hover,
+.qt-var-selectable .qt-var-drag-handle:focus-visible {
+  color: #576a92;
+  background: #f3f7ff;
+  outline: none;
+}
+
+.qt-var-selectable .qt-var-drag-handle:active {
+  cursor: grabbing;
+}
+
+.qt-var-grip-dots {
+  display: grid;
+  grid-template-columns: repeat(2, 3px);
+  grid-auto-rows: 3px;
+  gap: 2px;
+}
+
+.qt-var-grip-dots i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.qt-var-selectable.qt-var-selected > .qt-body {
+  border-color: #60749e !important;
+  background: rgba(151, 169, 208, 0.08) !important;
+}
+
+.qt-var-selectable input[type="checkbox"] {
+  accent-color: #576a92;
+}
+
+.qt-var-selectable.qt-var-dragging {
+  opacity: 0.55;
+}
+
+.qt-var-selectable.qt-var-drop-before::before,
+.qt-var-selectable.qt-var-drop-after::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  height: 3px;
+  border-radius: 999px;
+  background: #2450ff;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+.qt-var-selectable.qt-var-drop-before::before {
+  top: -7px;
+}
+
+.qt-var-selectable.qt-var-drop-after::after {
+  bottom: -7px;
+}

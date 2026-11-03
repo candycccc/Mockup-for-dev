@@ -1,0 +1,255 @@
+<div id="wq-pipeline-flow">
+  <style>
+    #wq-pipeline-flow {
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: light-dark(#203047, #e7edf7);
+      background: light-dark(#f5f7fa, #111827);
+      border: 1px solid light-dark(#d9e0e9, #334155);
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 590px;
+    }
+    #wq-pipeline-flow * { box-sizing: border-box; }
+    #wq-pipeline-flow button { font: inherit; }
+    #wq-pipeline-flow .wq-topbar {
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 22px;
+      background: light-dark(#ffffff, #172033);
+      border-bottom: 1px solid light-dark(#dde3eb, #334155);
+    }
+    #wq-pipeline-flow .wq-brand { font-weight: 750; letter-spacing: -.2px; }
+    #wq-pipeline-flow .wq-top-meta { color: light-dark(#68778c, #a8b4c7); font-size: 13px; }
+    #wq-pipeline-flow .wq-shell { display: grid; grid-template-columns: 150px 1fr; min-height: 532px; }
+    #wq-pipeline-flow .wq-nav {
+      padding: 18px 12px;
+      background: light-dark(#17253b, #0d1422);
+      color: #c8d3e4;
+    }
+    #wq-pipeline-flow .wq-nav-item { padding: 10px 12px; border-radius: 7px; font-size: 13px; margin-bottom: 4px; }
+    #wq-pipeline-flow .wq-nav-item.active { background: #2d6cdf; color: white; font-weight: 650; }
+    #wq-pipeline-flow .wq-main { padding: 24px; min-width: 0; }
+    #wq-pipeline-flow .wq-progress { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    #wq-pipeline-flow .wq-dot {
+      width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+      font-size: 12px; font-weight: 700; background: light-dark(#e7ebf1, #253249); color: light-dark(#66758a, #b6c2d4);
+    }
+    #wq-pipeline-flow .wq-dot.active { background: #2d6cdf; color: white; }
+    #wq-pipeline-flow .wq-dot.done { background: #e0f2e8; color: #277a4a; }
+    #wq-pipeline-flow .wq-line { flex: 1; height: 2px; background: light-dark(#dfe5ec, #334155); max-width: 62px; }
+    #wq-pipeline-flow .wq-step-label { font-size: 12px; color: light-dark(#6a788c, #aab6c9); white-space: nowrap; }
+    #wq-pipeline-flow .wq-view { display: none; }
+    #wq-pipeline-flow .wq-view.active { display: block; }
+    #wq-pipeline-flow h2 { font-size: 21px; margin: 0 0 5px; letter-spacing: -.25px; }
+    #wq-pipeline-flow .wq-sub { margin: 0 0 18px; font-size: 13px; color: light-dark(#68778c, #aab6c9); }
+    #wq-pipeline-flow .wq-panel {
+      background: light-dark(#ffffff, #172033); border: 1px solid light-dark(#dce3eb, #334155); border-radius: 10px; overflow: hidden;
+    }
+    #wq-pipeline-flow .wq-row {
+      display: grid; grid-template-columns: minmax(150px, 1.35fr) minmax(130px, 1fr) minmax(110px, .8fr) auto;
+      gap: 14px; align-items: center; padding: 15px 17px; border-bottom: 1px solid light-dark(#e6ebf1, #2b384d);
+    }
+    #wq-pipeline-flow .wq-row:last-child { border-bottom: 0; }
+    #wq-pipeline-flow .wq-name { font-weight: 680; font-size: 14px; }
+    #wq-pipeline-flow .wq-note { font-size: 12px; color: light-dark(#728095, #aab6c9); margin-top: 3px; }
+    #wq-pipeline-flow .wq-tag { display: inline-flex; align-items: center; width: fit-content; padding: 4px 8px; border-radius: 999px; font-size: 11px; font-weight: 680; }
+    #wq-pipeline-flow .wq-tag.lock { background: light-dark(#e8efff, #1d3764); color: light-dark(#2d64c8, #a9c6ff); }
+    #wq-pipeline-flow .wq-tag.custom { background: light-dark(#e5f3eb, #193e2c); color: light-dark(#267849, #91ddb0); }
+    #wq-pipeline-flow .wq-tag.admin { background: light-dark(#fff1d8, #4a3515); color: light-dark(#9a6414, #f2c66d); }
+    #wq-pipeline-flow .wq-button {
+      border: 1px solid light-dark(#c8d1dd, #48566e); background: light-dark(#fff, #202b3f); color: inherit;
+      border-radius: 7px; padding: 8px 12px; cursor: pointer; font-weight: 650; font-size: 12px;
+    }
+    #wq-pipeline-flow .wq-button.primary { background: #2d6cdf; border-color: #2d6cdf; color: #fff; }
+    #wq-pipeline-flow .wq-button.success { background: #2f8b57; border-color: #2f8b57; color: #fff; }
+    #wq-pipeline-flow .wq-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    #wq-pipeline-flow .wq-legend { display: flex; gap: 14px; font-size: 12px; color: light-dark(#627186, #aeb9ca); }
+    #wq-pipeline-flow .wq-stage-rail { display: flex; align-items: stretch; gap: 7px; overflow-x: auto; padding: 7px 2px 14px; }
+    #wq-pipeline-flow .wq-stage {
+      flex: 1 0 105px; min-height: 116px; padding: 11px 9px; border-radius: 8px; border: 1px solid;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    #wq-pipeline-flow .wq-stage.protected { background: light-dark(#eef3ff, #172c53); border-color: light-dark(#bfd0f4, #345995); }
+    #wq-pipeline-flow .wq-stage.editable { background: light-dark(#ebf6ef, #173728); border-color: light-dark(#b9ddc7, #397454); }
+    #wq-pipeline-flow .wq-stage-title { font-size: 13px; font-weight: 720; }
+    #wq-pipeline-flow .wq-stage-state { font-size: 10px; line-height: 1.35; text-transform: uppercase; letter-spacing: .35px; color: light-dark(#66758a, #b3bfd0); }
+    #wq-pipeline-flow .wq-insert { flex: 0 0 28px; align-self: center; border: 1px dashed #55a775; color: #368558; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; }
+    #wq-pipeline-flow .wq-hint { margin-top: 8px; padding: 11px 13px; border-radius: 8px; background: light-dark(#f0f4f8, #202b3e); font-size: 12px; color: light-dark(#5d6d82, #bac5d6); }
+    #wq-pipeline-flow .wq-edit-grid { display: grid; grid-template-columns: minmax(0, 1fr) 245px; gap: 14px; }
+    #wq-pipeline-flow .wq-drawer { background: light-dark(#fff, #172033); border: 1px solid light-dark(#dce3eb, #334155); border-radius: 9px; padding: 15px; }
+    #wq-pipeline-flow .wq-field { margin-top: 13px; }
+    #wq-pipeline-flow .wq-field label { display: block; font-size: 11px; font-weight: 680; color: light-dark(#65748a, #b4bfd0); margin-bottom: 5px; }
+    #wq-pipeline-flow .wq-input { width: 100%; padding: 9px 10px; border: 1px solid light-dark(#cbd4df, #46536a); border-radius: 6px; background: light-dark(#fff, #101827); color: inherit; font-size: 12px; }
+    #wq-pipeline-flow .wq-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    #wq-pipeline-flow .wq-compare-box { background: light-dark(#fff, #172033); border: 1px solid light-dark(#dce3eb, #334155); border-radius: 9px; padding: 15px; }
+    #wq-pipeline-flow .wq-compare-title { font-size: 11px; font-weight: 750; letter-spacing: .45px; color: light-dark(#68778c, #b1bdcd); margin-bottom: 12px; }
+    #wq-pipeline-flow .wq-mini-stage { display: inline-block; padding: 7px 9px; margin: 0 4px 7px 0; border-radius: 5px; font-size: 11px; background: light-dark(#edf2ff, #1d3156); border: 1px solid light-dark(#c6d3ef, #385988); }
+    #wq-pipeline-flow .wq-mini-stage.changed { background: light-dark(#e3f5ea, #183b2a); border-color: #55a775; }
+    #wq-pipeline-flow .wq-impact { margin-top: 13px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    #wq-pipeline-flow .wq-choice { border: 1px solid light-dark(#d6dee8, #3d4a60); border-radius: 8px; padding: 12px; font-size: 12px; }
+    #wq-pipeline-flow .wq-choice.selected { border: 2px solid #2d6cdf; padding: 11px; }
+    #wq-pipeline-flow .wq-choice strong { display: block; margin-bottom: 4px; }
+    #wq-pipeline-flow .wq-complete { text-align: center; padding: 48px 15px; }
+    #wq-pipeline-flow .wq-check { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; display: grid; place-items: center; background: #dff3e7; color: #267a49; font-size: 26px; font-weight: 800; }
+    #wq-pipeline-flow .wq-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
+    #wq-pipeline-flow .wq-footer-right { display: flex; gap: 8px; }
+    @media (max-width: 700px) {
+      #wq-pipeline-flow .wq-shell { grid-template-columns: 1fr; }
+      #wq-pipeline-flow .wq-nav { display: none; }
+      #wq-pipeline-flow .wq-main { padding: 17px; }
+      #wq-pipeline-flow .wq-step-label { display: none; }
+      #wq-pipeline-flow .wq-row { grid-template-columns: 1fr auto; }
+      #wq-pipeline-flow .wq-row > :nth-child(2), #wq-pipeline-flow .wq-row > :nth-child(3) { display: none; }
+      #wq-pipeline-flow .wq-edit-grid, #wq-pipeline-flow .wq-compare, #wq-pipeline-flow .wq-impact { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="wq-topbar">
+    <div class="wq-brand">WeQuote CRM</div>
+    <div class="wq-top-meta">Settings · Pipelines</div>
+  </div>
+  <div class="wq-shell">
+    <aside class="wq-nav">
+      <div class="wq-nav-item">Deals</div>
+      <div class="wq-nav-item active">Pipelines</div>
+      <div class="wq-nav-item">Automations</div>
+      <div class="wq-nav-item">Company</div>
+    </aside>
+    <main class="wq-main">
+      <div class="wq-progress" aria-label="Pipeline customisation progress">
+        <span class="wq-dot active">1</span><span class="wq-step-label">Choose</span><span class="wq-line"></span>
+        <span class="wq-dot">2</span><span class="wq-step-label">Structure</span><span class="wq-line"></span>
+        <span class="wq-dot">3</span><span class="wq-step-label">Edit</span><span class="wq-line"></span>
+        <span class="wq-dot">4</span><span class="wq-step-label">Impact</span><span class="wq-line"></span>
+        <span class="wq-dot">5</span><span class="wq-step-label">Publish</span>
+      </div>
+
+      <section class="wq-view active" data-step="1">
+        <h2>Deal Pipelines</h2>
+        <p class="wq-sub">This list comes directly from Deals. Choose the Pipeline you want to manage.</p>
+        <div class="wq-panel">
+          <div class="wq-row">
+            <div><div class="wq-name">Sales Pipeline</div><div class="wq-note">9 Automations · 7 active</div></div>
+            <span class="wq-tag lock">🔒 WeQuote lifecycle</span>
+            <div class="wq-note">7 Protected · 3 Custom</div>
+            <button class="wq-button primary" data-jump="2">View structure</button>
+          </div>
+          <div class="wq-row">
+            <div><div class="wq-name">Service Pipeline</div><div class="wq-note">3 Automations · 2 active</div></div>
+            <span class="wq-tag custom">Custom pipeline</span>
+            <div class="wq-note">5 Editable stages</div>
+            <button class="wq-button">Edit</button>
+          </div>
+          <div class="wq-row">
+            <div><div class="wq-name">Invoice Collection</div><div class="wq-note">No Automations</div></div>
+            <span class="wq-tag admin">Admin only</span>
+            <div class="wq-note">4 Editable stages</div>
+            <button class="wq-button">View</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="wq-view" data-step="2">
+        <div class="wq-toolbar">
+          <div><h2>Sales Pipeline</h2><p class="wq-sub" style="margin-bottom:0">Protected lifecycle with customer stages in between.</p></div>
+          <button class="wq-button primary" data-jump="3">Customise pipeline</button>
+        </div>
+        <div class="wq-legend"><span>🔒 Protected by WeQuote</span><span>✎ Customer editable</span></div>
+        <div class="wq-stage-rail">
+          <div class="wq-stage protected"><div class="wq-stage-title">Qualified</div><div class="wq-stage-state">🔒 Protected<br>No related Quote</div></div>
+          <div class="wq-stage editable"><div class="wq-stage-title">Discovery</div><div class="wq-stage-state">✎ Editable<br>Custom stage</div></div>
+          <div class="wq-stage editable"><div class="wq-stage-title">Site Ready</div><div class="wq-stage-state">✎ Editable<br>Custom stage</div></div>
+          <div class="wq-stage protected"><div class="wq-stage-title">In Progress</div><div class="wq-stage-state">🔒 Protected<br>Quote created</div></div>
+          <div class="wq-stage protected"><div class="wq-stage-title">In Review</div><div class="wq-stage-state">🔒 Conditional<br>Review only</div></div>
+          <div class="wq-stage protected"><div class="wq-stage-title">Sent</div><div class="wq-stage-state">🔒 Protected<br>Quote issued</div></div>
+          <div class="wq-stage protected"><div class="wq-stage-title">Won / Lost</div><div class="wq-stage-state">🔒 Outcome<br>System controlled</div></div>
+        </div>
+        <div class="wq-hint">Select a locked Stage to see why it is protected. Custom Stages can be renamed, reordered or removed.</div>
+      </section>
+
+      <section class="wq-view" data-step="3">
+        <h2>Edit custom stages</h2>
+        <p class="wq-sub">Protected milestones stay in place. Add or reorder Custom Stages inside each lifecycle segment.</p>
+        <div class="wq-edit-grid">
+          <div class="wq-panel" style="padding:14px">
+            <div class="wq-stage-rail">
+              <div class="wq-stage protected"><div class="wq-stage-title">Qualified</div><div class="wq-stage-state">🔒 Fixed</div></div>
+              <div class="wq-insert">＋</div>
+              <div class="wq-stage editable" style="outline:2px solid #4d9b6c"><div class="wq-stage-title">Discovery</div><div class="wq-stage-state">☷ Drag · ✎ Edit</div></div>
+              <div class="wq-insert">＋</div>
+              <div class="wq-stage protected"><div class="wq-stage-title">In Progress</div><div class="wq-stage-state">🔒 Fixed</div></div>
+              <div class="wq-insert">＋</div>
+              <div class="wq-stage protected"><div class="wq-stage-title">Sent</div><div class="wq-stage-state">🔒 Fixed</div></div>
+            </div>
+            <div class="wq-hint">＋ insertion points only appear where a Custom Stage is allowed.</div>
+          </div>
+          <aside class="wq-drawer">
+            <div class="wq-name">Edit custom stage</div>
+            <div class="wq-field"><label>STAGE NAME</label><input class="wq-input" value="Discovery" aria-label="Stage name"></div>
+            <div class="wq-field"><label>LIFECYCLE SEGMENT</label><div class="wq-input">Qualified → In Progress</div></div>
+            <div class="wq-field"><label>CURRENT DEALS</label><div class="wq-input">28 Deals</div></div>
+            <button class="wq-button" style="margin-top:14px;color:#b84b4b">Remove stage…</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="wq-view" data-step="4">
+        <h2>Review impact</h2>
+        <p class="wq-sub">Check the structure and decide whether existing Deals should move.</p>
+        <div class="wq-compare">
+          <div class="wq-compare-box"><div class="wq-compare-title">CURRENT · PUBLISHED</div><span class="wq-mini-stage">Qualified 🔒</span><span class="wq-mini-stage">Discovery</span><span class="wq-mini-stage">In Progress 🔒</span><span class="wq-mini-stage">Sent 🔒</span></div>
+          <div class="wq-compare-box"><div class="wq-compare-title">AFTER · DRAFT</div><span class="wq-mini-stage">Qualified 🔒</span><span class="wq-mini-stage changed">Needs confirmed ＋</span><span class="wq-mini-stage changed">Discovery → Consultation</span><span class="wq-mini-stage">In Progress 🔒</span><span class="wq-mini-stage">Sent 🔒</span></div>
+        </div>
+        <div class="wq-impact">
+          <div class="wq-choice selected"><strong>● New Deals only · Recommended</strong>Existing Deals stay in their current Stage.</div>
+          <div class="wq-choice"><strong>○ Migrate existing Deals</strong>Map each old Stage and review impacted record counts.</div>
+        </div>
+        <div class="wq-hint">No live Pipeline or Deal is changed until Publish.</div>
+      </section>
+
+      <section class="wq-view" data-step="5">
+        <div class="wq-complete">
+          <div class="wq-check">✓</div>
+          <h2>Ready to publish</h2>
+          <p class="wq-sub">2 Stage changes · New Deals only · 0 existing Deals moved</p>
+          <button class="wq-button success">Publish pipeline changes</button>
+        </div>
+      </section>
+
+      <div class="wq-footer">
+        <button class="wq-button" id="wq-back" disabled>Back</button>
+        <div class="wq-footer-right"><span class="wq-note" id="wq-caption">Step 1 of 5 · Choose a Deal Pipeline</span><button class="wq-button primary" id="wq-next">Next</button></div>
+      </div>
+    </main>
+  </div>
+  <script>
+    (() => {
+      const root = document.getElementById('wq-pipeline-flow');
+      const views = [...root.querySelectorAll('.wq-view')];
+      const dots = [...root.querySelectorAll('.wq-dot')];
+      const back = root.querySelector('#wq-back');
+      const next = root.querySelector('#wq-next');
+      const caption = root.querySelector('#wq-caption');
+      const labels = ['Choose a Deal Pipeline', 'See what is locked', 'Edit Custom Stages', 'Review Deal impact', 'Publish changes'];
+      let step = 1;
+      function render() {
+        views.forEach(v => v.classList.toggle('active', Number(v.dataset.step) === step));
+        dots.forEach((d, i) => {
+          d.classList.toggle('active', i + 1 === step);
+          d.classList.toggle('done', i + 1 < step);
+          d.textContent = i + 1 < step ? '✓' : String(i + 1);
+        });
+        back.disabled = step === 1;
+        next.style.visibility = step === 5 ? 'hidden' : 'visible';
+        next.textContent = step === 4 ? 'Review publish' : 'Next';
+        caption.textContent = `Step ${step} of 5 · ${labels[step - 1]}`;
+      }
+      back.addEventListener('click', () => { if (step > 1) { step -= 1; render(); } });
+      next.addEventListener('click', () => { if (step < 5) { step += 1; render(); } });
+      root.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => { step = Number(btn.dataset.jump); render(); }));
+      render();
+    })();
+  </script>
+</div>

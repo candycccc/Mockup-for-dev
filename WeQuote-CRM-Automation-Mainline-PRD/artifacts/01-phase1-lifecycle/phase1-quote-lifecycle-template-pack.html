@@ -1,0 +1,445 @@
+<div id="wq-phase1-template-pack">
+  <style>
+    #wq-phase1-template-pack {
+      --ink: #203044;
+      --muted: #667a96;
+      --line: #dce5ef;
+      --soft: #f7f9fc;
+      --blue: #2f66ed;
+      --blue-soft: #edf3ff;
+      --violet: #7343e8;
+      --violet-soft: #f3efff;
+      --green: #21884e;
+      --green-soft: #edf9f1;
+      --amber: #b96809;
+      --amber-soft: #fff6e8;
+      --red: #c9364d;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #wq-phase1-template-pack * { box-sizing: border-box; }
+    #wq-phase1-template-pack h1,
+    #wq-phase1-template-pack h2,
+    #wq-phase1-template-pack h3,
+    #wq-phase1-template-pack p { margin: 0; }
+
+    #wq-phase1-template-pack .kicker {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    #wq-phase1-template-pack h1 {
+      margin-top: 6px;
+      font-size: clamp(25px, 3.2vw, 35px);
+      line-height: 1.13;
+      letter-spacing: -.025em;
+    }
+
+    #wq-phase1-template-pack .subtitle {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    #wq-phase1-template-pack .summary {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    #wq-phase1-template-pack .summary-item {
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--soft);
+    }
+
+    #wq-phase1-template-pack .summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    #wq-phase1-template-pack .summary-item strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 21px;
+    }
+
+    #wq-phase1-template-pack .summary-item small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    #wq-phase1-template-pack .summary-item.target { border-color: #a7d5b7; background: var(--green-soft); }
+    #wq-phase1-template-pack .summary-item.target strong { color: var(--green); }
+    #wq-phase1-template-pack .summary-item.gap { border-color: #efc88f; background: var(--amber-soft); }
+    #wq-phase1-template-pack .summary-item.gap strong { color: var(--amber); }
+
+    #wq-phase1-template-pack .scope {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-left: 5px solid var(--blue);
+      background: var(--blue-soft);
+      font-size: 11.5px;
+      line-height: 1.4;
+    }
+
+    #wq-phase1-template-pack .stage-group {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    #wq-phase1-template-pack .stage-head {
+      display: grid;
+      grid-template-columns: minmax(190px, .8fr) minmax(0, 2.2fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    #wq-phase1-template-pack .stage-name {
+      padding-left: 11px;
+      border-left: 5px solid var(--blue);
+    }
+
+    #wq-phase1-template-pack .stage-name h2 {
+      font-size: 18px;
+    }
+
+    #wq-phase1-template-pack .stage-name p {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 10.5px;
+      line-height: 1.35;
+    }
+
+    #wq-phase1-template-pack .stage-name .count {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 7px;
+      border-radius: 6px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    #wq-phase1-template-pack .template-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+      gap: 10px;
+    }
+
+    #wq-phase1-template-pack .template {
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fff;
+    }
+
+    #wq-phase1-template-pack .template-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    #wq-phase1-template-pack .template h3 {
+      font-size: 13px;
+      line-height: 1.28;
+    }
+
+    #wq-phase1-template-pack .status {
+      flex: 0 0 auto;
+      padding: 3px 5px;
+      border-radius: 5px;
+      color: var(--green);
+      background: var(--green-soft);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    #wq-phase1-template-pack .status.connect {
+      color: var(--amber);
+      background: var(--amber-soft);
+    }
+
+    #wq-phase1-template-pack .template > p {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    #wq-phase1-template-pack .flow {
+      margin-top: 10px;
+      display: grid;
+      gap: 6px;
+    }
+
+    #wq-phase1-template-pack .flow-line {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 7px;
+      align-items: start;
+      padding: 7px 8px;
+      border-radius: 7px;
+      font-size: 9.5px;
+      line-height: 1.35;
+    }
+
+    #wq-phase1-template-pack .flow-line b {
+      font-size: 8px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    #wq-phase1-template-pack .flow-line.start { background: var(--violet-soft); }
+    #wq-phase1-template-pack .flow-line.start b { color: var(--violet); }
+    #wq-phase1-template-pack .flow-line.rule { background: var(--blue-soft); }
+    #wq-phase1-template-pack .flow-line.rule b { color: var(--blue); }
+    #wq-phase1-template-pack .flow-line.action { background: var(--green-soft); }
+    #wq-phase1-template-pack .flow-line.action b { color: var(--green); }
+    #wq-phase1-template-pack .flow-line.wait { background: var(--amber-soft); }
+    #wq-phase1-template-pack .flow-line.wait b { color: var(--amber); }
+
+    #wq-phase1-template-pack .in-progress .stage-name { border-left-color: #5174da; }
+    #wq-phase1-template-pack .review .stage-name { border-left-color: var(--violet); }
+    #wq-phase1-template-pack .passed .stage-name { border-left-color: #2b9b8a; }
+    #wq-phase1-template-pack .sent .stage-name { border-left-color: var(--amber); }
+    #wq-phase1-template-pack .won .stage-name { border-left-color: var(--green); }
+    #wq-phase1-template-pack .lost .stage-name { border-left-color: var(--red); }
+
+    #wq-phase1-template-pack .conditional {
+      display: inline-block;
+      margin-top: 6px;
+      color: var(--violet);
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    #wq-phase1-template-pack .footer-rule {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border: 2px solid #bcd0f5;
+      border-radius: 11px;
+      background: #f8fbff;
+      color: #31547e;
+      font-size: 11.5px;
+      line-height: 1.42;
+    }
+
+    #wq-phase1-template-pack .footer-rule strong { color: var(--blue); }
+
+    @media (max-width: 760px) {
+      #wq-phase1-template-pack { padding: 18px; }
+      #wq-phase1-template-pack .summary { grid-template-columns: 1fr; }
+      #wq-phase1-template-pack .stage-head { grid-template-columns: 1fr; }
+      #wq-phase1-template-pack .template-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+
+  <div class="kicker">WeQuote CRM Phase 1 · Recommended template pack</div>
+  <h1>12 Quote Lifecycle Automation Templates</h1>
+  <p class="subtitle">Templates are grouped by the fixed Quote Lifecycle Stage where the Automation starts. Every template opens as an editable Draft; users can also choose Start from scratch.</p>
+
+  <div class="summary">
+    <div class="summary-item target"><span>Target Phase 1 pack</span><strong>12</strong><small>Recommended Templates across seven fixed Stages</small></div>
+    <div class="summary-item"><span>Currently defined</span><strong>11</strong><small>Already present in the Stage template definitions</small></div>
+    <div class="summary-item gap"><span>Prototype gap</span><strong>1</strong><small>High-value approval appears on the Map but is not connected as a creation Template</small></div>
+  </div>
+
+  <div class="scope"><strong>Lifecycle:</strong> Qualified → In Progress → In Review → Passed Review → Sent → Won / Lost. In Review and Passed Review are conditional when Quote Review is enabled.</div>
+
+  <section class="stage-group qualified">
+    <div class="stage-head">
+      <div class="stage-name"><h2>Qualified</h2><p>Prepare the Deal before its first related Quote.</p><span class="count">3 Templates</span></div>
+      <div class="template-grid">
+        <article class="template">
+          <div class="template-top"><h3>Qualified first Next Action</h3><span class="status">Defined</span></div>
+          <p>Give every newly Qualified Deal one clear next task.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Deal enters Qualified</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>No open Deal Next Action exists</span></div>
+            <div class="flow-line action"><b>Action</b><span>Set Deal Next Action · Deal owner · due in 1 working day</span></div>
+          </div>
+        </article>
+        <article class="template">
+          <div class="template-top"><h3>Qualified inactivity reminder</h3><span class="status">Defined</span></div>
+          <p>Prevent newly Qualified opportunities from going quiet.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Deal enters or remains in Qualified</span></div>
+            <div class="flow-line wait"><b>Wait</b><span>7 working days</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Still Qualified and no recent sales Activity</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create Note · mention Deal owner · follow up</span></div>
+          </div>
+        </article>
+        <article class="template">
+          <div class="template-top"><h3>Site visit &amp; pre-Quote readiness</h3><span class="status">Defined</span></div>
+          <p>Complete required discovery work before the first Quote.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Deal enters Qualified</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Site Visit or customer / site information is incomplete</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create required readiness Note · mention Deal owner</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage-group in-progress">
+    <div class="stage-head">
+      <div class="stage-name"><h2>In Progress</h2><p>Build pricing, products and Scope of Work.</p><span class="count">1 Template</span></div>
+      <div class="template-grid">
+        <article class="template">
+          <div class="template-top"><h3>Quote build &amp; SOW checks</h3><span class="status">Defined</span></div>
+          <p>Keep the editable Quote complete enough for review or sending.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>First Quote is created or edited in In Progress</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Required pricing, product or SOW information is missing</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create Note · mention Quote owner · due today</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage-group review">
+    <div class="stage-head">
+      <div class="stage-name"><h2>In Review</h2><p>Coordinate technical and internal review.</p><span class="conditional">Quote Review organisations only</span><br><span class="count">1 Template</span></div>
+      <div class="template-grid">
+        <article class="template">
+          <div class="template-top"><h3>Internal Quote review</h3><span class="status">Defined</span></div>
+          <p>Create a clear reviewer task when a Quote enters review.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Quote is submitted for internal review</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>No open technical review Note exists</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create Note · mention reviewer · follow up today</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage-group passed">
+    <div class="stage-head">
+      <div class="stage-name"><h2>Passed Review</h2><p>Complete final checks before sending.</p><span class="conditional">Quote Review organisations only</span><br><span class="count">2 Templates</span></div>
+      <div class="template-grid">
+        <article class="template">
+          <div class="template-top"><h3>Ready-to-send check</h3><span class="status">Defined</span></div>
+          <p>Confirm viability and customer-facing content are ready.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Quote becomes Passed Review</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Quote is viable and required content is complete</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create ready-to-send Note · mention Quote owner</span></div>
+          </div>
+        </article>
+        <article class="template">
+          <div class="template-top"><h3>High-value approval</h3><span class="status connect">Connect</span></div>
+          <p>Add final commercial governance for higher-risk Quotes.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Quote reaches Passed Review</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Value &gt; £25,000 OR discount &gt; 15%</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create Note · mention one approver · due today</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage-group sent">
+    <div class="stage-head">
+      <div class="stage-name"><h2>Sent</h2><p>Follow up while the customer considers the Quote.</p><span class="count">2 Templates</span></div>
+      <div class="template-grid">
+        <article class="template">
+          <div class="template-top"><h3>Sent Quote follow-up</h3><span class="status">Defined</span></div>
+          <p>Create timely customer follow-up without duplicate work.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Quote is sent to the customer</span></div>
+            <div class="flow-line wait"><b>Wait</b><span>3 working days</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Quote is still Sent and has not Expired</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create Note · mention Deal owner · follow up</span></div>
+          </div>
+        </article>
+        <article class="template">
+          <div class="template-top"><h3>Quote expiry reminder</h3><span class="status">Defined</span></div>
+          <p>Warn the Deal owner before a viable Quote expires.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Quote expiry date is 3 days away</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Quote is still Sent and remains viable</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create expiry follow-up Note · mention Deal owner</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage-group won">
+    <div class="stage-head">
+      <div class="stage-name"><h2>Won</h2><p>Handoff the accepted work and prepare billing.</p><span class="count">2 Templates</span></div>
+      <div class="template-grid">
+        <article class="template">
+          <div class="template-top"><h3>Won Deal handoff</h3><span class="status">Defined</span></div>
+          <p>Create the next internal handoff after acceptance.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Quote is accepted and Deal becomes Won</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>No open Deal Next Action exists</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create handoff Note · mention Deal owner</span></div>
+          </div>
+        </article>
+        <article class="template">
+          <div class="template-top"><h3>Accepted Quote → Draft Invoice</h3><span class="status">Defined</span></div>
+          <p>Prepare a reviewable Deposit Invoice without sending it.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Quote is accepted</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Deposit amount is available to invoice</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create Draft Invoice · Finance review required</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage-group lost">
+    <div class="stage-head">
+      <div class="stage-name"><h2>Lost</h2><p>Record a clear, auditable reason for the outcome.</p><span class="count">1 Template</span></div>
+      <div class="template-grid">
+        <article class="template">
+          <div class="template-top"><h3>Lost Deal reason follow-up</h3><span class="status">Defined</span></div>
+          <p>Prompt the Deal owner when the Loss reason is missing.</p>
+          <div class="flow">
+            <div class="flow-line start"><b>Starts when</b><span>Deal becomes Lost because no viable Quote remains</span></div>
+            <div class="flow-line rule"><b>Rule</b><span>Loss reason is empty</span></div>
+            <div class="flow-line action"><b>Action</b><span>Create Note · mention Deal owner to record the reason</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer-rule"><strong>Template rule:</strong> selecting a Template copies it into an editable, Inactive Draft. The Stage remains fixed, testing is optional unless a conflict is detected, and protected Quote lifecycle movement is never owned by the Template.</div>
+</div>

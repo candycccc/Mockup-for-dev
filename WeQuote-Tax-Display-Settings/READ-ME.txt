@@ -1,0 +1,26 @@
+WeQuote — Tax Display Settings
+Stakeholder review · 3 November 2026
+
+START HERE
+1. Extract the complete ZIP folder.
+2. Open OPEN-THIS.html in Chrome, Edge or Safari.
+3. Select Open settings demo. Change a display option, try the preview tabs, then Save or Cancel.
+
+Keep the folder contents together. All HTML, images and styling are included; there is no installation or connection to the live platform. For email or messaging, send the ZIP attachment rather than a localhost link.
+
+REVIEW ROUTE
+- Settings demo: the simplified shared customer dialog.
+- Variation entry: the same setting, opened from the Variation screen.
+- All 54 touchpoints: full-screen comparisons, existing evidence and implementation notes.
+
+CURRENT DIRECTION
+Company and customer settings provide defaults for new documents. An individual proposal setting takes priority over the customer default, then the company default. Change an existing proposal in its own editor. Customer Portal follows the linked saved document. There is no draft picker or bulk apply step. Actual tax and payment amounts do not change.
+
+SCOPE
+This is an interactive design proposal, not a production release. Demo settings reset on reload. Evidence includes 22 matching native targets, 9 Portal prototype targets, 4 related contexts, 3 entry captures whose forms were unavailable, and 16 targets still requiring exact screenshots. The review retains these distinctions.
+
+CONTENTS
+OPEN-THIS.html — review guide and entry point
+interactive-review.html — complete interactive review
+assets/ — latest dialog screenshot
+comparisons/ — 54 comparisons and 54 opened dialogs

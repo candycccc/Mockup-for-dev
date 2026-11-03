@@ -1,0 +1,96 @@
+/*
+ * Single-revision trainline bridge
+ *
+ * Covers the missing state: Revision 1 is accepted and the first Change
+ * Order / Variation has been created.  Multi-revision timelines keep using
+ * the existing timeline styles.
+ */
+.qt-rail.single-revision.qt-first-co-bridge-active {
+  --qt-first-co-gutter: 30px;
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  padding-left: var(--qt-first-co-gutter);
+}
+
+.qt-rail.single-revision > .qt-first-co-trainline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.qt-rail.single-revision.qt-first-co-bridge-active > .qt-node {
+  position: relative;
+  z-index: 1;
+}
+
+.qt-rail.single-revision.qt-first-co-bridge-active > .qt-var-alt-group {
+  position: relative;
+  z-index: 1;
+}
+
+/* Once downstream work exists, the quick actions belong to that child lane.
+   Offset them past the curve/station and align them with the nested card edge. */
+.qt-rail.single-revision.qt-first-co-bridge-active > .qt-quickadd {
+  margin-left: 34px;
+}
+
+/* Older prototype layers hide their own connector. Keep this measured bridge
+   visible when it is the active Revision -> downstream-work trainline. */
+.qt-rail.single-revision.qt-first-co-bridge-active > svg.qt-first-co-trainline {
+  display: block !important;
+}
+
+/*
+ * Revision 1 normally sits flush with the Quote edge. Once downstream work
+ * exists, the rail needs a real empty lane for the track; otherwise both the
+ * path and its stations are painted underneath the opaque card backgrounds.
+ */
+.qt-rail.single-revision.qt-first-co-bridge-active > .qt-node:not(.qt-nested) {
+  margin-left: 0;
+}
+
+.qt-first-co-trainline .qt-trainline-track {
+  fill: none;
+  stroke: var(--WQD-Color-Border-border-secondary, #CAD5ED);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.qt-first-co-trainline .qt-trainline-station {
+  fill: var(--WQD-Color-Border-border-secondary, #CAD5ED);
+  stroke: #fff;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.qt-first-co-trainline .qt-trainline-station.is-current {
+  fill: var(--WQD-Color-Primary-primary, #2B55FF);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .qt-first-co-trainline.is-new .qt-trainline-track {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: qt-first-co-draw 420ms ease-out forwards;
+  }
+
+  .qt-first-co-trainline.is-new .qt-trainline-station {
+    opacity: 0;
+    animation: qt-first-co-station 160ms ease-out 340ms forwards;
+  }
+}
+
+@keyframes qt-first-co-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes qt-first-co-station {
+  to { opacity: 1; }
+}
