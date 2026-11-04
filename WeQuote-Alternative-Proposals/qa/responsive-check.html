@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Proposal compact controls QA</title><style>body{margin:0;background:#edf0f4;font:14px system-ui;color:#263749}header{height:50px;display:flex;align-items:center;justify-content:center;gap:15px}iframe{display:block;height:calc(100dvh - 52px);margin:0 auto;border:1px solid #d7dee7;background:white;max-width:100%}a{color:#315a88}</style><header>Responsive review <a href="?width=390">390 px</a><a href="?width=700">700 px</a><a href="?width=320">320 px</a><a href="?width=1100">1100 px</a></header><iframe title="Alternative proposal preview" src="../index.html?review=image-cards-v1&options=8"></iframe><script>
+const params=new URLSearchParams(location.search);
+const frame=document.querySelector('iframe');
+const url=new URL('../index.html',location.href);
+url.searchParams.set('review',params.get('review')||'comparison-clean-v1');url.searchParams.set('options',params.get('options')==='4'?'4':'8');
+if(['before','after'].includes(params.get('state')))url.searchParams.set('state',params.get('state'));
+if(/^[A-H]$/.test(params.get('accepted')||''))url.searchParams.set('accepted',params.get('accepted'));
+frame.src=url.href;
+const requested=Number(params.get('width'));frame.style.width=([320,390,700,1100].includes(requested)?requested:390)+'px';
+</script></html>
